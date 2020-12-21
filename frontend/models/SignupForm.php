@@ -13,6 +13,10 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $role_id;
+    public $first_name;
+    public $last_name;
+    public $photo_url;
 
 
     /**
@@ -23,17 +27,16 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este nombre de usuario ya existe'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            [['first_name', 'last_name', 'role_id', 'photo_url'], 'required'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este correo ya existe'],
 
             ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'string', 'min' => 6],
         ];
     }
 
@@ -47,15 +50,39 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
+        // if (!$this->validateUser) {
+        //     return null;
+        // }
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->photo_url = $this->photo_url;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+        $user->role_id = $this->role_id;
+        $user->status = 10;
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
+        return $user->save();
+        //&& $this->sendEmail($user);
 
+    }
+
+    public function validateUser(){
+        $user = User::find()->where(['username' => $this->username])->one();
+        if ($user) {
+            Yii::$app->session->setFlash('error', 'Este nombre de usuario ya existe');
+            return false;
+        }
+        $user = User::find()->where(['username' => $this->username])->one();
+        if ($user) {
+            Yii::$app->session->setFlash('error', 'Este correo ya existe');
+            return false;
+        }
+        return true;
     }
 
     /**

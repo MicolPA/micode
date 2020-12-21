@@ -3,17 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Clientes;
-use frontend\models\ClientesSearch;
+use frontend\models\User;
+use frontend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * ClientesController implements the CRUD actions for Clientes model.
+ * UserController implements the CRUD actions for User model.
  */
-class ClientesController extends Controller
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class ClientesController extends Controller
     }
 
     /**
-     * Lists all Clientes models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ClientesSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,12 +45,12 @@ class ClientesController extends Controller
     }
 
     /**
-     * Displays a single Clientes model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionPerfil($id)
+    public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -59,31 +58,16 @@ class ClientesController extends Controller
     }
 
     /**
-     * Creates a new Clientes model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCrear()
+    public function actionCreate()
     {
-        $model = new Clientes();
+        $model = new User();
 
-        if ($model->load(Yii::$app->request->post())) {
-
-            $path = "images/clientes/$model->dominio";
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-
-            $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-            $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . $model->logo_url->extension;
-            $model->logo_url->saveAs($imagen);
-            $model->logo_url = $imagen;
-
-            $model->date = date("Y-m-d H:i:s");
-            $model->save();
-
-            Yii::$app->session->setFlash('success', "Cliente registrado correctamente");
-            return $this->redirect(['perfil', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -92,18 +76,18 @@ class ClientesController extends Controller
     }
 
     /**
-     * Updates an existing Clientes model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionEditar($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['perfil', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -112,7 +96,7 @@ class ClientesController extends Controller
     }
 
     /**
-     * Deletes an existing Clientes model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -122,20 +106,19 @@ class ClientesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success', "Cliente eliminado correctamente");
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Clientes model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Clientes the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Clientes::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 

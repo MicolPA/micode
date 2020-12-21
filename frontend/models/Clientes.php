@@ -63,7 +63,7 @@ class Clientes extends \yii\db\ActiveRecord
             'dominio' => 'Dominio',
             'logo_url' => 'Imagen del Logo',
             'representante_nombre' => 'Nombre del representante',
-            'representante_telefono' => 'Telefono del representante ',
+            'representante_telefono' => 'Tel. del representante ',
             'representante_correo' => 'Correo del representante ',
             'tipo_servicio_id' => 'Tipo servicio',
             'importe_base' => 'Importe base',

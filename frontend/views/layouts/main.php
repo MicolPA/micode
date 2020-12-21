@@ -10,7 +10,15 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
+
+if (Yii::$app->user->isGuest) {
+    return Yii::$app->response->redirect(['/site/login']);
+}else{
+}
+
 AppAsset::register($this);
+
+$user = Yii::$app->user->identity;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -20,7 +28,7 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title) ?> | Micode RD</title>
     <script src="/frontend/web/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
@@ -80,76 +88,7 @@ AppAsset::register($this);
                             <i class="fa fa-search"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown hidden-caret">
-                        <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-envelope"></i>
-                        </a>
-                        <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
-                            <li>
-                                <div class="dropdown-title d-flex justify-content-between align-items-center">
-                                    Messages                                    
-                                    <a href="#" class="small">Mark all as read</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="message-notif-scroll scrollbar-outer">
-                                    <div class="notif-center">
-                                        <a href="#">
-                                            <div class="notif-img"> 
-                                                <img src="/frontend/web/images/jm_denis.jpg" alt="Img Profile">
-                                            </div>
-                                            <div class="notif-content">
-                                                <span class="subject">Jimmy Denis</span>
-                                                <span class="block">
-                                                    How are you ?
-                                                </span>
-                                                <span class="time">5 minutes ago</span> 
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="notif-img"> 
-                                                <img src="/frontend/web/images/chadengle.jpg" alt="Img Profile">
-                                            </div>
-                                            <div class="notif-content">
-                                                <span class="subject">Chad</span>
-                                                <span class="block">
-                                                    Ok, Thanks !
-                                                </span>
-                                                <span class="time">12 minutes ago</span> 
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="notif-img"> 
-                                                <img src="/frontend/web/images/mlane.jpg" alt="Img Profile">
-                                            </div>
-                                            <div class="notif-content">
-                                                <span class="subject">Jhon Doe</span>
-                                                <span class="block">
-                                                    Ready for the meeting today...
-                                                </span>
-                                                <span class="time">12 minutes ago</span> 
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="notif-img"> 
-                                                <img src="/frontend/web/images/talha.jpg" alt="Img Profile">
-                                            </div>
-                                            <div class="notif-content">
-                                                <span class="subject">Talha</span>
-                                                <span class="block">
-                                                    Hi, Apa Kabar ?
-                                                </span>
-                                                <span class="time">17 minutes ago</span> 
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="see-all" href="javascript:void(0);">See all messages<i class="fa fa-angle-right"></i> </a>
-                            </li>
-                        </ul>
-                    </li>
+                   
                     <li class="nav-item dropdown hidden-caret">
                         <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
@@ -264,17 +203,17 @@ AppAsset::register($this);
                     <li class="nav-item dropdown hidden-caret">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                             <div class="avatar-sm">
-                                <img src="/frontend/web/images/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">
                             <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="/frontend/web/images/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="avatar-lg"><img src="/frontend/web/<?= $user->photo_url ?>" alt="image profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <h4>Hizrian</h4>
-                                            <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                            <h4><?= $user->first_name ?></h4>
+                                            <p class="text-muted"><?= $user->email ?></p><a href="/frontend/user/ver?id=<?= $user->id ?>" class="btn btn-xs btn-secondary btn-xs">Ver perfil</a>
                                         </div>
                                     </div>
                                 </li>
@@ -286,7 +225,7 @@ AppAsset::register($this);
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Account Setting</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Logout</a>
+                                    <a class="dropdown-item" href="/frontend/web/site/logout">Cerrar sesión</a>
                                 </li>
                             </div>
                         </ul>
@@ -303,13 +242,13 @@ AppAsset::register($this);
             <div class="sidebar-content">
                 <div class="user">
                     <div class="avatar-sm float-left mr-2">
-                        <img src="/frontend/web/images/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                        <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
-                                Hizrian
-                                <span class="user-level">Administrator</span>
+                                <?= $user->first_name ?>
+                                <span class="user-level"><?= $user->role->name ?></span>
                                 <span class="caret"></span>
                             </span>
                         </a>
@@ -363,8 +302,8 @@ AppAsset::register($this);
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/frontend/web/clientes/create">
-                                        <span class="sub-item">Crear</span>
+                                    <a href="/frontend/web/clientes/crear">
+                                        <span class="sub-item">Registrar</span>
                                     </a>
                                 </li>
                             </ul>
@@ -410,6 +349,27 @@ AppAsset::register($this);
                             <span class="badge badge-success">4</span>
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a data-toggle="collapse" href="#users">
+                            <i class="far fa-user"></i>
+                            <p>Usuarios</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="users">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="/frontend/web/user/">
+                                        <span class="sub-item">Listado</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/site/signup">
+                                        <span class="sub-item">Crear</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <!-- <li class="mx-4 mt-2">
                         <a href="http://themekita.com/atlantis-bootstrap-dashboard.html" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class="fa fa-heart"></i> </span>Buy Pro</a> 
                     </li> -->
@@ -424,6 +384,15 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
+<?php if(Yii::$app->session->hasFlash('success')):?>
+    <?php
+    $msj = Yii::$app->session->getFlash('success');
+    echo '<script type="text/javascript">';
+    echo "setTimeout(function () { displayNotification('Correcto','$msj','fas fa-check-circle');";
+    echo '}, 1000);</script>';
+    ?>
+<?php endif; ?>  
 
 <!-- <footer class="footer mt-4">
     <div class="container">

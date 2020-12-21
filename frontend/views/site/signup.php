@@ -8,28 +8,81 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="main-panel">
 
-    <p>Please fill out the following fields to signup:</p>
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Clientes</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="#">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/clientes">Clientes</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Registro de clientes</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><?= Html::encode($this->title) ?></div>
+                        </div>
+                        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'email')->textInput([]) ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'first_name')->textInput([])->label('Nombre') ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'last_name')->textInput([])->label('Apellido') ?>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'password')->passwordInput(['type' => 'text']) ?>
+                            </div> 
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                            <div class="col-md-6">
+                                <?= $form->field($model, 'role_id')->dropDownList(\yii\helpers\ArrayHelper::map(\frontend\models\Roles::find()->orderBy(['name' => SORT_ASC])->all(), 'id', 'name'), [])->label('Rol') ?>
+                                
+                            </div>
 
-                <?= $form->field($model, 'email') ?>
+                            <div class="col-md-6 pt-3">
+                                <?= $form->field($model, 'photo_url')->fileInput(['required' => 'required', 'id' => 'inputfile']) ?>
+                            </div>   
+                        </div>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                        <div class="form-group">
+                            <?= Html::submitButton('Guardar Usuario', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                        </div>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    <?php ActiveForm::end(); ?>
+                        
+                    </div>
                 </div>
-
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
+
+
 </div>
+

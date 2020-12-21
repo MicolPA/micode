@@ -13,6 +13,7 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use yii\web\UploadedFile;
 use frontend\models\ContactForm;
 
 /**
@@ -45,7 +46,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    // 'logout' => ['post'],
                 ],
             ],
         ];
@@ -67,6 +68,10 @@ class SiteController extends Controller
         ];
     }
 
+    function isLogin(){
+        
+    }
+
     /**
      * Displays homepage.
      *
@@ -84,6 +89,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = '@app/views/layouts/main-no-menu';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -109,7 +115,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(['login']);
     }
 
     /**
@@ -119,6 +125,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        $this->isLogin();
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
@@ -152,10 +159,22 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->isLogin();
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        if ($model->load(Yii::$app->request->post())) {
+
+            $path ='images/usuarios/';
+            $model->photo_url = UploadedFile::getInstance($model, 'photo_url');
+            $imagen = $path . 'usuario-' .$model->username . $model->photo_url->extension;
+            $model->photo_url->saveAs($imagen);
+            $model->photo_url = $imagen;
+
+            $model->signup();
+            // print_r($model->errors);
+            // exit;
+
+            Yii::$app->session->setFlash('success', 'Usuario registrado correctamente');
+            return $this->redirect(['/user']);
         }
 
         return $this->render('signup', [
@@ -170,6 +189,7 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->isLogin();
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
