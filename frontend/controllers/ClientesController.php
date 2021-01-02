@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Clientes;
+use frontend\models\Transacciones;
 use frontend\models\ClientesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,8 +54,10 @@ class ClientesController extends Controller
      */
     public function actionPerfil($id)
     {
+        $pagos = Transacciones::find()->where(['cliente_id' => $id])->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'pagos' => $pagos,
         ]);
     }
 
@@ -63,7 +66,7 @@ class ClientesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCrear()
+    public function actionRegistrar()
     {
         $model = new Clientes();
 
@@ -80,6 +83,7 @@ class ClientesController extends Controller
             $model->logo_url = $imagen;
 
             $model->date = date("Y-m-d H:i:s");
+            $model->user_id = Yii::$app->user->identity->id;
             $model->save();
 
             Yii::$app->session->setFlash('success', "Cliente registrado correctamente");
@@ -101,8 +105,19 @@ class ClientesController extends Controller
     public function actionEditar($id)
     {
         $model = $this->findModel($id);
+        $old_picture = model['logo_url'];
+        if ($model->load(Yii::$app->request->post())) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (UploadedFile::getInstance($model, 'logo_url')) {
+                $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
+                $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . $model->logo_url->extension;
+                $model->logo_url->saveAs($imagen);
+                $model->logo_url = $imagen;
+            }else{
+                $model->logo_url = $old_picture;
+            }
+
+            $model->save();
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
 

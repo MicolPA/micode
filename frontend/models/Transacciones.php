@@ -38,6 +38,7 @@ class Transacciones extends \yii\db\ActiveRecord
         return [
             [['tipo_id', 'servicio_extra_id', 'cliente_id', 'total'], 'integer'],
             [['fecha_pago', 'date'], 'safe'],
+            [['fecha_pago', 'tipo_id', 'servicio_extra_id', 'cliente_id', 'total'], 'required'],
             [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clientes::className(), 'targetAttribute' => ['cliente_id' => 'id']],
             [['tipo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposImportes::className(), 'targetAttribute' => ['tipo_id' => 'id']],
             [['servicio_extra_id'], 'exist', 'skipOnError' => true, 'targetClass' => ServiciosExtras::className(), 'targetAttribute' => ['servicio_extra_id' => 'id']],
@@ -51,9 +52,9 @@ class Transacciones extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tipo_id' => 'Tipo ID',
-            'servicio_extra_id' => 'Servicio Extra ID',
-            'cliente_id' => 'Cliente ID',
+            'tipo_id' => 'Tipo importe',
+            'servicio_extra_id' => 'Servicio',
+            'cliente_id' => 'Cliente',
             'total' => 'Total',
             'fecha_pago' => 'Fecha Pago',
             'date' => 'Date',

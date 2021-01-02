@@ -35,26 +35,54 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="#">Listado de clientes</a>
                     </li>
                 </ul>
+                <div class="ml-md-auto py-2 py-md-0">
+                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Nuevo', ['registrar'], ['class' => 'btn btn-secondary btn-round']) ?>
+                </div>
             </div>
 
             <div class="table-responsive">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'summary' => 'Mostrando <b>{count}</b> registros de <b>{totalCount}</b>',
-                    // 'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
                         // 'id',
-                        'empresa',
-                        'dominio',
+                        [
+                            'attribute' => 'empresa',
+                            'format' => 'raw',
+                            'value' => function ($data) {
+                                $view =  Html::a($data->empresa, ['perfil', 'id' => $data->id], []);
+                                return "$view";
+                            },
+                        ], 
+                        [
+                            'format' => 'raw',
+                            'attribute' => 'dominio',
+                            'value' => function($data){
+                                $btn = "<a href='https://$data->dominio' target='_blank'>$data->dominio</a>";
+                                return $btn;
+                            }
+                        ],
                         [
                             'label' => 'Tipo servicio',
                             'attribute' => 'tipoServicio.nombre',
                         ],
-                        // 'logo_url:url',
-                        'representante_nombre',
-                        'representante_telefono',
+                        [
+                            'label' => 'Representante',
+                            'attribute' => 'representante_nombre',
+                        ],
+                        [
+                            'label' => '',
+                            'format' => 'raw',
+                            'value' => function($data){
+                                $url = '"/clientes/perfil?id='. $data->id .'"';
+                                $btn = "<a href='javascript:addImporte($data->id, $url)' class='btn btn-primary btn-round btn-sm'>Registrar Importe</a>";
+
+                                return $btn;
+                            }
+                        ],
+                        // 'representante_telefono',
                         //'representante_correo',
                         //'importe_base',
                         //'fecha_comienzo',

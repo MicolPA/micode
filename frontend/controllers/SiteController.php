@@ -159,7 +159,7 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $this->isLogin();
+        //$this->isLogin();
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
 

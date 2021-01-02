@@ -32,3 +32,46 @@ function displayNotification(title, message, icon, url='#'){
 		delay: 0,
 	});
 }
+
+
+function addImporte(cliente=null, view){
+	swal("¿Qué tipo de importe desea registrar?",{
+	  buttons: {
+	  	'ingresos': {
+	  		text: 'Ingresos',
+	  		value: 1,
+	  		color:'red',
+	  	},
+
+	  	'gastos': {
+	  		text: 'Gastos',
+	  		value: 2,
+	  		dangerMode: true
+	  	},
+	  },
+	}).then((value) => {
+		if (value) {
+			if (cliente) {
+				window.location = '/frontend/web/transacciones/registrar?cliente='+cliente+'&tipo='+value+'&view='+view;
+			}
+		}
+	});
+}
+
+$(".cuenta").bind('keyup', function(){
+	suma = 0;
+	$('.cuenta').each(function(){
+		n = $(this).val();
+		console.log(n);
+		if (! n > 0) {
+			n = 0;
+		}
+		console.log(n);
+        suma += parseFloat(n);
+        console.log(suma);
+        // if (Number.isNaN(suma)) {
+        // 	suma = 0;
+        // }
+		$("#total").val(suma);
+	});
+})

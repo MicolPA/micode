@@ -4,6 +4,9 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Transacciones;
+use frontend\models\Tarjetas;
+use frontend\models\Clientes;
+use frontend\models\TransaccionesDetalle;
 use frontend\models\TransaccionesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,17 +65,53 @@ class TransaccionesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionRegistrar($cliente=null, $tipo, $view)
     {
         $model = new Transacciones();
+        $cuentas = Tarjetas::find()->all();
+        $cliente_info = Clientes::findOne($cliente);
+        $post = Yii::$app->request->post();
+        $model->tipo_id = $tipo;
+        if ($model->load($post)) {
+            print_r($post);
+            $model->cliente_id = $cliente;
+            $model->date = date("Y-m-d H:i:s");
+            $model->user_id = Yii::$app->user->identity->id;
+            $model->save();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $this->registrarDetalle($post, $cuentas, $model);
+            Yii::$app->session->setFlash('success', "Transacción registrada correctamente");
+            $this->redirect([$view]);
+            // return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'cuentas' => $cuentas,
+            'cliente_info' => $cliente_info,
         ]);
+    }
+
+    function registrarDetalle($post, $cuentas, $model){
+
+        foreach ($cuentas as $cuenta) {
+
+            if (isset($post['cuenta'][$cuenta->id])) {
+                if ($post['cuenta'][$cuenta->id]) {
+                    $transaccion = new TransaccionesDetalle();
+                    $transaccion->tarjeta_id = $cuenta->id;
+                    $transaccion->transaccion_id = $model->id;
+                    $transaccion->fecha_pago = $model->fecha_pago;
+                    $transaccion->cliente_id = $model->cliente_id;
+                    $transaccion->total = $post['cuenta'][$cuenta->id];
+                    $transaccion->tipo_id = $model->tipo_id;
+                    $transaccion->user_id = Yii::$app->user->identity->id;
+                    $transaccion->date = date("Y-m-d H:i:s");
+                    $transaccion->save();
+                }
+            }
+        }
+
     }
 
     /**

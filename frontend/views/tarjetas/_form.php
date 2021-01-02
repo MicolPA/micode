@@ -14,10 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dinero_total')->textInput(['maxlength' => true]) ?>
+    <!-- <?//= $form->field($model, 'dinero_total')->textInput(['maxlength' => true]) ?> -->
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

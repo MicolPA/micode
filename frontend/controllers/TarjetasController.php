@@ -62,12 +62,16 @@ class TarjetasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionRegistrar()
     {
         $model = new Tarjetas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+            $model->date = date("Y-m-d H:i:s");
+            $model->user_id = Yii::$app->user->identity->id;
+            Yii::$app->session->setFlash('success', "Cuenta registrada correctamente");
+            return $this->redirect(['registrar']);
         }
 
         return $this->render('create', [

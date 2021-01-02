@@ -302,7 +302,7 @@ $user = Yii::$app->user->identity;
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/frontend/web/clientes/crear">
+                                    <a href="/frontend/web/clientes/registrar">
                                         <span class="sub-item">Registrar</span>
                                     </a>
                                 </li>

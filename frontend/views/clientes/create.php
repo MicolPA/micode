@@ -50,6 +50,4 @@ $this->title = 'Registrar cliente';
 	</div>
 
 
-    
-
 </div>
