@@ -67,7 +67,7 @@ $this->title = 'Signup';
                             </div>
 
                             <div class="col-md-6 pt-3">
-                                <?= $form->field($model, 'photo_url')->fileInput(['required' => 'required', 'id' => 'inputfile']) ?>
+                                <?= $form->field($model, 'photo_url')->fileInput(['required' => 'required', 'id' => 'inputfile'])->label('FOTO DE PERFIL') ?>
                             </div>   
                         </div>
 
