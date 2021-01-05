@@ -70,3 +70,8 @@ label[for="inputfile"] {
 .select-css option {
   font-weight:normal;
 }
+
+
+.no-link:hover{
+  text-decoration: none;
+}

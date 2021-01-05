@@ -7,6 +7,7 @@ $fecha1= new \DateTime(date("Y-m-d"));
 $fecha2= new \DateTime($fecha_proxima);
 $diff = $fecha1->diff($fecha2);
 
+$this->title = $model->empresa;
  ?>
 
 <div class="main-panel">
@@ -89,12 +90,12 @@ $diff = $fecha1->diff($fecha2);
 									<ol class="activity-feed">
 										<?php foreach ($pagos as $pago): ?>
 											<?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
-										<li class="feed-item feed-item-<?= $class ?>">
-		                                    <div class="col-md-4">
-		                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-		                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="#"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
-		                                    </div>
-		                                </li>	
+											<li class="feed-item feed-item-<?= $class ?>">
+			                                    <div class="col-md-4">
+			                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
+			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="#"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+			                                    </div>
+			                                </li>	
 										<?php endforeach ?>
 		                            </ol>
 								</div>

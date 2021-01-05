@@ -78,7 +78,7 @@ class ClientesController extends Controller
             }
 
             $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-            $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . $model->logo_url->extension;
+            $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') .".". $model->logo_url->extension;
             $model->logo_url->saveAs($imagen);
             $model->logo_url = $imagen;
 
@@ -110,7 +110,7 @@ class ClientesController extends Controller
 
             if (UploadedFile::getInstance($model, 'logo_url')) {
                 $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-                $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . $model->logo_url->extension;
+                $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . "." . $model->logo_url->extension;
                 $model->logo_url->saveAs($imagen);
                 $model->logo_url = $imagen;
             }else{

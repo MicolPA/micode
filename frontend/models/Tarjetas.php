@@ -10,6 +10,10 @@ use Yii;
  * @property int $id
  * @property string|null $nombre
  * @property string|null $dinero_total
+ * @property int|null $user_id
+ * @property string|null $date
+ * @property string|null $color
+ * @property string|null $icon
  *
  * @property TransaccionesDetalle[] $transaccionesDetalles
  */
@@ -29,7 +33,9 @@ class Tarjetas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'dinero_total'], 'string', 'max' => 255],
+            [['user_id'], 'integer'],
+            [['date'], 'safe'],
+            [['nombre', 'dinero_total', 'color', 'icon'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,7 +47,11 @@ class Tarjetas extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'dinero_total' => 'Dinero Total',
+            'dinero_total' => 'Saldo actual',
+            'user_id' => 'User ID',
+            'date' => 'Date',
+            'color' => 'Color',
+            'icon' => 'Icon',
         ];
     }
 

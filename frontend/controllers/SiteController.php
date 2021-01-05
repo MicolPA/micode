@@ -165,7 +165,7 @@ class SiteController extends Controller
 
             $path ='images/usuarios/';
             $model->photo_url = UploadedFile::getInstance($model, 'photo_url');
-            $imagen = $path . 'usuario-' .$model->username . $model->photo_url->extension;
+            $imagen = $path . 'usuario-' .$model->username . "." . $model->photo_url->extension;
             $model->photo_url->saveAs($imagen);
             $model->photo_url = $imagen;
 

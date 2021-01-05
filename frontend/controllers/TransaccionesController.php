@@ -38,12 +38,19 @@ class TransaccionesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TransaccionesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $cuentas = Tarjetas::find()->all();
+
+        $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC]);
+        $countQuery = clone $query;
+        $pages = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
+        $model = $query->offset($pages->offset)
+        ->limit(28)
+        ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'cuentas' => $cuentas,
+            'model' => $model,
+            'pages' => $pages,
         ]);
     }
 

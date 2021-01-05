@@ -11,10 +11,10 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 
-// if (Yii::$app->user->isGuest) {
-//     return Yii::$app->response->redirect(['/site/login']);
-// }else{
-// }
+if (Yii::$app->user->isGuest) {
+    return Yii::$app->response->redirect(['/site/login']);
+}else{
+}
 
 AppAsset::register($this);
 
@@ -203,17 +203,17 @@ $user = Yii::$app->user->identity;
                     <li class="nav-item dropdown hidden-caret">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                             <div class="avatar-sm">
-                                <img src="/frontend/web/<?//= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
+                                <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">
                             <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="/frontend/web/<?//= $user->photo_url ?>" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="avatar-lg"><img src="/frontend/web/<?= $user->photo_url ?>" alt="image profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <h4><?//= $user->first_name ?></h4>
-                                            <p class="text-muted"><?//= $user->email ?></p><a href="/frontend/user/ver?id=<?//= $user->id ?>" class="btn btn-xs btn-secondary btn-xs">Ver perfil</a>
+                                            <h4><?= $user->first_name ?></h4>
+                                            <p class="text-muted"><?= $user->email ?></p><a href="/frontend/user/ver?id=<?= $user->id ?>" class="btn btn-xs btn-secondary btn-xs">Ver perfil</a>
                                         </div>
                                     </div>
                                 </li>
@@ -242,13 +242,13 @@ $user = Yii::$app->user->identity;
             <div class="sidebar-content">
                 <div class="user">
                     <div class="avatar-sm float-left mr-2">
-                        <img src="/frontend/web/<?//= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
+                        <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
-                                <?//= $user->first_name ?>
-                                <span class="user-level"><?//= $user->role->name ?></span>
+                                <?= $user->first_name ?>
+                                <span class="user-level"><?= $user->role->name ?></span>
                                 <span class="caret"></span>
                             </span>
                         </a>
@@ -277,7 +277,7 @@ $user = Yii::$app->user->identity;
                 </div>
                 <ul class="nav nav-primary">
                     <li class="nav-item active">
-                        <a href="#dashboard" class="collapsed" aria-expanded="false">
+                        <a href="/" class="collapsed" aria-expanded="false">
                             <i class="fas fa-home"></i>
                             <p>Inicio</p>
                         </a>
@@ -310,7 +310,28 @@ $user = Yii::$app->user->identity;
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="/frontend/web/finanzas">
+                        <a data-toggle="collapse" href="#tarjetas">
+                            <i class="fas fa-credit-card"></i>
+                            <p>Cuentas</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="tarjetas">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="/frontend/web/tarjetas/">
+                                        <span class="sub-item">Listado</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/tarjetas/registrar">
+                                        <span class="sub-item">Registrar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/transacciones">
                             <i class="fas fa-th-list"></i>
                             <p>Finanzas</p>
                         </a>

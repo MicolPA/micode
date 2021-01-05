@@ -67,9 +67,9 @@ class TarjetasController extends Controller
         $model = new Tarjetas();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->save();
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
+            $model->save();
             Yii::$app->session->setFlash('success', "Cuenta registrada correctamente");
             return $this->redirect(['registrar']);
         }
@@ -86,12 +86,13 @@ class TarjetasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEditar($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', "Cuenta modificada correctamente");
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

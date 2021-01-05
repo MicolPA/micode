@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						<i class="flaticon-right-arrow"></i>
 					</li>
 					<li class="nav-item">
-						<a href="/frontend/web/clientes">Cuentas</a>
+						<a href="/frontend/web/tarjetas">Cuentas</a>
 					</li>
 					<li class="separator">
 						<i class="flaticon-right-arrow"></i>
