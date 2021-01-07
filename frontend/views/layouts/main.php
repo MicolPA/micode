@@ -50,7 +50,7 @@ $user = Yii::$app->user->identity;
         <div class="logo-header" data-background-color="blue">
             
             <a href="/" class="logo">
-                <img src="/frontend/web/images/logo.png" alt="navbar brand" class="navbar-brand" width="130px">
+                <img src="/frontend/web/images/logo.png" alt="navbar brand" class="navbar-brand" width="110px">
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -90,10 +90,10 @@ $user = Yii::$app->user->identity;
                     </li>
                    
                     <li class="nav-item dropdown hidden-caret">
-                        <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
                             <span class="notification">4</span>
-                        </a>
+                        </a> -->
                         <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                             <li>
                                 <div class="dropdown-title">You have 4 new notification</div>
@@ -177,10 +177,10 @@ $user = Yii::$app->user->identity;
                                                 <span class="text">Create New Post</span>
                                             </div>
                                         </a>
-                                        <a class="col-6 col-md-4 p-0" href="#">
+                                        <a class="col-6 col-md-4 p-0" href="/frontend/web/clientes/registrar">
                                             <div class="quick-actions-item">
-                                                <i class="flaticon-interface-1"></i>
-                                                <span class="text">Create New Task</span>
+                                                <i class="flaticon-add-user"></i>
+                                                <span class="text">Agregar Cliente</span>
                                             </div>
                                         </a>
                                         <a class="col-6 col-md-4 p-0" href="#">
@@ -275,7 +275,7 @@ $user = Yii::$app->user->identity;
                         </div>
                     </div>
                 </div>
-                <ul class="nav nav-primary">
+                <ul class="nav nav-info">
                     <li class="nav-item active">
                         <a href="/" class="collapsed" aria-expanded="false">
                             <i class="fas fa-home"></i>
@@ -331,8 +331,51 @@ $user = Yii::$app->user->identity;
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a data-toggle="collapse" href="#servicios">
+                            <i class="fas fa-money-check-alt"></i>
+                            <p>Servicios</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="servicios">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="/frontend/web/servicios/">
+                                        <span class="sub-item">Listado</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/servicios/registrar">
+                                        <span class="sub-item">Registrar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#servicios-extras">
+                            <i class="fas fa-money-bill-alt"></i>
+                            <p>Servicios Extras</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="servicios-extras">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="/frontend/web/servicios-extras/">
+                                        <span class="sub-item">Listado</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/servicios-extras/registrar">
+                                        <span class="sub-item">Registrar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="/frontend/web/transacciones">
-                            <i class="fas fa-th-list"></i>
+                            <i class="fas fa-coins"></i>
                             <p>Finanzas</p>
                         </a>
                     </li>

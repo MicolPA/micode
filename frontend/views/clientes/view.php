@@ -35,8 +35,13 @@ $this->title = $model->empresa;
 					</li>
 				</ul>
 				<div class="ml-md-auto py-2 py-md-0">
-                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-sm']) ?>
-                    <?= Html::a('<i class="fas fa-trash"></i>', ['update', 'id' => $model->id], ['class' => 'btn btn-outline-danger btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-trash text-danger"></i>', ['delete', 'id' => $model->id], [
+                            'data' => [
+                                'confirm' => '¿Está seguro/a que desea eliminar este registro?',
+                                'method' => 'post',
+                            ], 'class' => 'btn btn-outline-danger btn-sm'
+                        ]); ?>
                 </div>
 			</div>
 			<div class="row">
@@ -93,7 +98,7 @@ $this->title = $model->empresa;
 											<li class="feed-item feed-item-<?= $class ?>">
 			                                    <div class="col-md-4">
 			                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="#"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/detalle?id=<?= $pago->id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
 			                                    </div>
 			                                </li>	
 										<?php endforeach ?>

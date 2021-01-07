@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'nombre',
                             'format' => 'raw',
                             'value' => function ($data) {
-                                $view =  Html::a($data->nombre, ['perfil', 'id' => $data->id], []);
+                                $view =  Html::a($data->nombre, ['editar', 'id' => $data->id], []);
                                 return "$view";
                             },
                         ], 

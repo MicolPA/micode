@@ -56,9 +56,9 @@ class AppAsset extends AssetBundle
         //Atlantis JS
         'js/atlantis.min.js',
 
-        // 'js/setting-demo.js',
-        // 'js/demo.js'
-         'js/main.js'
+        'js/setting-demo.js',
+        // 'js/demo.js',
+        'js/main.js'
     ];
     public $depends = [
         // 'yii\web\YiiAsset',

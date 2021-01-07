@@ -58,7 +58,7 @@ $this->title = 'Signup';
                             </div>
                             
                             <div class="col-md-6">
-                                <?= $form->field($model, 'password')->passwordInput(['type' => 'text']) ?>
+                                <?= $form->field($model, 'password')->passwordInput(['type' => 'text'])->label('Contraseña') ?>
                             </div> 
 
                             <div class="col-md-6">

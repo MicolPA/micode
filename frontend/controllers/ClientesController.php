@@ -105,7 +105,7 @@ class ClientesController extends Controller
     public function actionEditar($id)
     {
         $model = $this->findModel($id);
-        $old_picture = model['logo_url'];
+        $old_picture = $model['logo_url'];
         if ($model->load(Yii::$app->request->post())) {
 
             if (UploadedFile::getInstance($model, 'logo_url')) {

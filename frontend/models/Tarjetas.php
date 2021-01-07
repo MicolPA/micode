@@ -34,7 +34,7 @@ class Tarjetas extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'integer'],
-            [['date'], 'safe'],
+            [['date', 'numeracion', 'representante_nombre'], 'safe'],
             [['nombre', 'dinero_total', 'color', 'icon'], 'string', 'max' => 255],
         ];
     }
@@ -46,7 +46,9 @@ class Tarjetas extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nombre' => 'Nombre',
+            'nombre' => 'Alias',
+            'numeracion' => 'Numeración',
+            'representante_nombre' => 'Nombre del Representante',
             'dinero_total' => 'Saldo actual',
             'user_id' => 'User ID',
             'date' => 'Date',

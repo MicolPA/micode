@@ -60,7 +60,7 @@ class TransaccionesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionDetalle($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -80,7 +80,6 @@ class TransaccionesController extends Controller
         $post = Yii::$app->request->post();
         $model->tipo_id = $tipo;
         if ($model->load($post)) {
-            print_r($post);
             $model->cliente_id = $cliente;
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
@@ -105,6 +104,15 @@ class TransaccionesController extends Controller
 
             if (isset($post['cuenta'][$cuenta->id])) {
                 if ($post['cuenta'][$cuenta->id]) {
+
+                    $cuenta->dinero_total = $cuenta->dinero_total + $post['cuenta'][$cuenta->id];
+                    }else{
+                        $cuenta->dinero_total = $cuenta->dinero_total - $post['cuenta'][$cuenta->id];
+                    }
+
+                    $cuenta->dinero_total = (string)$cuenta->dinero_total;
+                    $cuenta->save();
+                    
                     $transaccion = new TransaccionesDetalle();
                     $transaccion->tarjeta_id = $cuenta->id;
                     $transaccion->transaccion_id = $model->id;
@@ -115,6 +123,9 @@ class TransaccionesController extends Controller
                     $transaccion->user_id = Yii::$app->user->identity->id;
                     $transaccion->date = date("Y-m-d H:i:s");
                     $transaccion->save();
+
+                    if ($model->tipo_id == 1) {
+
                 }
             }
         }

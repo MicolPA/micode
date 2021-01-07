@@ -41,22 +41,22 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="row">
-               <?php foreach ($cuentas as $c): ?>
+                <?php foreach ($cuentas as $c): ?>
                     <div class="col-md-4">
-                        <a href="/frontend/web/tarjetas/historico?id=<?= $c->id ?>" class='no-link'>
-                            <div class="card bg-<?= $c->color ?>">
-                                <div class="card-body pb-0 pb-3">
-                                    <div class="d-flex text-white">
-                                        <div class="avatar">
-                                            <i class="<?= $c->icon ?> fa-2x mt-2"></i>
-                                            <!-- <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle"> -->
+                        <a class='no-link' href="/frontend/web/tarjeta/detalle?id=<?= $c->id ?>">
+                            <div class="card card-dark bg-<?= $c->color ?>-gradient">
+                                <div class="card-body bubble-shadow">
+                                    <!-- <img src="/frontend/web/images/visa.svg" height="12.5" alt="Visa Logo"> -->
+                                    <i class="<?= $c->icon ?> fa-2x mt-2"></i>
+                                    <h2 class="py-4 mb-0"><?= substr($c->numeracion, 0, 4) ?> **** **** <?= substr($c->numeracion, -4) ?></h2>
+                                    <div class="row">
+                                        <div class="col-8 pr-0">
+                                            <h3 class="fw-bold mb-1"><?= $c->representante_nombre ?></h3>
+                                            <div class="text-small text-uppercase fw-bold op-8"><?= $c->nombre ?></div>
                                         </div>
-                                        <div class="flex-1 pt-1 ml-2">
-                                            <h6 class="fw-bold mb-1 h2"><?= $c->nombre ?></h6>
-                                            <small class="h3">Saldo total</small>
-                                        </div>
-                                        <div class="d-flex ml-auto align-items-center">
-                                            <h3 class=" fw-bold">RD$<?= number_format($c->dinero_total) ?></h3>
+                                        <div class="col-4 pl-0 text-right">
+                                            <h3 class="fw-bold mb-1">RD$<?= number_format($c->dinero_total) ?></h3>
+                                            <div class="text-small text-uppercase fw-bold op-8">Saldo</div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <li class="feed-item feed-item-<?= $class ?>">
                                         <div class="col-md-4">
                                             <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-                                            <span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/ver/<?= $pago->id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+                                            <span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/detalle?id=<?= $pago->id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
                                         </div>
                                     </li>   
                                 <?php endforeach ?>

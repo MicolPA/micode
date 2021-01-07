@@ -14,6 +14,9 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
     	<div class="col-md-4">
+    		<?= $form->field($model, 'representante_nombre')->textInput(['maxlength' => true]) ?>
+    	</div>
+    	<div class="col-md-4">
     		<?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
     	</div>
     	<div class="col-md-3">
@@ -44,10 +47,13 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
     	<div class="col-md-4">
+    		<?= $form->field($model, 'numeracion')->textInput(['type' => 'number']) ?>
+    	</div>
+    	<div class="col-md-4">
     		<?= $form->field($model, 'dinero_total')->textInput(['type' => 'number']) ?>
     	</div>
     	
-    	<div class="col-md-6">
+    	<div class="col-md-4">
     		<div class="form-group">
 				<label class="form-label">Color</label>
 				<div class="row gutters-xs">

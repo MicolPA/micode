@@ -62,12 +62,13 @@ class ServiciosExtrasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionRegistrar()
     {
         $model = new ServiciosExtras();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', "Servicio registrado correctamente");
+            return $this->redirect(['registrar']);
         }
 
         return $this->render('create', [
@@ -82,12 +83,13 @@ class ServiciosExtrasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEditar($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', "Servicio modificado correctamente");
+            return $this->redirect(['registrar']);
         }
 
         return $this->render('update', [
