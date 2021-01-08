@@ -26,7 +26,7 @@ class TransaccionesController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    // 'delete' => ['POST'],
                 ],
             ],
         ];
@@ -42,15 +42,15 @@ class TransaccionesController extends Controller
 
         $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC]);
         $countQuery = clone $query;
-        $pages = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
-        $model = $query->offset($pages->offset)
-        ->limit(28)
+        $pagination = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
+        $model = $query->offset($pagination->offset)
+        ->limit($pagination->limit)
         ->all();
 
         return $this->render('index', [
             'cuentas' => $cuentas,
             'model' => $model,
-            'pages' => $pages,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -105,7 +105,8 @@ class TransaccionesController extends Controller
             if (isset($post['cuenta'][$cuenta->id])) {
                 if ($post['cuenta'][$cuenta->id]) {
 
-                    $cuenta->dinero_total = $cuenta->dinero_total + $post['cuenta'][$cuenta->id];
+                    if ($model->tipo_id == 1) {
+                        $cuenta->dinero_total = $cuenta->dinero_total + $post['cuenta'][$cuenta->id];
                     }else{
                         $cuenta->dinero_total = $cuenta->dinero_total - $post['cuenta'][$cuenta->id];
                     }
@@ -124,7 +125,6 @@ class TransaccionesController extends Controller
                     $transaccion->date = date("Y-m-d H:i:s");
                     $transaccion->save();
 
-                    if ($model->tipo_id == 1) {
 
                 }
             }
@@ -139,16 +139,21 @@ class TransaccionesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEditar($id, $cliente=null, $tipo, $view)
     {
         $model = $this->findModel($id);
+        $cuentas = Tarjetas::find()->all();
+        $cliente_info = Clientes::findOne($cliente);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect([$view]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'view' => $view,
+            'cuentas' => $cuentas,
+            'cliente_info' => $cliente_info,
         ]);
     }
 
@@ -159,11 +164,23 @@ class TransaccionesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+    public function actionDelete($id, $view){
 
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $detalle_transacciones = TransaccionesDetalle::find()->where(['transaccion_id' => $id])->all();
+        foreach ($detalle_transacciones as $d) {
+            $cuenta = Tarjetas::findOne($d->tarjeta_id);
+            if ($model->tipo_id == 1) {
+                $cuenta->dinero_total = $cuenta->dinero_total - $d->total;
+            }else{
+                $cuenta->dinero_total = $cuenta->dinero_total + $d->total;
+            }
+            $cuenta->save(false);
+        }
+        $model->delete();
+
+        Yii::$app->session->setFlash('success', "Transacción eliminada correctamente");
+        return $this->redirect([$view]);
     }
 
     /**

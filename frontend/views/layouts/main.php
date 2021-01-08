@@ -9,6 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 
 if (Yii::$app->user->isGuest) {
@@ -27,6 +29,7 @@ $user = Yii::$app->user->identity;
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/frontend/web/images/logo_icono.png">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?> | Micode RD</title>
     <script src="/frontend/web/js/plugin/webfont/webfont.min.js"></script>
@@ -60,7 +63,7 @@ $user = Yii::$app->user->identity;
             <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
-                    <i class="icon-menu"></i>
+                    <span class="h2"><i class="icon-menu"></i></span>
                 </button>
             </div>
         </div>
@@ -161,38 +164,20 @@ $user = Yii::$app->user->identity;
                                     <div class="row m-0">
                                         <a class="col-6 col-md-4 p-0" href="#">
                                             <div class="quick-actions-item">
-                                                <i class="flaticon-file-1"></i>
+                                                <i class="flaticon-analytics"></i>
                                                 <span class="text">Generated Report</span>
                                             </div>
                                         </a>
-                                        <a class="col-6 col-md-4 p-0" href="#">
+                                        <a class="col-6 col-md-4 p-0" href="#" data-toggle="modal" data-target="#registrarImporteModal">
                                             <div class="quick-actions-item">
-                                                <i class="flaticon-database"></i>
-                                                <span class="text">Create New Database</span>
-                                            </div>
-                                        </a>
-                                        <a class="col-6 col-md-4 p-0" href="#">
-                                            <div class="quick-actions-item">
-                                                <i class="flaticon-pen"></i>
-                                                <span class="text">Create New Post</span>
+                                                <i class="flaticon-coins"></i>
+                                                <span class="text">Registrar Importe</span>
                                             </div>
                                         </a>
                                         <a class="col-6 col-md-4 p-0" href="/frontend/web/clientes/registrar">
                                             <div class="quick-actions-item">
                                                 <i class="flaticon-add-user"></i>
                                                 <span class="text">Agregar Cliente</span>
-                                            </div>
-                                        </a>
-                                        <a class="col-6 col-md-4 p-0" href="#">
-                                            <div class="quick-actions-item">
-                                                <i class="flaticon-list"></i>
-                                                <span class="text">Completed Tasks</span>
-                                            </div>
-                                        </a>
-                                        <a class="col-6 col-md-4 p-0" href="#">
-                                            <div class="quick-actions-item">
-                                                <i class="flaticon-file"></i>
-                                                <span class="text">Create New Invoice</span>
                                             </div>
                                         </a>
                                     </div>
@@ -248,7 +233,7 @@ $user = Yii::$app->user->identity;
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
                                 <?= $user->first_name ?>
-                                <span class="user-level"><?= $user->role->name ?></span>
+                                <span class="h5 font-weight-bold"><?= $user->role->name ?></span>
                                 <span class="caret"></span>
                             </span>
                         </a>
@@ -447,6 +432,54 @@ $user = Yii::$app->user->identity;
     <div class="">
         <?= $content ?>
     </div>
+
+    <div class="modal fade" id="registrarImporteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Registrar Importe</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <?php $model = new \frontend\models\Transacciones(); ?>
+            <?php $form = ActiveForm::begin(['method' => 'get', 'action' => '/frontend/web/transacciones/registrar']); ?>
+            <?php $tipos = \frontend\models\TiposImportes::find()->all(); ?>
+            <div class="form-group">
+                <label for="">Tipo importe</label>
+                <select name="tipo" id="" class="form-control" required>
+                    <option value="">Seleccionar...</option>
+                    <?php foreach ($tipos as $t): ?>
+                        <option value="<?= $t->id ?>"><?= $t->nombre ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+
+            <?php $clientes = \frontend\models\Clientes::find()->orderBy(['date' => SORT_DESC])->all(); ?>
+            <div class="form-group">
+                <label for="">Cliente</label>
+                <select name="cliente" id="" class="form-control">
+                    <option value="">Seleccionar...</option>
+                    <?php foreach ($clientes as $c): ?>
+                        <option value="<?= $c->id ?>"><?= $c->empresa ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+
+            <input type="hidden" name="view" value="/transacciones">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary btn-sm']) ?>
+          </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+      </div>
+    </div>
+
+
 </div>
 
 <?php if(Yii::$app->session->hasFlash('success')):?>

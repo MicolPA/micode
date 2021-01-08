@@ -14,6 +14,7 @@ use Yii;
  * @property int|null $total
  * @property string|null $fecha_pago
  * @property string|null $date
+ * @property string|null $concepto
  *
  * @property Clientes $cliente
  * @property TiposImportes $tipo
@@ -37,8 +38,8 @@ class Transacciones extends \yii\db\ActiveRecord
     {
         return [
             [['tipo_id', 'servicio_extra_id', 'cliente_id', 'total'], 'integer'],
-            [['fecha_pago', 'date'], 'safe'],
-            [['fecha_pago', 'tipo_id', 'servicio_extra_id', 'cliente_id', 'total'], 'required'],
+            [['fecha_pago', 'date', 'concepto'], 'safe'],
+            [['fecha_pago', 'tipo_id', 'total'], 'required'],
             [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clientes::className(), 'targetAttribute' => ['cliente_id' => 'id']],
             [['tipo_id'], 'exist', 'skipOnError' => true, 'targetClass' => TiposImportes::className(), 'targetAttribute' => ['tipo_id' => 'id']],
             [['servicio_extra_id'], 'exist', 'skipOnError' => true, 'targetClass' => ServiciosExtras::className(), 'targetAttribute' => ['servicio_extra_id' => 'id']],

@@ -98,7 +98,7 @@ $this->title = $model->empresa;
 											<li class="feed-item feed-item-<?= $class ?>">
 			                                    <div class="col-md-4">
 			                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/detalle?id=<?= $pago->id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
 			                                    </div>
 			                                </li>	
 										<?php endforeach ?>

@@ -13,6 +13,7 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\Clientes;
 use yii\web\UploadedFile;
 use frontend\models\ContactForm;
 
@@ -79,7 +80,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $fecha = $mes6 = date("m",strtotime(date("d-m-Y")." - 30 days")); 
+        $clientes = Clientes::find()->where(['>=', 'fecha_comienzo', $fecha])->count();
+        return $this->render('index',[
+            'clientes' => $clientes,
+
+        ]);
     }
 
     /**

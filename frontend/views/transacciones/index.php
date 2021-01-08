@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\ClientesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Transacciones';
+$this->title = 'Finanzas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="main-panel">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="content">
         <div class="page-inner">
             <div class="page-header">
-                <h4 class="page-title">Transacciones</h4>
+                <h4 class="page-title">Finanzas</h4>
                 <ul class="breadcrumbs">
                     <li class="nav-home">
                         <a href="#">
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="/frontend/web/transacciones">Transacciones</a>
+                        <a href="/frontend/web/transacciones">Finanzas</a>
                     </li>
                     <li class="separator">
                         <i class="flaticon-right-arrow"></i>
@@ -35,9 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <a href="#">Historial de transacciones</a>
                     </li>
                 </ul>
-                <!-- <div class="ml-md-auto py-2 py-md-0">
-                    <?//= Html::a('<i class="fas fa-plus-circle mr-2"></i> Nuevo', ['registrar'], ['class' => 'btn btn-secondary btn-round']) ?>
-                </div> -->
+                <div class="ml-md-auto py-2 py-md-0">
+                    <button type="button" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#registrarImporteModal"><i class="fas fa-plus-circle mr-2"></i> Registrar Importe</button>
+                </div>
             </div>
 
             <div class="row">
@@ -76,15 +76,45 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="card-body">
                             <ol class="activity-feed">
                                 <?php foreach ($model as $pago): ?>
-                                    <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
+                                    <?php $class = $pago->tipo_id == 1 ? "success" : 'danger' ?>
                                     <li class="feed-item feed-item-<?= $class ?>">
-                                        <div class="col-md-4">
+                                        <div class="col-md-8">
                                             <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-                                            <span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/detalle?id=<?= $pago->id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+                                            <?php 
+
+                                                if ($pago->tipo_id == 3) {
+                                                    $text = "<span class='font-weight-bold'>".$pago->tipo->nombre.":</span>";
+                                                    $text2 = $pago->concepto;
+                                                }else{
+                                                    $text = "<span class='font-weight-bold'>". $pago->cliente->empresa . "</span>: " . $pago->tipo->nombre;
+                                                    $text2 = $pago->servicioExtra->nombre;
+                                                }
+
+                                             ?>
+                                            <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $text2 ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
                                         </div>
                                     </li>   
                                 <?php endforeach ?>
                             </ol>
+                        </div>
+                        <div class="col-md-12" style="text-align: right;">
+                            <div class="">
+                                <?php 
+                                // display pagination
+                                echo \yii\widgets\LinkPager::widget([
+                                    'pagination' => $pagination,
+                                    'options' => [
+                                        'class' => 'pagination pg-primary float-left',
+
+                                    ],
+                                    'linkOptions' => ['class' => 'page-link'],
+                                    'prevPageLabel' => false,
+                                    'nextPageLabel' => false,
+
+                                ]);
+                                ?>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -98,3 +128,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+
+<script>
+    setTimeout(function() {
+        displayNotification('Correcto','Mostrando transacciones','fas fa-check-circle');
+    }, 1000);
+</script>

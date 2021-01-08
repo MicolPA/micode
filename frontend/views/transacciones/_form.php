@@ -17,12 +17,21 @@ $get = Yii::$app->request->get();
         </div>
         <div class="col-md-3">
             <div class="card p-3 m-3 text-center">
-                <img src="/frontend/web/<?= $cliente_info['logo_url'] ?>" width='80%'>
+                <?php if ($model->tipo_id != 3): ?>
+                    <img class='m-auto' src="/frontend/web/<?= $cliente_info['logo_url'] ?>" width='80%'>
+                <?php else: ?>
+                    <img class='m-auto' src="/frontend/web/images/inversion.png" width='80%'>
+                <?php endif ?>
             </div>
         </div>
         <div class="col-md-6">
-            <?php echo $form->field($model, 'tipo_id')->dropDownList(array('1' => 'Ingreso', '2' => 'Gasto'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required']); ?>
-            <?php echo $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required']); ?>
+            <?php echo $form->field($model, 'tipo_id')->dropDownList(ArrayHelper::map(\frontend\models\TiposImportes::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required', 'disabled' => 'disabled']); ?>
+            
+            <?php if ($model->tipo_id == 3): ?>
+                <?= $form->field($model, 'concepto')->textInput(['required' => 'required'])->label('Concepto') ?>
+            <?php else: ?>
+            <?php echo $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required'])->label('Concepto'); ?>
+            <?php endif ?>
         </div>
 
         <div class="col-md-12">

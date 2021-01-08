@@ -35,8 +35,12 @@ label[for="inputfile"] {
     font-size: 16px !important;
 }
 
+.swal-button{
+  background: #31ce36;
+}
+
 .swal-button--gastos{
-    background: #ff4a4a;
+    background: #ff4a4a !important;
 }
 
 
@@ -75,3 +79,4 @@ label[for="inputfile"] {
 .no-link:hover{
   text-decoration: none;
 }
+
