@@ -306,7 +306,7 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#tables">
+                        <a href="/frontend/web/servicios/calendario">
                             <i class="fas fa-calendar"></i>
                             <p>Calendario</p>
                         </a>
@@ -413,7 +413,7 @@ $user = Yii::$app->user->identity;
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-                <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary btn-sm']) ?>
+                <?= Html::submitButton('Registrar', ['class' => 'btn btn-primary btn-sm']) ?>
           </div>
             <?php ActiveForm::end(); ?>
         </div>

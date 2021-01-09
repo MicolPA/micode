@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php foreach ($model as $pago): ?>
                                     <?php $class = $pago->tipo_id == 1 ? "success" : 'danger' ?>
                                     <li class="feed-item feed-item-<?= $class ?>">
-                                        <div class="col-md-8">
+                                        <div class="col-md-12">
                                             <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
                                             <?php 
 
