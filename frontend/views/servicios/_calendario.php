@@ -116,6 +116,9 @@
 					<?php foreach ($clientes as $c): ?>
 						<?php 
 							$fecha_proxima = date("Y-m-d",strtotime($c->fecha_comienzo."+ $c->tiempo_estimado weeks"));
+							if ($fecha_proxima < date("Y-m-d")) {
+								$fecha_proxima = date("Y-m-d");
+							}
 							$colores = array('important' => 'important', 'success' => 'success','chill' => 'chill', 'success' => 'success', 'info' => 'info');
 							$color = array_rand($colores);
 						?>
