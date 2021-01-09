@@ -68,7 +68,7 @@ class AnotacionesController extends Controller
             $model = Anotaciones::findOne($id);
         }else{
             $model = new Anotaciones();
-            $model->cliente_id = $cliente_id;
+            $model->user_id = Yii::$app->user->identity->id;
         }
         $cliente = \frontend\models\Clientes::findOne($cliente_id);
 
