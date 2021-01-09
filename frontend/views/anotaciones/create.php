@@ -38,7 +38,9 @@ $this->title = "Anotaciones de $cliente->empresa";
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title font-weight-bold"><span class="text-primary"><?= Html::encode($this->title) ?></span> <a href="#" class="btn btn-primary btn-sm float-right text-white submit"><i class="fas fa-save mr-2"></i> Guardar</a></div>
+							<div class="card-title font-weight-bold"><span class="text-primary"><?= Html::encode($this->title) ?></span> <?php if ($model->user_id == Yii::$app->user->identity->id): ?>
+								 <a href="#" class="btn btn-primary btn-sm float-right text-white submit"><i class="fas fa-save mr-2"></i> Guardar</a>
+							<?php endif ?></div>
 						</div>
 						<?= $this->render('_form', [
 					        'model' => $model,
