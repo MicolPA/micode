@@ -135,7 +135,7 @@ $this->title = $model->empresa;
 																<?php if ($anotacion): ?>
 																	<a href="/frontend/web/anotaciones/ver?cliente_id=<?= $model->id ?>&id=<?= $anotacion->id ?>" class="btn btn-icon btn-primary btn-round btn-xs"><i class="fas fa-eye fa-xs"></i></a>
 																	<?php else: ?>
-																		<a href="/frontend/web/anotaciones/ver?cliente_id=<?= $model->id ?>" class="btn btn-icon btn-primary btn-round btn-xs"><i class="fas fa-eye fa-xs"></i></a>
+																		<a class="disabled" href="/frontend/web/anotaciones/ver?cliente_id=<?= $model->id ?>" class="btn btn-icon btn-primary btn-round btn-xs"><i class="fas fa-eye fa-xs"></i></a>
 																<?php endif ?>
 															<?php endif ?>
 														</div>
