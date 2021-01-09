@@ -75,3 +75,7 @@ $(".cuenta").bind('keyup', function(){
 		$("#total").val(suma);
 	});
 })
+
+$( ".submit" ).click(function() {
+  $( "#form" ).submit();
+});

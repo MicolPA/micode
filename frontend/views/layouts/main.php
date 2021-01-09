@@ -274,88 +274,29 @@ $user = Yii::$app->user->identity;
                         <h4 class="text-section">Secciones</h4>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="#clientes">
+                        <a href="/frontend/web/clientes/">
                             <i class="fas fa-user"></i>
                             <p>Clientes</p>
-                            <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="clientes">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="/frontend/web/clientes/">
-                                        <span class="sub-item">Listado</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/frontend/web/clientes/registrar">
-                                        <span class="sub-item">Registrar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="#tarjetas">
+                        <a data-toggle="collapse" href="/frontend/web/tarjetas/">
                             <i class="fas fa-credit-card"></i>
                             <p>Cuentas</p>
-                            <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="tarjetas">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="/frontend/web/tarjetas/">
-                                        <span class="sub-item">Listado</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/frontend/web/tarjetas/registrar">
-                                        <span class="sub-item">Registrar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="#servicios">
+                        <a data-toggle="collapse" href="/frontend/web/servicios/">
                             <i class="fas fa-money-check-alt"></i>
                             <p>Servicios</p>
-                            <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="servicios">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="/frontend/web/servicios/">
-                                        <span class="sub-item">Listado</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/frontend/web/servicios/registrar">
-                                        <span class="sub-item">Registrar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="#servicios-extras">
+                        <a data-toggle="collapse" href="/frontend/web/servicios-extras/">
                             <i class="fas fa-money-bill-alt"></i>
                             <p>Servicios Extras</p>
-                            <span class="caret"></span>
                         </a>
-                        <div class="collapse" id="servicios-extras">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="/frontend/web/servicios-extras/">
-                                        <span class="sub-item">Listado</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/frontend/web/servicios-extras/registrar">
-                                        <span class="sub-item">Registrar</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
 
                     <li class="nav-item">

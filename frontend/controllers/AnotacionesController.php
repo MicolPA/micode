@@ -3,18 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Clientes;
-use frontend\models\Transacciones;
-use frontend\models\ClientesSearch;
+use frontend\models\Anotaciones;
+use frontend\models\AnotacionesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * ClientesController implements the CRUD actions for Clientes model.
+ * AnotacionesController implements the CRUD actions for Anotaciones model.
  */
-class ClientesController extends Controller
+class AnotacionesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +30,12 @@ class ClientesController extends Controller
     }
 
     /**
-     * Lists all Clientes models.
+     * Lists all Anotaciones models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ClientesSearch();
+        $searchModel = new AnotacionesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,80 +45,61 @@ class ClientesController extends Controller
     }
 
     /**
-     * Displays a single Clientes model.
+     * Displays a single Anotaciones model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionPerfil($id)
+    public function actionView($id)
     {
-        $pagos = Transacciones::find()->where(['cliente_id' => $id])->all();
-        $users = \frontend\models\User::find()->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'users' => $users,
-            'pagos' => $pagos,
         ]);
     }
 
     /**
-     * Creates a new Clientes model.
+     * Creates a new Anotaciones model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar()
+    public function actionVer($cliente_id, $id=null)
     {
-        $model = new Clientes();
+        if ($id) {
+            $model = Anotaciones::findOne($id);
+        }else{
+            $model = new Anotaciones();
+        }
+        $cliente = \frontend\models\Clientes::findOne($cliente_id);
 
         if ($model->load(Yii::$app->request->post())) {
-
-            $path = "images/clientes/$model->dominio";
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-
-            $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-            $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') .".". $model->logo_url->extension;
-            $model->logo_url->saveAs($imagen);
-            $model->logo_url = $imagen;
-
-            $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
+            $model->cliente_id = $cliente_id;
+            $model->ultima_modificacion = date("Y-m-d H:i:s");
+            if ($id) {$model->date = date("Y-m-d H:i:s");}
             $model->save();
-
-            Yii::$app->session->setFlash('success', "Cliente registrado correctamente");
-            return $this->redirect(['perfil', 'id' => $model->id]);
+            Yii::$app->session->setFlash('success', "Guardado correctamente");
+            return $this->redirect(['/clientes/perfil', 'id' => $cliente_id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'cliente' => $cliente,
         ]);
     }
 
     /**
-     * Updates an existing Clientes model.
+     * Updates an existing Anotaciones model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionEditar($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $old_picture = $model['logo_url'];
-        if ($model->load(Yii::$app->request->post())) {
 
-            if (UploadedFile::getInstance($model, 'logo_url')) {
-                $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-                $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . "." . $model->logo_url->extension;
-                $model->logo_url->saveAs($imagen);
-                $model->logo_url = $imagen;
-            }else{
-                $model->logo_url = $old_picture;
-            }
-
-            $model->save();
-            return $this->redirect(['perfil', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -129,7 +108,7 @@ class ClientesController extends Controller
     }
 
     /**
-     * Deletes an existing Clientes model.
+     * Deletes an existing Anotaciones model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -139,20 +118,19 @@ class ClientesController extends Controller
     {
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success', "Cliente eliminado correctamente");
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Clientes model based on its primary key value.
+     * Finds the Anotaciones model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Clientes the loaded model
+     * @return Anotaciones the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Clientes::findOne($id)) !== null) {
+        if (($model = Anotaciones::findOne($id)) !== null) {
             return $model;
         }
 

@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50114089d7de41b6fbcc4d646295169a",
+    "content-hash": "7ddadb2bf9a5f480fee5e80a11fe36ef",
     "packages": [
+        {
+            "name": "asmoday74/yii2-ckeditor5",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asmoday74/yii2-ckeditor5.git",
+                "reference": "d5cb38abfc6afd9f0a8729662897ecefc83b18a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asmoday74/yii2-ckeditor5/zipball/d5cb38abfc6afd9f0a8729662897ecefc83b18a6",
+                "reference": "d5cb38abfc6afd9f0a8729662897ecefc83b18a6",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "asmoday74\\ckeditor5\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Maksim Klimov"
+                }
+            ],
+            "description": "CKEditor 5 WYSIWYG widget for Yii2",
+            "keywords": [
+                "ckeditor 5",
+                "extension",
+                "yii2"
+            ],
+            "time": "2019-09-24T20:23:27+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
@@ -53,7 +93,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -71,7 +111,7 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {

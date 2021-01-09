@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'summary' => 'Mostrando <b>{count}</b> registros de <b>{totalCount}</b>',
+                   // 'tableOptions' => ['class' => 'table'],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 

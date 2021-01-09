@@ -82,6 +82,9 @@ $this->title = $model->empresa;
 								<li class="nav-item" style="margin-left: 0 !important">
 									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-history mr-2"></i> Historial de pagos</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-anotaciones-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-sticky-note mr-2"></i> Anotaciones</a>
+								</li>
 							</ul>
 							<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
 								<div class="tab-pane fade show pt-4 active" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
@@ -103,6 +106,43 @@ $this->title = $model->empresa;
 			                                </li>	
 										<?php endforeach ?>
 		                            </ol>
+								</div>
+
+								<div class="tab-pane fade" id="pills-anotaciones-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+
+									<div class="col-md-6">
+										<div class=" card-round">
+											<div class="card-body">
+												<div class="card-title fw-mediumbold">Anotaciones de usuarios</div>
+												<div class="card-list">
+													<?php foreach ($users as $user): ?>
+														<?php $anotacion = \frontend\models\Anotaciones::find()->where(['cliente_id' => $user->id, 'cliente_id' => $model->id])->one(); ?>
+														<div class="item-list">
+															<div class="avatar">
+																<img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
+															</div>
+															<div class="info-user ml-3">
+																<div class="h4 text-primary"><?= $user->first_name . " " . $user->last_name ?></div>
+																<div class="h5"><b>Última modificación</b>: <?= $anotacion ? $anotacion['ultima_modificacion'] : 'no ha realizado anotaciones.' ?></div>
+															</div>
+															<?php if ($user->id == Yii::$app->user->identity->id): ?>
+																<?php if ($anotacion): ?>
+																	<a href="/frontend/web/anotaciones/ver?cliente_id=<?= $model->id ?>&id=<?= $anotacion->id ?>" class="btn btn-icon btn-primary btn-round btn-xs"><i class="fa fa-pen fa-xs"></i></a>
+																	<?php else: ?>
+																		<a href="/frontend/web/anotaciones/ver?cliente_id=<?= $model->id ?>" class="btn btn-icon btn-primary btn-round btn-xs"><i class="fa fa-plus"></i></a>
+																<?php endif ?>
+															<?php else: ?>
+																<a class="btn btn-icon btn-primary btn-round btn-xs">
+																	<i class="fa fa-plus"></i>
+																</a>
+															<?php endif ?>
+														</div>
+													<?php endforeach ?>
+													
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 								
 							</div>
