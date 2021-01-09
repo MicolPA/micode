@@ -50,11 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <i class="<?= $c->icon ?> fa-2x mt-2"></i>
                                     <h2 class="py-4 mb-0"><?= substr($c->numeracion, 0, 4) ?> **** **** <?= substr($c->numeracion, -4) ?></h2>
                                     <div class="row">
-                                        <div class="col-8 pr-0">
+                                        <div class="col-6 pr-0">
                                             <h3 class="fw-bold mb-1"><?= $c->representante_nombre ?></h3>
                                             <div class="text-small text-uppercase fw-bold op-8"><?= $c->nombre ?></div>
                                         </div>
-                                        <div class="col-4 pl-0 text-right">
+                                        <div class="col-6 pl-0 text-right">
                                             <h3 class="fw-bold mb-1">RD$<?= number_format($c->dinero_total) ?></h3>
                                             <div class="text-small text-uppercase fw-bold op-8">Saldo</div>
                                         </div>
