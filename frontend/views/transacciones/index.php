@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <h2 class="py-4 mb-0"><?= substr($c->numeracion, 0, 4) ?> **** **** <?= substr($c->numeracion, -4) ?></h2>
                                     <div class="row">
                                         <div class="col-6 pr-0">
-                                            <h3 class="fw-bold mb-1"><?= $c->representante_nombre ?></h3>
+                                            <h3 class="fw-bold mb-1 h4"><?= $c->representante_nombre ?></h3>
                                             <div class="text-small text-uppercase fw-bold op-8"><?= $c->nombre ?></div>
                                         </div>
                                         <div class="col-6 pl-0 text-right">
