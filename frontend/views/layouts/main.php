@@ -281,7 +281,7 @@ $user = Yii::$app->user->identity;
                         
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="/frontend/web/tarjetas/">
+                        <a href="/frontend/web/tarjetas/">
                             <i class="fas fa-credit-card"></i>
                             <p>Cuentas</p>
                         </a>
