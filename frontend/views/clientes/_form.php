@@ -75,7 +75,11 @@ use yii\helpers\ArrayHelper;
             <?php echo $form->field($model, 'status')->dropDownList(ArrayHelper::map(\frontend\models\ClientesEstatus::find()->orderBy(['nombre'=>SORT_ASC])->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select_2',]); ?>
         </div>
 
-        <div class="col-md-12 text-left pt-4 pb-4">
+        <div class="col-md-6">
+            <?= $form->field($model, 'fecha_finalizacion')->textInput(['type' => 'date']) ?>
+        </div>
+
+        <div class="col-md-12 text-right pt-4 pb-4">
             <div class="form-group">
                 <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary pr-5 pl-5']) ?>
             </div>

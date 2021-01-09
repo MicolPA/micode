@@ -3,8 +3,8 @@
 
 use yii\helpers\Html;
 $fecha_proxima = date("Y-m-d",strtotime($model->fecha_comienzo."+ $model->tiempo_estimado weeks"));
-$fecha1= new \DateTime(date("Y-m-d"));
-$fecha2= new \DateTime($fecha_proxima);
+$fecha1 = $model->status == 3 ? new \DateTime($model->fecha_comienzo) : new \DateTime(date("Y-m-d"));
+$fecha2 = $model->status == 3 ? new \DateTime($model->fecha_finalizacion) : new \DateTime($fecha_proxima);
 $diff = $fecha1->diff($fecha2);
 
 $this->title = $model->empresa;
@@ -58,7 +58,11 @@ $this->title = $model->empresa;
 									<h2 class="font-weight-bold mb-1"><?= $model->empresa ?> <span class="badge badge-pill badge-success mb-2"><?= $model->tipoServicio->nombre ?></span></h2>
 									
 									<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-<?= $model->status0->color ?>"></i> <?= $model->status0->nombre ?></p>
-									<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> <?= $model->tiempo_estimado ?> Semanas (<?= $diff->days ?> días restantes)</p>
+									<?php if ($model->status != 3): ?>
+										<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> <?= $model->tiempo_estimado ?> Semanas (<?= date("Y-m-d") > $fecha_proxima ? "Retraso de $diff->days días" : "$diff->days días restantes" ?>)</p>
+									<?php else: ?>
+										<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> Finalizado el <?= $model->fecha_finalizacion ?> (realizado en <?= $diff->d ?> días)</p>
+									<?php endif ?>
 									<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> <?= number_format($model->importe_base) ?> (Importe base) / <?= $model->pago_mensual == 1 ? "Pago mensual" : " Pago único" ?></p>
 									<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> Comienzo estimado el <?= $model->fecha_comienzo ?></p>
 									<p class="h4 font-weight-normal"><i class="fas fa-circle fa-xs text-dark"></i> <a href="https://<?= $model->dominio ?>" target='_blank'><?= $model->dominio ?></a></p>
