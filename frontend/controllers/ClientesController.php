@@ -86,9 +86,13 @@ class ClientesController extends Controller
 
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
-            $model->save();
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', "Cliente registrado correctamente");
+            }else{
+                print_r($model->errors);
+                exit;
+            }
 
-            Yii::$app->session->setFlash('success', "Cliente registrado correctamente");
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
 
