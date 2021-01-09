@@ -39,18 +39,31 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="row">
-            	<div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Ingresos vs Ganancias</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <?php echo $this->render('_chart_ganancias', ['importes' => $importes, 'importes_ganancias' => $importes_ganancias, 'meses' => $meses]); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            	<div class="col-md-6">
 					<div class="card">
 						<div class="card-header">
 							<div class="card-title">Importes</div>
 						</div>
 						<div class="card-body">
 							<div class="chart-container">
-                                <?php  echo $this->render('_chart', ['importes' => $importes, 'meses' => $meses]); ?>
+                                <?php  echo $this->render('_chart_importes_general', ['importes' => $importes, 'meses' => $meses]); ?>
 							</div>
 						</div>
 					</div>
 				</div>
+                
             </div>
 
         </div>

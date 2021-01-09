@@ -15,13 +15,15 @@ class ReportesController extends \yii\web\Controller
     	$importes['ingresos'] = $this->obtener_ingresos_range(1);
     	$importes['gastos_produccion'] = $this->obtener_ingresos_range(2);
     	$importes['gastos_operativos'] = $this->obtener_ingresos_range(3);
+        $importes_ganancias = $this->get_ganancias();
     	// print_r($importes);
     	// exit;
 
     	// exit;
         return $this->render('index',[
         	'meses' => $meses,
-        	'importes' => $importes,
+            'importes' => $importes,
+        	'importes_ganancias' => $importes_ganancias,
         ]);
     }
 
@@ -58,6 +60,34 @@ class ReportesController extends \yii\web\Controller
         	array_push($mesRange, $date->format('m/Y'));
 		}
         return $mesRange;
+
+    }
+    function get_ganancias(){
+
+        $from = date("d-m-Y",strtotime(date("d-m-Y")." - 6 month")); 
+        $period = new \DatePeriod(
+            new \DateTime($from),
+            new \DateInterval('P1M'),
+            6
+        );
+
+        $mesRange= array();
+        $totalRange= array();
+
+        foreach ($period as $date) {
+            
+
+            $from = $date->format('m');
+            $gastos = Transacciones::find()->where(['MONTH(fecha_pago)' => $from])->andWhere(['<>', 'tipo_id', 1])->sum('total');
+            $ingresos = Transacciones::find()->where(['MONTH(fecha_pago)' => $from, 'tipo_id' => 1])->sum('total');
+            $count = $ingresos - $gastos; 
+            $count = $count > 0 ? $count : 0;
+            array_push($mesRange,$from);
+            array_push($totalRange, $count);
+
+        }
+
+        return $tRange = array('total' => $totalRange, 'meses'=>$mesRange);
 
     }
 
