@@ -80,7 +80,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $fecha = $mes6 = date("m",strtotime(date("d-m-Y")." - 30 days")); 
+        $fecha = date("m",strtotime(date("d-m-Y")." - 30 days")); 
         $clientes = Clientes::find()->where(['>=', 'fecha_comienzo', $fecha])->count();
         return $this->render('index',[
             'clientes' => $clientes,

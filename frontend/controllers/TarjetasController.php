@@ -100,6 +100,24 @@ class TarjetasController extends Controller
         ]);
     }
 
+    public function actionDetalle($id){
+
+        $tarjeta = $this->findModel($id);
+
+        $query = \frontend\models\TransaccionesDetalle::find()->where(['tarjeta_id' => $id])->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC]);
+        $countQuery = clone $query;
+        $pagination = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
+        $model = $query->offset($pagination->offset)
+        ->limit($pagination->limit)
+        ->all();
+
+        return $this->render('view', [
+            'tarjeta' => $tarjeta,
+            'model' => $model,
+            'pagination' => $pagination,
+        ]);
+    }
+
     /**
      * Deletes an existing Tarjetas model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

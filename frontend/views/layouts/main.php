@@ -320,8 +320,8 @@ $user = Yii::$app->user->identity;
                         <div class="collapse" id="charts">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="charts/charts.html">
-                                        <span class="sub-item">Chart Js</span>
+                                    <a href="/frontend/web/reportes">
+                                        <span class="sub-item">Reporte 1</span>
                                     </a>
                                 </li>
                                 <li>

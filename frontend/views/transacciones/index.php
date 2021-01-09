@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <?php foreach ($cuentas as $c): ?>
                     <div class="col-md-4">
-                        <a class='no-link' href="/frontend/web/tarjeta/detalle?id=<?= $c->id ?>">
+                        <a class='no-link' href="/frontend/web/tarjetas/detalle?id=<?= $c->id ?>">
                             <div class="card card-dark bg-<?= $c->color ?>-gradient">
                                 <div class="card-body bubble-shadow">
                                     <!-- <img src="/frontend/web/images/visa.svg" height="12.5" alt="Visa Logo"> -->
@@ -131,6 +131,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <script>
     setTimeout(function() {
-        displayNotification('Correcto','Mostrando transacciones','fas fa-check-circle');
+        //displayNotification('Correcto','Mostrando transacciones','fas fa-check-circle');
     }, 1000);
 </script>
