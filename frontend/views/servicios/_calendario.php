@@ -115,10 +115,12 @@
 				events: [
 					<?php foreach ($clientes as $c): ?>
 						<?php 
+						// echo date("Y-m-d");
 							$fecha_proxima = date("Y-m-d",strtotime($c->fecha_comienzo."+ $c->tiempo_estimado weeks"));
 							if ($fecha_proxima < date("Y-m-d")) {
 								$fecha_proxima = date("Y-m-d");
 							}
+							$fecha = date("Y-m-d");
 							$colores = array('important' => 'important', 'success' => 'success','chill' => 'chill', 'success' => 'success', 'info' => 'info');
 							$color = array_rand($colores);
 						?>
@@ -129,6 +131,7 @@
 							end: '<?= $fecha_proxima ?>',
 							allDay: true,
 							className: '<?= $color ?>',
+							url: '<?= $fecha ?>',
 							url: '/frontend/web/clientes/perfil?id=<?= $c->id ?>',
 						},
 					<?php endforeach ?>	
