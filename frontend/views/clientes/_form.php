@@ -6,7 +6,7 @@ use yii\helpers\ArrayHelper;
 
 ?>
 
-<?php $form = ActiveForm::begin(['enableClientScript' => false, 'options' => ['autocomplete' => 'off'],], ['enctype' => 'multipart/form-data']); ?>
+<?php $form = ActiveForm::begin(['enableClientScript' => false], ['enctype' => 'multipart/form-data']); ?>
     <div class="row">
 
         <div class="col-md-6">
@@ -18,7 +18,11 @@ use yii\helpers\ArrayHelper;
         </div>
 
         <div class="col-md-6 pt-3">
-            <?= $form->field($model, 'logo_url')->fileInput(['required' => 'required', 'id' => 'inputfile']) ?>
+            <?php if ($model): ?>
+                <?= $form->field($model, 'logo_url')->fileInput(['id' => 'inputfile']) ?>
+            <?php else: ?>
+                <?= $form->field($model, 'logo_url')->fileInput(['required' => 'required', 'id' => 'inputfile']) ?>
+            <?php endif ?>
         </div>
     </div>
 
@@ -59,7 +63,7 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label>Tiempo Estimado</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="Clientes[tiempo_estimado]" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" name="Clientes[tiempo_estimado]" aria-label="Recipient's username" aria-describedby="basic-addon2" value="<?= $model->tiempo_estimado ?>">
                     <div class="input-group-append">
                         <span class="input-group-text" id="basic-addon2">Semanas</span>
                     </div>
@@ -73,7 +77,7 @@ use yii\helpers\ArrayHelper;
 
         <div class="col-md-12 text-left pt-4 pb-4">
             <div class="form-group">
-                <?= Html::submitButton('Registrar Cliente', ['class' => 'btn btn-primary pr-5 pl-5']) ?>
+                <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary pr-5 pl-5']) ?>
             </div>
         </div>
 
