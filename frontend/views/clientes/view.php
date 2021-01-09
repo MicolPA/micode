@@ -116,7 +116,7 @@ $this->title = $model->empresa;
 												<div class="card-title fw-mediumbold">Anotaciones de usuarios</div>
 												<div class="card-list">
 													<?php foreach ($users as $user): ?>
-														<?php $anotacion = \frontend\models\Anotaciones::find()->where(['cliente_id' => $user->id, 'cliente_id' => $model->id])->one(); ?>
+														<?php $anotacion = \frontend\models\Anotaciones::find()->where(['user_id' => $user->id, 'cliente_id' => $model->id])->one(); ?>
 														<div class="item-list">
 															<div class="avatar">
 																<img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
