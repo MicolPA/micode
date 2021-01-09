@@ -129,6 +129,7 @@ class ClientesController extends Controller
             }
 
             $model->save();
+                Yii::$app->session->setFlash('success', "Cliente modificado correctamente");
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
 
