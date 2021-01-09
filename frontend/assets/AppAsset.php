@@ -62,7 +62,7 @@ class AppAsset extends AssetBundle
 
         //Calendar
         'calendar/js/jquery-ui.custom.min.js',
-        'calendar/js/fullcalendar.js',
+        'calendar/js/fullcalendar.js?v=1',
 
     ];
     public $depends = [

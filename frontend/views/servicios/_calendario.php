@@ -131,7 +131,6 @@
 							end: '<?= $fecha_proxima ?>',
 							allDay: true,
 							className: '<?= $color ?>',
-							url: '<?= $fecha ?>',
 							url: '/frontend/web/clientes/perfil?id=<?= $c->id ?>',
 						},
 					<?php endforeach ?>	

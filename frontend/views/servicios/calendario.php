@@ -38,9 +38,9 @@ $this->title = 'Calendario';
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card">
-						<div class="card-header">
-							<div class="card-title"><?= Html::encode($this->title) ?></div>
-						</div>
+						<!-- <div class="card-header">
+							<div class="card-title"><?//= Html::encode($this->title) ?></div>
+						</div> -->
 						<?= $this->render('_calendario', [
 							'clientes' => $clientes
 					    ]) ?>
