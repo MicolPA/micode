@@ -114,6 +114,11 @@ class ClientesController extends Controller
         $old_picture = $model['logo_url'];
         if ($model->load(Yii::$app->request->post())) {
 
+            $path = "images/clientes/$model->dominio";
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
             if (UploadedFile::getInstance($model, 'logo_url')) {
                 $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
                 $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') . "." . $model->logo_url->extension;
