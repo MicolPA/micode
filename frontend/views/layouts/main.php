@@ -287,13 +287,13 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="/frontend/web/servicios/">
+                        <a href="/frontend/web/servicios/">
                             <i class="fas fa-money-check-alt"></i>
                             <p>Servicios</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="collapse" href="/frontend/web/servicios-extras/">
+                        <a href="/frontend/web/servicios-extras/">
                             <i class="fas fa-money-bill-alt"></i>
                             <p>Servicios Extras</p>
                         </a>
