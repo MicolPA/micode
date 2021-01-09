@@ -54,7 +54,7 @@ class ClientesController extends Controller
      */
     public function actionPerfil($id)
     {
-        $pagos = Transacciones::find()->where(['cliente_id' => $id])->all();
+        $pagos = Transacciones::find()->where(['cliente_id' => $id])->orderBy(['fecha_pago' => SORT_DESC])->all();
         $users = \frontend\models\User::find()->all();
         return $this->render('view', [
             'model' => $this->findModel($id),

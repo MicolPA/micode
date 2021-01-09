@@ -99,7 +99,7 @@ $this->title = $model->empresa;
 										<?php foreach ($pagos as $pago): ?>
 											<?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
 											<li class="feed-item feed-item-<?= $class ?>">
-			                                    <div class="col-md-4">
+			                                    <div class="col-md-8">
 			                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
 			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
 			                                    </div>
