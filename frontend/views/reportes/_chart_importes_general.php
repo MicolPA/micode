@@ -43,6 +43,16 @@
                     'pointHoverBorderColor' => "#03295e",
                     'data' => $importes['gastos_operativos']['total'],
                 ],
+                [
+                    'label' => ["Ganancias"],
+                    'backgroundColor' => "transparent",
+                    'borderColor' => ["#31ce36"],
+                    'pointBackgroundColor' => "#31ce36",
+                    'pointBorderColor' => "#fff",
+                    'pointHoverBackgroundColor' => "#fff",
+                    'pointHoverBorderColor' => "purple",
+                    'data' => $importes_ganancias['total'],
+                ],
 
             ]
         ], 'clientOptions' => [

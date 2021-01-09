@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						</div>
 						<div class="card-body">
 							<div class="chart-container">
-                                <?php  echo $this->render('_chart_importes_general', ['importes' => $importes, 'meses' => $meses]); ?>
+                                <?php  echo $this->render('_chart_importes_general', ['importes_ganancias' => $importes_ganancias,'importes' => $importes, 'meses' => $meses]); ?>
 							</div>
 						</div>
 					</div>
