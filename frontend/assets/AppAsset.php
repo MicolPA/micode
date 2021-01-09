@@ -58,7 +58,12 @@ class AppAsset extends AssetBundle
 
         'js/setting-demo.js',
         // 'js/demo.js',
-        'js/main.js?v=1'
+        'js/main.js?v=1',
+
+        //Calendar
+        'calendar/js/jquery-ui.custom.min.js',
+        'calendar/js/fullcalendar.js',
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

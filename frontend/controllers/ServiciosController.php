@@ -44,6 +44,11 @@ class ServiciosController extends Controller
         ]);
     }
 
+    function actionCalendario(){
+        return $this->render('calendario', [
+        ]);
+    }
+
     /**
      * Displays a single Servicios model.
      * @param integer $id
