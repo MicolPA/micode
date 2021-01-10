@@ -70,30 +70,12 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title">User Statistics</div>
-                                <div class="card-tools">
-                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                        <span class="btn-label">
-                                            <i class="fa fa-pencil"></i>
-                                        </span>
-                                        Export
-                                    </a>
-                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm">
-                                        <span class="btn-label">
-                                            <i class="fa fa-print"></i>
-                                        </span>
-                                        Print
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="card-body">
-                            <div class="chart-container" style="min-height: 375px">
-                                <canvas id="statisticsChart"></canvas>
-                            </div>
-                            <div id="myChartLegend"></div>
+                            <?php $clientes_2 = \frontend\models\Clientes::find()->where(['<>', 'status',  3])->all(); ?>
+                            <?= $this->render('/servicios/_calendario', [
+                                'clientes' => $clientes_2
+                            ]) ?>
                         </div>
                     </div>
                 </div>

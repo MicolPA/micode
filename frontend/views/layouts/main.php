@@ -281,34 +281,15 @@ $user = Yii::$app->user->identity;
                         
                     </li>
                     <li class="nav-item">
-                        <a href="/frontend/web/tarjetas/">
-                            <i class="fas fa-credit-card"></i>
-                            <p>Cuentas</p>
+                        <a href="/frontend/web/servicios/calendario">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>Calendario</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/servicios/">
-                            <i class="fas fa-money-check-alt"></i>
-                            <p>Servicios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/servicios-extras/">
-                            <i class="fas fa-money-bill-alt"></i>
-                            <p>Servicios Extras</p>
-                        </a>
-                    </li>
-
                     <li class="nav-item">
                         <a href="/frontend/web/transacciones">
                             <i class="fas fa-coins"></i>
                             <p>Finanzas</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/servicios/calendario">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>Calendario</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -332,6 +313,28 @@ $user = Yii::$app->user->identity;
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/tarjetas/">
+                            <i class="fas fa-credit-card"></i>
+                            <p>Cuentas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/servicios/">
+                            <i class="fas fa-money-check-alt"></i>
+                            <p>Servicios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/servicios-extras/">
+                            <i class="fas fa-money-bill-alt"></i>
+                            <p>Servicios Extras</p>
+                        </a>
+                    </li>
+
+                    
+                    
+                    
                     <li class="nav-item">
                         <a href="widgets.html">
                             <i class="fas fa-desktop"></i>
