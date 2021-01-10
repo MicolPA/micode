@@ -2,6 +2,9 @@
 
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+
 $fecha_proxima = date("Y-m-d",strtotime($model->fecha_comienzo."+ $model->tiempo_estimado weeks"));
 $fecha1 = $model->status == 3 ? new \DateTime($model->fecha_comienzo) : new \DateTime(date("Y-m-d"));
 $fecha2 = $model->status == 3 ? new \DateTime($model->fecha_finalizacion) : new \DateTime($fecha_proxima);
@@ -35,6 +38,7 @@ $this->title = $model->empresa;
 					</li>
 				</ul>
 				<div class="ml-md-auto py-2 py-md-0">
+					<a class="btn btn-outline-warning text-dark btn-sm" href="#" data-toggle="modal" data-target="#cambiarStatus"><i class="fas fa-exclamation mr-2"></i><span class="text">Cambiar Status</span></a>
                     <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-sm']) ?>
                     <?= Html::a('<i class="fas fa-trash text-danger"></i>', ['delete', 'id' => $model->id], [
                             'data' => [
@@ -159,3 +163,28 @@ $this->title = $model->empresa;
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="cambiarStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Cambiar Status</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <?php $form = ActiveForm::begin(['method' => 'post', 'action' => "/frontend/web/clientes/editar?id=$model->id"]); ?>
+            <?php echo $form->field($model, 'status')->dropDownList(ArrayHelper::map(\frontend\models\ClientesEstatus::find()->orderBy(['nombre'=>SORT_ASC])->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select_2',]); ?>
+
+            <?= $form->field($model, 'fecha_finalizacion')->textInput(['type' => 'date']) ?>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                <?= Html::submitButton('Modificar', ['class' => 'btn btn-primary btn-sm']) ?>
+          </div>
+            <?php ActiveForm::end(); ?>
+        </div>
+      </div>
+    </div>

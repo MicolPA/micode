@@ -307,7 +307,7 @@ $user = Yii::$app->user->identity;
                     </li>
                     <li class="nav-item">
                         <a href="/frontend/web/servicios/calendario">
-                            <i class="fas fa-calendar"></i>
+                            <i class="fas fa-calendar-alt"></i>
                             <p>Calendario</p>
                         </a>
                     </li>
