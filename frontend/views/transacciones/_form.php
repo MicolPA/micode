@@ -30,8 +30,8 @@ $get = Yii::$app->request->get();
             <?php if ($model->tipo_id == 3): ?>
                 <?= $form->field($model, 'concepto')->textInput(['required' => 'required'])->label('Concepto') ?>
             <?php else: ?>
-                <?= $form->field($model, 'concepto')->textInput([])->label('Comentario') ?>
                 <?= $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required'])->label('Concepto'); ?>
+                <?= $form->field($model, 'concepto')->textInput([])->label('Comentario') ?>
             <?php endif ?>
         </div>
 
