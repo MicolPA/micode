@@ -1988,8 +1988,8 @@ function MonthView(element, calendar) {
 		var rowCnt = Math.round(dayDiff(visEnd, visStart) / 7); // should be no need for Math.round
 
 		if (opt('weekMode') == 'fixed') {
-			addDays(visEnd, (6 - rowCnt) * 7); // add weeks to make up for it
-			rowCnt = 6;
+			addDays(visEnd, (5 - rowCnt) * 7); // add weeks to make up for it
+			rowCnt = 5;
 		}
 
 		t.title = formatDate(start, opt('titleFormat'));

@@ -80,3 +80,11 @@ label[for="inputfile"] {
   text-decoration: none;
 }
 
+.fc-header-center{
+  display: none;
+}
+
+.fc-header-title h2{
+  font-size: 26px !important;
+  font-weight: bold !important;
+}

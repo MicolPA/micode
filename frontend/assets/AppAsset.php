@@ -15,7 +15,7 @@ class AppAsset extends AssetBundle
         'css/bootstrap.min.css',
         'css/atlantis.min.css?v=1',
         // 'css/demo.css',
-        'css/site.css',
+        'css/site.css?v=1',
     ];
     public $js = [
 
@@ -62,7 +62,7 @@ class AppAsset extends AssetBundle
 
         //Calendar
         'calendar/js/jquery-ui.custom.min.js',
-        'calendar/js/fullcalendar.js?v=1',
+        'calendar/js/fullcalendar.js?v=2',
 
     ];
     public $depends = [

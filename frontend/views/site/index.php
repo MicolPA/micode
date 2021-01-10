@@ -12,7 +12,7 @@
                         <h5 class="text-white op-7 mb-2">Sistema de Gestión de MicodeRD</h5>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
+                        <a href="/frontend/web/transacciones" class="btn btn-white btn-border btn-round mr-2">Finanzas</a>
                         <a href="/frontend/web/clientes/registrar" class="btn btn-secondary btn-round">Agregar Cliente</a>
                     </div>
                 </div>
