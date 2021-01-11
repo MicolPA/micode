@@ -31,6 +31,10 @@ function displayNotification(title, message, icon, url='#'){
 		time: 1000,
 		delay: 0,
 	});
+
+	setTimeout(function(){
+		$('.alert-success button').click();
+	}, 4000)
 }
 
 
