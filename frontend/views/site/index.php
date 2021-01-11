@@ -87,25 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="card card-stats card-info card-round">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="icon-big text-center">
-                                                <i class="flaticon-interface-6"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7 col-stats">
-                                            <div class="numbers">
-                                                <p class="card-category">Subscribers</p>
-                                                <h4 class="card-title">1303</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-success card-round">
                                 <div class="card-body ">
@@ -163,84 +145,21 @@
                             <div class="card-title">Servicios</div>
                         </div>
                         <div class="card-body pb-0">
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+                            <?php foreach ($servicios as $serv): ?>
+                                <?php $count = \frontend\models\Clientes::find()->where(['tipo_servicio_id' => $serv->id])->count(); ?>
+                                <div class="d-flex">
+                                    <div class="avatar">
+                                        <i class="fas fa-laptop fa-lg"></i>
+                                    </div>
+                                    <div class="flex-1 pt-1 ml-2">
+                                        <p class="text-white font-weight-bold h4"><?= $serv->nombre ?></p>
+                                    </div>
+                                    <div class="d-flex ml-auto align-items-center">
+                                        <h3 class="text-white fw-bold">+<?= number_format($count) ?></h3>
+                                    </div>
                                 </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">CSS</h6>
-                                    <small class="text-white font-weight-bold">Cascading Style Sheets</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$17</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">J.CO Donuts</h6>
-                                    <small class="text-white font-weight-bold">The Best Donuts</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$300</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                    <small class="text-white font-weight-bold">Bootstrap 4 Admin Dashboard</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$350</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                    <small class="text-white font-weight-bold">Bootstrap 4 Admin Dashboard</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$350</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                    <small class="text-white font-weight-bold">Bootstrap 4 Admin Dashboard</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$350</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
-                            <div class="d-flex">
-                                <div class="avatar">
-                                    <img src="/frontend/web/images/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-                                </div>
-                                <div class="flex-1 pt-1 ml-2">
-                                    <h6 class="fw-bold mb-1">Ready Pro</h6>
-                                    <small class="text-white font-weight-bold">Bootstrap 4 Admin Dashboard</small>
-                                </div>
-                                <div class="d-flex ml-auto align-items-center">
-                                    <h3 class="text-info fw-bold">+$350</h3>
-                                </div>
-                            </div>
-                            <div class="separator-dashed"></div>
+                                <div class="separator-dashed"></div>
+                            <?php endforeach ?>
                             
                         </div>
                     </div>
@@ -250,41 +169,36 @@
            
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card full-height">
+                    <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Feed Activity</div>
+                            <div class="card-title">Últimas transacciones</div>
                         </div>
                         <div class="card-body">
                             <ol class="activity-feed">
-                                <li class="feed-item feed-item-secondary">
-                                    <time class="date" datetime="9-25">Sep 25</time>
-                                    <span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-success">
-                                    <time class="date" datetime="9-24">Sep 24</time>
-                                    <span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-info">
-                                    <time class="date" datetime="9-23">Sep 23</time>
-                                    <span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-warning">
-                                    <time class="date" datetime="9-21">Sep 21</time>
-                                    <span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-                                </li>
-                                <li class="feed-item feed-item-danger">
-                                    <time class="date" datetime="9-18">Sep 18</time>
-                                    <span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-                                </li>
-                                <li class="feed-item">
-                                    <time class="date" datetime="9-17">Sep 17</time>
-                                    <span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-                                </li>
+                                <?php foreach ($transacciones as $pago): ?>
+                                    <?php $class = $pago->tipo_id == 1 ? "success" : 'danger' ?>
+                                    <li class="feed-item feed-item-<?= $class ?>">
+                                        <div class="col-md-12">
+                                            <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
+                                            <?php 
+
+                                                if ($pago->tipo_id == 3) {
+                                                    $text = "<span class='font-weight-bold'>".$pago->tipo->nombre.":</span>";
+                                                    $text2 = $pago->concepto;
+                                                }else{
+                                                    $text = "<span class='font-weight-bold'>". $pago->cliente->empresa . "</span>: " . $pago->tipo->nombre;
+                                                    $text2 = $pago->servicioExtra->nombre;
+                                                }
+
+                                             ?>
+                                            <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $text2 ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+                                        </div>
+                                    </li>   
+                                <?php endforeach ?>
                             </ol>
                         </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     </div>

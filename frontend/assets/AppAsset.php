@@ -13,7 +13,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap.min.css',
-        'css/atlantis.min.css?v=1',
+        'css/atlantis.min.css?v=2',
         // 'css/demo.css',
         'css/site.css?v=1',
     ];

@@ -14,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\Clientes;
+use frontend\models\Transacciones;
 use yii\web\UploadedFile;
 use frontend\models\ContactForm;
 
@@ -82,9 +83,12 @@ class SiteController extends Controller
     {
         $fecha = date("m",strtotime(date("d-m-Y")." - 30 days")); 
         $clientes = Clientes::find()->where(['>=', 'fecha_comienzo', $fecha])->count();
+        $transacciones = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC])->limit(5)->all();
+        $servicios = \frontend\models\Servicios::find()->all();
         return $this->render('index',[
             'clientes' => $clientes,
-
+            'servicios' => $servicios,
+            'transacciones' => $transacciones,
         ]);
     }
 
