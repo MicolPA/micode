@@ -283,4 +283,10 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
+    public function actionPoliticasPrivacidad(){
+        $this->layout = '@app/views/layouts/main-no-menu';
+        return $this->render('politicas_privacidad', [
+        ]);
+    }
 }
