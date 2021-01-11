@@ -98,9 +98,13 @@ echo "meses" . $meses[1];
 			styleText:true
 		})
 
-        displayNotification('MicodeRD',"Hola <?= Yii::$app->user->identity->first_name ?>, Bienvenid@ al dashboard de MicodeRD",'fas fa-check-circle');
+        <?php if (!Yii::$app->user->isGuest): ?>
+        	//displayNotification('MicodeRD',"Hola <?//= Yii::$app->user->identity->first_name ?>, Bienvenid@ al dashboard de MicodeRD",'fas fa-check-circle');
+	
+		<?php endif ?>
 
 	},1000)
 
 
 </script>
+

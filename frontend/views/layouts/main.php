@@ -280,12 +280,7 @@ $user = Yii::$app->user->identity;
                         </a>
                         
                     </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/servicios/calendario">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>Calendario</p>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="/frontend/web/transacciones">
                             <i class="fas fa-coins"></i>
@@ -312,6 +307,12 @@ $user = Yii::$app->user->identity;
                                 </li>
                             </ul>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/frontend/web/servicios/calendario">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>Calendario</p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="/frontend/web/tarjetas/">
