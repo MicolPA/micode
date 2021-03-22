@@ -13,9 +13,9 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap.min.css',
-        'css/atlantis.min.css?v=4',
+        'css/atlantis.min.css?v=1',
         // 'css/demo.css',
-        'css/site.css?v=1',
+        'css/site.css?v=2',
     ];
     public $js = [
 
@@ -58,7 +58,7 @@ class AppAsset extends AssetBundle
 
         'js/setting-demo.js',
         // 'js/demo.js',
-        'js/main.js?v=2',
+        'js/main.js?v=4',
 
         //Calendar
         'calendar/js/jquery-ui.custom.min.js',
