@@ -63,7 +63,7 @@ class FacturasController extends Controller
             // set to use core fonts only
             'mode' => Pdf::MODE_CORE,
             // A4 paper format
-            'format' => [150.8, 200],
+            'format' => [150.8, 228.6],
             'marginTop' => 0,
             'marginLeft' => 0,
             'marginRight' => 0,
@@ -86,6 +86,8 @@ class FacturasController extends Controller
             'methods' => [
                 'SetHeader'=>[false],
                 'SetFooter'=>[false],
+                'SetWatermarkText' => ['DRAFT'],
+                'SetWatermarkImage' => ['/frontend/web/images/figuras.png'],
             ]
         ]);
 

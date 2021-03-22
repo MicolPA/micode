@@ -2,30 +2,34 @@
 
 $servicios = new \common\models\Servicios();
 $total = count($detalles);
-$faltantes = 3 - $total;
+$faltantes = 4 - $total;
 $monto_total = 0;
  ?>
-
-<div style=";height: 200in;padding: 40px">
+<img src="/frontend/web/images/formas-top.png" width="100%">
+<div style="padding: 0px 40px;">
 	<div style="width: 50%;display:inline-block;float: left;">
+		<!-- <img src="/frontend/web/images/Logo lineal.png" width="180px"> -->
+		<br>
+		<p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;">FACTURA</p>
+	</div>
+
+	<div style="width:50%;display:inline-block;float: left;text-align: right;margin-top: -4rem">
 		<img src="/frontend/web/images/Logo lineal.png" width="180px">
-		<p style="margin-top: 1rem;font-size:12px">
+		<p style="font-size:12px;color:#4f4f4f">
 			MCD by M&G <br>
 			Distrito Nacional, Santo Domingo <br>
 			849-217-0808
 		</p>
+		<br>
+		<!-- <p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;">FACTURA</p> -->
 	</div>
 
-	<div style="width:50%;display:inline-block;float: left;text-align: right;padding-top: 1.5rem">
-		<p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;">FACTURA</p>
-	</div>
-
-	<div style="width: 40%;background:#56dfe4;float: right;text-align: center;margin-bottom: 0rem;margin-top: -1.9rem">
+	<div style="width: 40%;background:#56dfe4;float: left;text-align: center;margin-bottom: 0rem;margin-top: -1.8rem">
 		<p style="font-weight: 300 !important;margin:5px;color:white;font-weight: bold">Fecha: <?= $servicios->formatDate($model->date) ?></p>
 	</div>
 
 	<div style="width: 100%;background: #242335;padding: 6px;margin-top: -0rem">
-		<p style="font-weight: 300 !important;margin:5px;color:white;"><span style="font-weight: bold">Cliente:</span> <?= $model->cliente->empresa . " / " . $model->cliente->representante_nombre ?></p>
+		<p style="font-weight: 300 !important;margin:5px;color:white;"><span style="font-weight: bold">Dirigida a:</span> <?= $model->cliente->representante_nombre .  " (" .$model->cliente->empresa . ")" ?></p>
 		<p style="font-weight: 300 !important;margin:5px;color:white;"><span style="font-weight: bold">Por concepto de:</span> <?= $model->asunto ?></p>
 	</div>
 
@@ -33,8 +37,8 @@ $monto_total = 0;
 		<table class="table table-striped">
 			<thead>
 				<tr style="border: 0px !important">
-					<th style="background: #56dfe4 !important;border: 0px !important">Detalle</th>
-					<th style="background: #56dfe4 !important;border: 0px !important">Total</th>
+					<th style="background: #56dfe4 !important;border: 0px !important;color:#444">Detalle</th>
+					<th style="background: #56dfe4 !important;border: 0px !important;color:#444">Total</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,11 +59,12 @@ $monto_total = 0;
 				<?php endif ?>
 			</tbody>
 			<tr>
-				<th style='padding:20px 10px;background:#242335;color:white'>Total</th>
-				<th style='padding:20px 10px;background:#242335;color:white'><?= number_format($monto_total) ?></th>
+				<th style='padding:20px 10px;background:#56dfe4;color:#444'>Total</th>
+				<th style='padding:20px 10px;background:#56dfe4;color:#444'><?= number_format($monto_total) ?></th>
 			</tr>		
 
 
 		</table>
 	</div>
 </div>
+<img src="/frontend/web/images/formas-bottom.png" width="100%">

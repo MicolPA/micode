@@ -49,6 +49,7 @@ class Facturas extends \yii\db\ActiveRecord
             'id' => 'ID',
             'cliente_id' => 'Empresa',
             'cliente_nombre' => 'Dirigida a:',
+            'asunto' => 'Por concepto de:',
             'total' => 'Total',
             'user_id' => 'Usuario',
             'date' => 'Fecha',
