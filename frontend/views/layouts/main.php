@@ -46,7 +46,12 @@ $user = Yii::$app->user->identity;
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<div id="preloader">
+    <div data-loader="circle-side"></div>
+</div><!-- /Preload -->
+<style>
+    
+</style>
 <div class="wrapper">
     <div class="main-header">
         <!-- Logo Header -->
@@ -309,6 +314,12 @@ $user = Yii::$app->user->identity;
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a href="/frontend/web/facturas">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <p>Facturas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="/frontend/web/servicios/calendario">
                             <i class="fas fa-calendar-alt"></i>
                             <p>Calendario</p>
@@ -333,8 +344,6 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
 
-                    
-                    
                     
                     <li class="nav-item">
                         <a href="widgets.html">

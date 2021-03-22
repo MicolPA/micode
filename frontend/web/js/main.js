@@ -1,3 +1,13 @@
+/* Preload*/
+$(window).on('load', function () { // makes sure the whole site is loaded
+	$('[data-loader="circle-side"]').fadeOut(); // will first fade out the loading animation
+	$('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+	$('body').delay(350).css({
+		'overflow': 'visible'
+	});
+    $('#ajax-loader').hide();
+})
+
 console.log('hola');
 
 jQuery('input[type=file]').change(function(){
@@ -83,3 +93,15 @@ $(".cuenta").bind('keyup', function(){
 $( ".submit" ).click(function() {
   $( "#form" ).submit();
 });
+
+
+function addInvoiceField(n){
+
+	n++;
+	my_function = "javascript:addInvoiceField("+n+")";
+    $('.addInvoice').append($('.invoice').html());
+    $(".addInvoice .descripcion input:last-child").attr('name', 'factura_descripcion['+n+']');
+    $(".addInvoice .precio input:last-child").attr('name', 'factura_precio['+n+']');
+    $(".addInvoice .btn_delete a:last-child").removeClass('disabled');
+    $("#addInvoiceBtn").attr('href', my_function);
+}
