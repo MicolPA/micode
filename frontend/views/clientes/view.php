@@ -38,13 +38,13 @@ $this->title = $model->empresa;
 					</li>
 				</ul>
 				<div class="ml-md-auto py-2 py-md-0">
-					<a class="btn btn-outline-warning text-dark btn-sm" href="#" data-toggle="modal" data-target="#cambiarStatus"><i class="fas fa-exclamation mr-2"></i><span class="text">Cambiar Status</span></a>
-                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-outline-secondary btn-sm']) ?>
-                    <?= Html::a('<i class="fas fa-trash text-danger"></i>', ['delete', 'id' => $model->id], [
+					<a class="btn btn-warning btn-sm" href="#" data-toggle="modal" data-target="#cambiarStatus"><i class="fas fa-exclamation mr-2"></i><span class="text">Cambiar Status</span></a>
+                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-dark btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-trash text-white"></i>', ['delete', 'id' => $model->id], [
                             'data' => [
                                 'confirm' => '¿Está seguro/a que desea eliminar este registro?',
                                 'method' => 'post',
-                            ], 'class' => 'btn btn-outline-danger btn-sm'
+                            ], 'class' => 'btn btn-danger btn-sm'
                         ]); ?>
                 </div>
 			</div>

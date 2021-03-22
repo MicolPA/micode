@@ -79,10 +79,12 @@ class ClientesController extends Controller
                 mkdir($path, 0777, true);
             }
 
-            $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
-            $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') .".". $model->logo_url->extension;
-            $model->logo_url->saveAs($imagen);
-            $model->logo_url = $imagen;
+            if (UploadedFile::getInstance($model, 'logo_url')) {
+                $model->logo_url = UploadedFile::getInstance($model, 'logo_url');
+                $imagen = $path . 'logo-' . str_replace($model->dominio, '.', '-') .".". $model->logo_url->extension;
+                $model->logo_url->saveAs($imagen);
+                $model->logo_url = $imagen;
+            }
 
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
@@ -129,7 +131,7 @@ class ClientesController extends Controller
             }
 
             $model->save();
-                Yii::$app->session->setFlash('success', "Cliente modificado correctamente");
+            Yii::$app->session->setFlash('success', "Cliente modificado correctamente");
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
 

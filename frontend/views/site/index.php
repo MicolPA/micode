@@ -89,7 +89,7 @@
                 </div>
                 
                 <div class="col-sm-6 col-md-3">
-                    <div class="card card-stats card-success card-round">
+                    <div class="card card-stats card-danger card-round">
                         <div class="card-body ">
                             <div class="row">
                                 <div class="col-5">
@@ -171,7 +171,7 @@
                                         <i class="fas fa-laptop fa-lg"></i>
                                     </div>
                                     <div class="flex-1 pt-1 ml-2">
-                                        <p class="text-white font-weight-bold h4"><?= $serv->nombre ?></p>
+                                        <p class="text-white font-weight-bold h5"><?= $serv->nombre ?></p>
                                     </div>
                                     <div class="d-flex ml-auto align-items-center">
                                         <h3 class="text-white fw-bold">+<?= number_format($count) ?></h3>
