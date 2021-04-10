@@ -60,7 +60,7 @@ $monto_total = 0;
 			</tbody>
 			<tr>
 				<th style='padding:20px 10px;background:#56dfe4;color:#444'>Total</th>
-				<th style='padding:20px 10px;background:#56dfe4;color:#444'><?= number_format($monto_total) ?></th>
+				<th style='padding:20px 10px;background:#56dfe4;color:#444'>RD$<?= number_format($monto_total,2) ?></th>
 			</tr>		
 
 
