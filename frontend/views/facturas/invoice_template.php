@@ -46,7 +46,7 @@ $monto_total = 0;
 					<?php $monto_total += $d->precio ?>
 					<tr>
 						<td style='padding:20px 10px'><?= $d->descripcion ?></td>
-						<td style='padding:20px 10px'><?= number_format($d->precio) ?></td>
+						<td style='padding:20px 10px'>$<?= number_format($d->precio,2) ?></td>
 					</tr>
 				<?php endforeach ?>
 				<?php if ($faltantes > 0): ?>
