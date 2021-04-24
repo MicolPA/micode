@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $cliente_nombre
  * @property int|null $total
  * @property int|null $user_id
+ * @property int|null $cotizacion
  * @property string|null $date
  *
  * @property Clientes $cliente
@@ -33,7 +34,7 @@ class Facturas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cliente_id', 'total', 'user_id'], 'integer'],
+            [['cliente_id', 'total', 'user_id', 'cotizacion'], 'integer'],
             [['date'], 'safe'],
             [['cliente_nombre', 'asunto'], 'string', 'max' => 255],
             [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clientes::className(), 'targetAttribute' => ['cliente_id' => 'id']],
@@ -53,6 +54,7 @@ class Facturas extends \yii\db\ActiveRecord
             'total' => 'Total',
             'user_id' => 'Usuario',
             'date' => 'Fecha',
+            'cotizacion' => 'Cotización',
         ];
     }
 

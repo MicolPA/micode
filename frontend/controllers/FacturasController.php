@@ -121,7 +121,7 @@ class FacturasController extends Controller
 
     function registerInvoiceDetail($post, $model){
 
-        for ($i = 0; $i <= count($post['factura_descripcion']); $i++) {
+        for ($i = -1; $i <= count($post['factura_descripcion']); $i++) {
             
             if (isset($post['factura_descripcion'][$i])) {
 

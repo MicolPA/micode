@@ -98,10 +98,11 @@ $( ".submit" ).click(function() {
 function addInvoiceField(n){
 
 	n++;
+	console.log(n);
 	my_function = "javascript:addInvoiceField("+n+")";
     $('.addInvoice').append($('.invoice').html());
-    $(".addInvoice .descripcion input:last-child").attr('name', 'factura_descripcion['+n+']');
-    $(".addInvoice .precio input:last-child").attr('name', 'factura_precio['+n+']');
-    $(".addInvoice .btn_delete a:last-child").removeClass('disabled');
+    $(".addInvoice .row:last-child .descripcion input:last-child").attr('name', 'factura_descripcion['+n+']');
+    $(".addInvoice .row:last-child .precio input:last-child").attr('name', 'factura_precio['+n+']');
+    $(".addInvoice .row:last-child .btn_delete a:last-child").removeClass('disabled');
     $("#addInvoiceBtn").attr('href', my_function);
 }

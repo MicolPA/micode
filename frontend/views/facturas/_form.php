@@ -17,4 +17,7 @@ use yii\helpers\ArrayHelper;
         <!-- <?//= $form->field($model, 'cliente_nombre')->textInput(['maxlength' => true]) ?> -->
         <?= $form->field($model, 'asunto')->textInput(['maxlength' => true, 'required' => 'required']) ?>
 
+        <?= $form->field($model, 'cotizacion')->radioList([1=>'Cotización', 2 => 'Factura'])->label(false); ?>
+
+
 </div>

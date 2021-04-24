@@ -10,7 +10,7 @@ $monto_total = 0;
 	<div style="width: 50%;display:inline-block;float: left;">
 		<!-- <img src="/frontend/web/images/Logo lineal.png" width="180px"> -->
 		<br>
-		<p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;">FACTURA</p>
+		<p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;"><?= $model->cotizacion ? "COTIZACIÓN" : "FACTURA" ?></p>
 	</div>
 
 	<div style="width:50%;display:inline-block;float: left;text-align: right;margin-top: -4rem">
