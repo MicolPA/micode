@@ -2,7 +2,7 @@
 
 $servicios = new \common\models\Servicios();
 $total = count($detalles);
-$faltantes = 4 - $total;
+$faltantes = 5 - $total;
 $monto_total = 0;
  ?>
 <img src="/frontend/web/images/formas-top.png" width="100%">
