@@ -39,7 +39,8 @@ $this->title = $model->empresa;
 				</ul>
 				<div class="ml-md-auto py-2 py-md-0">
 					<a class="btn btn-warning btn-sm" href="#" data-toggle="modal" data-target="#cambiarStatus"><i class="fas fa-exclamation mr-2"></i><span class="text">Cambiar Status</span></a>
-                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-dark btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-plus mr-1"></i> Factura', ['facturas/registrar', 'cliente_id' => $model->id], ['class' => 'btn btn-dark btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-pencil-alt"></i>', ['editar', 'id' => $model->id], ['class' => 'btn btn-success btn-sm']) ?>
                     <?= Html::a('<i class="fas fa-trash text-white"></i>', ['delete', 'id' => $model->id], [
                             'data' => [
                                 'confirm' => '¿Está seguro/a que desea eliminar este registro?',
@@ -92,6 +93,9 @@ $this->title = $model->empresa;
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-anotaciones-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-sticky-note mr-2"></i> Anotaciones</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-facturas-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-file-invoice-dollar mr-2"></i> Facturas</a>
 								</li>
 							</ul>
 							<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
@@ -153,6 +157,13 @@ $this->title = $model->empresa;
 											</div>
 										</div>
 									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-facturas-nobd" role="tabpanel" aria-labelledby="pills-anotaciones-tab-nobd">
+									<ol class="activity-feed">
+										<?php foreach ($facturas as $factura): ?>
+                    					<p><?= Html::a("<i class='fas fa-link mr-1'></i> $factura->asunto <i class='fas fa-external-link-alt fa-xs ml-2'></i>", ['facturas/ver', 'id' => $factura->id], ['target' => '_blank']) ?></p>
+										<?php endforeach ?>
+		                            </ol>
 								</div>
 								
 							</div>

@@ -44,6 +44,7 @@ $this->title = 'Registrar Factura';
 							<?= $this->render('_form', [
 						        'form' => $form,
 						        'model' => $model,
+            					'cliente_id' => $cliente_id,
 						    ]) ?>
 							
 						</div>

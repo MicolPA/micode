@@ -56,11 +56,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         ], 
                         [
                             'format' => 'raw',
-                            'attribute' => 'cliente_nombre',
+                            'attribute' => 'asunto',
                         ],
+                        
                         [
-                            'label' => 'Total',
-                            'attribute' => 'total',
+                            'label' => 'Tipo',
+                            'attribute' => 'cotizacion',
+                            'value' => function($data){
+                                return $data->cotizacion == 1 ? "Cotización" : "Factura";
+                            }
+                        ],
+
+                        [
+                            'label' => 'Fecha',
+                            'attribute' => 'date',
                         ],
 
                         

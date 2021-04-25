@@ -100,7 +100,7 @@ class FacturasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar()
+    public function actionRegistrar($cliente_id=null)
     {
         $model = new Facturas();
         $post = Yii::$app->request->post();
@@ -115,6 +115,7 @@ class FacturasController extends Controller
         }
 
         return $this->render('create', [
+            'cliente_id' => $cliente_id,
             'model' => $model,
         ]);
     }
@@ -143,16 +144,17 @@ class FacturasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEditar($id)
     {
         $model = $this->findModel($id);
-
+        $detalles = FacturasDetalle::find()->where(['factura_id' => $id])->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'detalles' => $detalles,
         ]);
     }
 
