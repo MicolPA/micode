@@ -34,9 +34,9 @@ class Facturas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cliente_id', 'total', 'user_id', 'cotizacion'], 'integer'],
+            [['cliente_id', 'total', 'user_id', 'cotizacion', 'pagada'], 'integer'],
             [['date'], 'safe'],
-            [['cliente_nombre', 'asunto'], 'string', 'max' => 255],
+            [['cliente_nombre', 'asunto', 'moneda'], 'string', 'max' => 255],
             [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clientes::className(), 'targetAttribute' => ['cliente_id' => 'id']],
         ];
     }
