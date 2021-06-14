@@ -52,7 +52,7 @@ class FacturasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionVer($id)
+    public function actionVerOld($id)
     {
         $model = $this->findModel($id);
         $detalle = FacturasDetalle::find()->where(['factura_id' => $model->id])->all();
@@ -94,6 +94,49 @@ class FacturasController extends Controller
         // return the pdf output as per the destination setting
         return $pdf->render();
     }
+    public function actionVer($id)
+    {
+        $model = $this->findModel($id);
+        $detalle = FacturasDetalle::find()->where(['factura_id' => $model->id])->all();
+        $content = $this->renderPartial('invoice_template-white',['model' => $model, 'detalles' => $detalle]);
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            // 'format' => Pdf::FORMAT_A4, 
+            'format' => [200.8, 228.6],  
+            'marginTop' => 0,
+            'marginLeft' => 10,
+            'marginRight' => 10,
+            'marginBottom' => 10,
+            // 'format' => Pdf::FORMAT_LETTER,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/src/assets/kv-mpdf-bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Sysgel Reporte'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader'=>[false],
+                'SetFooter'=>[false],
+                'SetWatermarkText' => ['DRAFT'],
+                'SetWatermarkImage' => ['/frontend/web/images/figuras.png'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+    }
 
     /**
      * Creates a new Facturas model.
@@ -106,10 +149,14 @@ class FacturasController extends Controller
         $post = Yii::$app->request->post();
         if ($model->load($post)) {
 
-            print_r($post);
-            $model->date = date("Y-m-d H:i:s");
+            // print_r($post);
+            $model->pagada = isset($model->pagada[0]) ? $model->pagada[0] : 0;
+            // $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
-            $model->save();
+            if (!$model->save()) {
+                print_r($model->errors);
+                exit;
+            }
             $this->registerInvoiceDetail($post, $model);
             return $this->redirect(['ver', 'id' => $model->id]);
         }

@@ -185,6 +185,12 @@ $user = Yii::$app->user->identity;
                                                 <span class="text">Agregar Cliente</span>
                                             </div>
                                         </a>
+                                        <a class="col-6 col-md-4 p-0" href="/frontend/web/facturas/registrar">
+                                            <div class="quick-actions-item">
+                                                <i class="flaticon-agenda"></i>
+                                                <span class="text">Registrar Factura</span>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

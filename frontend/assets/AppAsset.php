@@ -57,8 +57,9 @@ class AppAsset extends AssetBundle
         'js/atlantis.min.js',
 
         'js/setting-demo.js',
+        
         // 'js/demo.js',
-        'js/main.js?v=6',
+        'js/main.js?v=7',
 
         //Calendar
         'calendar/js/jquery-ui.custom.min.js',

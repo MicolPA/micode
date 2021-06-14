@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'method' => 'post',
                                     ],
                                 ]);
-                                return "$view $delete";
+                                return "$view $update $delete";
                             },
                         ],  
 

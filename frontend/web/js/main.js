@@ -106,3 +106,15 @@ function addInvoiceField(n){
     $(".addInvoice .row:last-child .btn_delete a:last-child").removeClass('disabled');
     $("#addInvoiceBtn").attr('href', my_function);
 }
+
+$('.field-facturas-pagada input').change(function() {
+        if(this.checked) {
+        	$(".div_fecha_pago input").prop('required', 'required');
+        	$(".div_fecha_pago").show();
+        }else{
+        	$(".div_fecha_pago").hide();
+        	$(".div_fecha_pago input").prop('required', 'false');
+
+        }
+        // alert(this.checked);        
+    });
