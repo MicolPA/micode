@@ -59,7 +59,7 @@ class Clientes extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'pago_mensual' => 'Pago Mensual',
-            'empresa' => 'Nombre de la empresa',
+            'empresa' => 'Empresa',
             'dominio' => 'Dominio',
             'logo_url' => 'Imagen del Logo',
             'representante_nombre' => 'Nombre del representante',

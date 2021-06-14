@@ -89,6 +89,17 @@ label[for="inputfile"] {
   font-weight: bold !important;
 }
 
+.grid-view table{
+  background: white;
+}
+
+.grid-view table td, .grid-view table th{
+  font-size: 15px !important;
+}
+
+.fc-event-title{
+  color: black;
+}
 
 /*-------- Preloader --------*/
 #preloader {

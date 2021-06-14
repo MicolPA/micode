@@ -15,7 +15,7 @@ class AppAsset extends AssetBundle
         'css/bootstrap.min.css',
         'css/atlantis.min.css?v=1',
         // 'css/demo.css',
-        'css/site.css?v=3',
+        'css/site.css?v=4',
     ];
     public $js = [
 
@@ -57,7 +57,7 @@ class AppAsset extends AssetBundle
         'js/atlantis.min.js',
 
         'js/setting-demo.js',
-        
+
         // 'js/demo.js',
         'js/main.js?v=7',
 

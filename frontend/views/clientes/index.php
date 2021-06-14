@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                             'value' => function($data){
                                 $url = '"/clientes/perfil?id='. $data->id .'"';
-                                $btn = "<a href='javascript:addImporte($data->id, $url)' class='btn btn-primary btn-round btn-sm'>Registrar Importe</a>";
+                                $btn = "<a href='javascript:addImporte($data->id, $url)' class='badge bg-primary text-white btn-round btn-sm'>Registrar Importe</a>";
 
                                 return $btn;
                             }
