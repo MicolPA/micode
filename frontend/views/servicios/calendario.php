@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Servicios */
 
-$clientes = \frontend\models\Clientes::find()->where(['<>', 'status',  1])->andWhere(['<>', 'status',  5])->all();
+$clientes = \frontend\models\Clientes::find()->where(['status' => 2])->all();
 
 $this->title = 'Calendario';
 ?>
