@@ -11,12 +11,14 @@ $(window).on('load', function () { // makes sure the whole site is loaded
 console.log('hola');
 
 jQuery('input[type=file]').change(function(){
- var filename = jQuery(this).val().split('\\').pop();
- var idname = jQuery(this).attr('id');
- console.log(jQuery(this));
- console.log(filename);
- console.log(idname);
- jQuery('span.'+idname).next().find('span').html(filename);
+	console.log('aqui');
+ 	var filename = jQuery(this).val().split('\\').pop();
+ 	var idname = jQuery(this).attr('id');
+ 	console.log(jQuery(this));
+ 	console.log(filename);
+ 	console.log(idname);
+ 	jQuery('div.field-'+idname+' label').html("<span class='text-success'>CARGADA</span>");
+ 	// jQuery('div.field-'+idname+' label').attr("style", 'padding-left:1rem !important;padding-right: 1rem !important');
 });
 
 function displayNotification(title, message, icon, url='#'){
@@ -48,7 +50,7 @@ function displayNotification(title, message, icon, url='#'){
 }
 
 
-function addImporte(cliente=null, view){
+function addImporte(cliente=null, view, colaborador=null){
 	swal("¿Qué tipo de importe desea registrar?",{
 	  buttons: {
 	  	'ingresos': {
@@ -67,6 +69,9 @@ function addImporte(cliente=null, view){
 		if (value) {
 			if (cliente) {
 				window.location = '/frontend/web/transacciones/registrar?cliente='+cliente+'&tipo='+value+'&view='+view;
+			}else{
+				window.location = '/frontend/web/transacciones/registrar?cliente='+cliente+'&tipo='+value+'&view='+view+'&colaborador_id='+colaborador;
+
 			}
 		}
 	});
@@ -108,13 +113,23 @@ function addInvoiceField(n){
 }
 
 $('.field-facturas-pagada input').change(function() {
-        if(this.checked) {
-        	$(".div_fecha_pago input").prop('required', 'required');
-        	$(".div_fecha_pago").show();
-        }else{
-        	$(".div_fecha_pago").hide();
-        	$(".div_fecha_pago input").prop('required', 'false');
+    if(this.checked) {
+    	$(".div_fecha_pago input").prop('required', 'required');
+    	$(".div_fecha_pago").show();
+    }else{
+    	$(".div_fecha_pago").hide();
+    	$(".div_fecha_pago input").prop('required', 'false');
 
-        }
-        // alert(this.checked);        
-    });
+    }
+    // alert(this.checked);        
+});
+
+$('#colaborador_select').change(function() {
+    if($(this).val()) {
+    	$(".dolab_amount_div").show();
+    }else{
+    	$(".dolab_amount_div").hide();
+
+    }
+    // alert(this.checked);        
+});

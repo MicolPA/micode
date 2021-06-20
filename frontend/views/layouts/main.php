@@ -299,6 +299,12 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="/frontend/web/colaboradores">
+                            <i class="fas fa-users"></i>
+                            <p>Colaboradores</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a data-toggle="collapse" href="#charts">
                             <i class="far fa-chart-bar"></i>
                             <p>Reportes</p>

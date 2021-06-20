@@ -3,6 +3,35 @@ body {
     height: 100%;
 }
 
+.text-gray{
+  color: #575962;
+  text-decoration: none;
+}
+
+.colab-plus a:hover{
+  text-decoration: none;
+  color: #606060;
+}
+
+.colab-plus a div:hover{
+  background: #dedede !important;
+}
+
+.div-colab:hover{
+  opacity: 0.48;
+}
+
+.badge-sm{
+  border-radius: 50px;
+    margin-left: auto;
+    line-height: 1;
+    padding: 1px 10px;
+    vertical-align: middle;
+    font-weight: 400;
+    font-size: 11px;
+    border: 1px solid #ddd;
+}
+
 label, th, td{
     font-size: 16px !important;
     margin-right: 10px;
@@ -99,6 +128,25 @@ label[for="inputfile"] {
 
 .fc-event-title{
   color: black;
+}
+
+.position-bottom{
+  position:absolute; /*El div será ubicado con relación a la pantalla*/
+  left:0px; /*A la derecha deje un espacio de 0px*/
+  right:0px; /*A la izquierda deje un espacio de 0px*/
+  bottom:0px; /*Abajo deje un espacio de 0px*/
+  height:50px; /*alto del div*/
+  z-index:0;
+  height: 50px;
+}
+
+.div-gradient{
+    min-height:100px;
+    margin-top: -100px;
+    padding-top: 2rem;
+    /* background: linear-gradient(63deg, rgba(4,2,54,1) 0%, rgba(195,200,203,1) 60%); */
+    background: linear-gradient(rgba(26, 32, 37, 0) 0px, rgba(26, 32, 37, 0.07) 3%, rgba(26, 32, 37, 0.14) 6%, rgba(26, 32, 37, 0.21) 9%, rgba(26, 32, 37, 0.28) 12%, rgba(26, 32, 37, 0.35) 15%, rgba(26, 32, 37, 0.42) 18%, rgba(26, 32, 37, 0.49) 21%, rgba(26, 32, 37, 0.56) 24%, rgba(26, 32, 37, 0.63) 100%, rgba(26, 32, 37, 0.7) 100%, rgba(26, 32, 37, 0.77) 100%);
+
 }
 
 /*-------- Preloader --------*/

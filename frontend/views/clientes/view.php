@@ -109,15 +109,30 @@ $this->title = $model->empresa;
 								<div class="tab-pane fade" id="pills-profile-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
 									<ol class="activity-feed">
 										<?php foreach ($pagos as $pago): ?>
-											<?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
-											<li class="feed-item feed-item-<?= $class ?>">
-			                                    <div class="col-md-8">
-			                                    	<time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-			                                    	<span class="text"><?= $pago->tipo->nombre ?> <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $pago->servicioExtra->nombre ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
-			                                    </div>
-			                                </li>	
-										<?php endforeach ?>
-		                            </ol>
+                          <?php 
+                              $text = $pago->tipo->nombre;
+                              $text2 = $pago->servicioExtra->nombre;
+                           ?>
+                          <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
+                          <li class="feed-item feed-item-<?= $class ?>">
+                              <div class="col-md-8">
+                                  <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
+                                  <span class="text">
+                                      <?= $text . ' por conceptop de: ' ?> 
+                                      <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
+                                          <?= $pago->servicioExtra->nombre ?>
+                                              <?php if ($pago->concepto): ?>
+                                                  <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                                    <i class="ml-2 fas fa-comment-dots"></i>
+                                                  </a>
+                                              <?php endif ?>
+                                          </a> 
+                                          <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
+                                  </span>
+                              </div>
+                          </li>   
+                      <?php endforeach ?>
+                  </ol>
 								</div>
 
 								<div class="tab-pane fade" id="pills-anotaciones-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">

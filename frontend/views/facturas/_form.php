@@ -44,7 +44,7 @@ use yii\helpers\ArrayHelper;
                 <?= $form->field($model, 'cotizacion')->radioList([1 =>'Cotización', 0 => 'Factura'])->label(false); ?>
         </div>
         <div class="col-md-4">
-                <?= $form->field($model, 'moneda')->radioList(['RD' =>'DOP', 'US' => 'US'])->label(false); ?>
+                <?= $form->field($model, 'moneda')->radioList(['RD' =>'DOP', 'USD' => 'USD'])->label(false); ?>
         </div>
 </div>
 

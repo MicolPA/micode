@@ -43,7 +43,7 @@ class Servicios extends Model {
             }
         }
 
-        if ($just_one == 2) {
+        if ($just_one == 2) { 
             return $last_split;   
         }
         if ($just_one == 1) {
@@ -67,7 +67,7 @@ class Servicios extends Model {
         if ($type == 1) {
             return "$nombreMes $day, $year";
         }else{
-            return "$day $nombreMes, $year";
+            return "$day de $nombreMes";
         }
     }
 

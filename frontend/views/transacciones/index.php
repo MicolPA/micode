@@ -91,7 +91,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 }
 
                                              ?>
-                                            <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $text2 ?></a> <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span> </span>
+                                            <span class="text">
+                                                <?= $text . ' por conceptop de: ' ?> 
+                                                <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
+                                                    <?= $pago->servicioExtra->nombre ?>
+                                                    <?php if ($pago->concepto): ?>
+                                                        <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                                            <i class="ml-2 fas fa-comment-dots"></i>
+                                                        </a>
+                                                    <?php endif ?>
+                                                </a> 
+                                                <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
+                                          </span>
                                         </div>
                                     </li>   
                                 <?php endforeach ?>

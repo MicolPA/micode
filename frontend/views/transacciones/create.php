@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					        'model' => $model,
             				'cuentas' => $cuentas,
 					        'cliente_info' => $cliente_info,
+            				'colaborador_id' => $colaborador_id,
 					    ]) ?>
 						
 					</div>

@@ -72,7 +72,7 @@ class TransaccionesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar($cliente=null, $tipo, $view)
+    public function actionRegistrar($cliente=null, $tipo, $view, $colaborador_id=null)
     {
         $model = new Transacciones();
         $cuentas = Tarjetas::find()->all();
@@ -81,11 +81,12 @@ class TransaccionesController extends Controller
         $model->tipo_id = $tipo;
         if ($model->load($post)) {
             $model->cliente_id = $cliente;
+            $model->colaborador = $colaborador_id ? 1 : 0;
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
             $model->save();
 
-            $this->registrarDetalle($post, $cuentas, $model);
+            $this->registrarDetalle($post, $cuentas, $model, $colaborador_id);
             Yii::$app->session->setFlash('success', "Transacción registrada correctamente");
             $this->redirect([$view]);
             // return $this->redirect(['view', 'id' => $model->id]);
@@ -95,10 +96,11 @@ class TransaccionesController extends Controller
             'model' => $model,
             'cuentas' => $cuentas,
             'cliente_info' => $cliente_info,
+            'colaborador_id' => $colaborador_id,
         ]);
     }
 
-    function registrarDetalle($post, $cuentas, $model){
+    function registrarDetalle($post, $cuentas, $model, $colaborador_id=null){
 
         foreach ($cuentas as $cuenta) {
 
@@ -129,7 +131,29 @@ class TransaccionesController extends Controller
                 }
             }
         }
+        if (isset($post['colaborador_amount'])) {
+            $this->registrarImporteColaborador($colaborador_id, $post['colaborador_amount'], $model);
+        }
 
+    }
+
+    function registrarImporteColaborador($colaborador_id, $amount, $model){
+        if ($amount) {
+            $transaccion = new TransaccionesDetalle();
+            $transaccion->tarjeta_id = null;
+            $transaccion->transaccion_id = $model->id;
+            $transaccion->fecha_pago = $model->fecha_pago;
+            $transaccion->cliente_id = $model->cliente_id;
+            $transaccion->total = $amount;
+            $transaccion->tipo_id = $model->tipo_id;
+            $transaccion->colaborador_id = $colaborador_id;
+            $transaccion->user_id = Yii::$app->user->identity->id;
+            $transaccion->date = date("Y-m-d H:i:s");
+            if (!$transaccion->save()) {
+                print_r($transaccion->errors);
+                exit;
+            }
+        }
     }
 
     /**

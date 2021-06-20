@@ -15,7 +15,7 @@ class AppAsset extends AssetBundle
         'css/bootstrap.min.css',
         'css/atlantis.min.css?v=1',
         // 'css/demo.css',
-        'css/site.css?v=4',
+        'css/site.css?v=5',
     ];
     public $js = [
 
@@ -59,7 +59,7 @@ class AppAsset extends AssetBundle
         'js/setting-demo.js',
 
         // 'js/demo.js',
-        'js/main.js?v=7',
+        'js/main.js?v=8',
 
         //Calendar
         'calendar/js/jquery-ui.custom.min.js',
