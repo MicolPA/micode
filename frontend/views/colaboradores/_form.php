@@ -20,6 +20,12 @@ use yii\widgets\ActiveForm;
             <div class="col-md-6">
                 <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
             </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'celular')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            </div>
 
             <div class="col-md-6">
                 <?= $form->field($model, 'fecha_nacimiento')->textInput(['type' => 'date']) ?>
