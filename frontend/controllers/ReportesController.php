@@ -12,19 +12,30 @@ class ReportesController extends \yii\web\Controller
 		$from = date("d-m-Y",strtotime(date("d-m-Y")." - 6 month")); 
 		// exit;
 		$meses = $this->get_meses();
-    	$importes['ingresos'] = $this->obtener_ingresos_range(1);
-    	$importes['gastos_produccion'] = $this->obtener_ingresos_range(2);
-    	$importes['gastos_operativos'] = $this->obtener_ingresos_range(3);
+    	$importes['ingresos'] = $this->obtener_ingresos_range(1, $from);
+    	$importes['gastos_produccion'] = $this->obtener_ingresos_range(2, $from);
+    	$importes['gastos_operativos'] = $this->obtener_ingresos_range(3, $from);
         $importes_ganancias = $this->get_ganancias();
+        $data = $this->get_informes_totales();
     	// print_r($importes);
     	// exit;
 
     	// exit;
         return $this->render('index',[
+            'data' => $data,
         	'meses' => $meses,
             'importes' => $importes,
         	'importes_ganancias' => $importes_ganancias,
         ]);
+    }
+
+    function get_informes_totales(){
+
+        $data['ingresos'] = Transacciones::find()->where(['tipo_id' => 1])->sum('total');
+        $data['gastos'] = Transacciones::find()->where(['in', 'tipo_id', array(2,3)])->sum('total');
+        $data['ganancias'] = $data['ingresos'] - $data['gastos'];
+
+        return $data;
     }
 
     function get_importes_tipos(){
@@ -91,9 +102,8 @@ class ReportesController extends \yii\web\Controller
 
     }
 
-    function obtener_ingresos_range($tipo){
+    function obtener_ingresos_range($tipo, $from){
 
-		$from = date("d-m-Y",strtotime(date("d-m-Y")." - 6 month")); 
 		$period = new \DatePeriod(
 			new \DateTime($from),
 			new \DateInterval('P1M'),
