@@ -129,6 +129,7 @@ class ColaboradoresController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success', "Colaborador eliminado correctamente");
         return $this->redirect(['index']);
     }
 
