@@ -102,9 +102,9 @@ $this->title = "$model->nombre $model->apellido";
                                                         <span class="text">
                                                           <?= $text . ' por conceptop de: ' ?> 
                                                           <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
-                                                              <?= $pago->servicioExtra->nombre ?>
-                                                                  <?php if ($pago->concepto): ?>
-                                                                      <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                                              <?= $pago->transaccion->servicioExtra->nombre ?>
+                                                                  <?php if ($pago->transaccion->concepto): ?>
+                                                                      <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->transaccion->concepto ?>">
                                                                         <i class="ml-2 fas fa-comment-dots"></i>
                                                                       </a>
                                                                   <?php endif ?>

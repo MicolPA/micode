@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Transacciones;
+use frontend\models\TransaccionesDetalle;
 
 class ReportesController extends \yii\web\Controller
 {
@@ -32,8 +33,9 @@ class ReportesController extends \yii\web\Controller
     function get_informes_totales(){
 
         $data['ingresos'] = Transacciones::find()->where(['tipo_id' => 1])->sum('total');
-        $data['gastos'] = Transacciones::find()->where(['in', 'tipo_id', array(2,3)])->sum('total');
-        $data['ganancias'] = $data['ingresos'] - $data['gastos'];
+        $data['gastos'] = Transacciones::find()->where(['in', 'tipo_id', array(2,3)])->andWhere(['colaborador' => 0])->sum('total');
+        $data['colaboradores'] = TransaccionesDetalle::find()->andWhere(['>', 'colaborador_id', 0])->sum('total');
+        $data['ganancias'] = $data['ingresos'] - $data['gastos'] - $data['colaboradores'];
 
         return $data;
     }
