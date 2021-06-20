@@ -73,7 +73,7 @@ $get = Yii::$app->request->get();
             </div>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'total')->textInput(['id' => 'total', 'style' => 'background:#f9fbfd;', 'required' => 'required']) ?>
+            <?= $form->field($model, 'total')->textInput(['id' => 'total', 'style' => 'background:#f9fbfd;', 'required' => 'required', 'readonly' => 'readonly']) ?>
         </div>
 
         <div class="col-md-6">

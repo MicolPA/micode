@@ -23,6 +23,8 @@ class m210619_213443_add_new_table_colaboradores extends Migration
             'id' => $this->primaryKey(),
             'nombre' => $this->string(),
             'apellido' => $this->string(),
+            'celular' => $this->string(),
+            'email' => $this->string(),
             'fecha_nacimiento' => $this->date(),
             'fecha_ingreso' => $this->date(),
             'resumen' => $this->text(),
@@ -35,6 +37,7 @@ class m210619_213443_add_new_table_colaboradores extends Migration
 
         // $this->addColumn('{{%transacciones}}', 'colaborador', $this->integer()->defaultValue(0));
         $this->addColumn('{{%transacciones_detalle}}', 'colaborador_id', $this->integer()->defaultValue(null));
+        $this->addColumn('{{%transacciones}}', 'colaborador', $this->integer()->defaultValue(0));
         $this->addForeignKey('colaboradorInfo', '{{%transacciones_detalle}}', 'colaborador_id', '{{%colaboradores}}', 'id', 'CASCADE', 'CASCADE');
     }
 

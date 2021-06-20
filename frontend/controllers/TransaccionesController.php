@@ -40,7 +40,7 @@ class TransaccionesController extends Controller
     {
         $cuentas = Tarjetas::find()->all();
 
-        $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC]);
+        $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC, 'id' => SORT_DESC]);
         $countQuery = clone $query;
         $pagination = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
         $model = $query->offset($pagination->offset)
