@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-md-3 div-colab">
                         <a href="/frontend/web/colaboradores/perfil?id=<?= $model->id ?>">
                             <div class="card">
-                                <div class='border-radius rounded' style="background-image:url(<?= $model->photo_url ?>);height:300px;background-position: center;background-size: cover;">
+                                <div class='border-radius rounded' style="background-image:url(/frontend/web/<?= $model->photo_url ?>);height:300px;background-position: center;background-size: cover;">
                                     <div class="div-gradient position-bottom">
                                         <p class="text-center text-white font-weight-bold"><?= "$model->nombre $model->apellido" ?></p>
                                     </div>

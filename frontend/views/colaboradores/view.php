@@ -81,38 +81,42 @@ $this->title = "$model->nombre $model->apellido";
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title float-left w-20">Historial de pagos</h4>
-                                <a href="#" data-toggle="modal" data-target="#registrarImporteColaborador" class="btn btn-primary btn-round float-right btn-sm" id='alert_demo_5'><i class="fas fa-plus-circle mr-2"></i>Registrar pago</a>
+                            <h4 class="card-title float-left w-20 font-weight-bold">Historial de pagos</h4>
+                                <a href="#" data-toggle="modal" data-target="#registrarImporteColaborador" class="btn btn-primary btn-round float-right btn-sm" id='alert_demo_5'><i class="fas fa-plus-circle mr-2"></i>Registrar Importe</a>
                         </div>
                         <div class="card-body">
                             <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                                 <div class="tab-pane fade show pt-4 active" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
 
                                     <ol class="activity-feed">
-                                        <?php foreach ($pagos as $pago): ?>
-                                            <?php 
-                                                $text = "<span class='font-weight-bold'>". $pago->transaccion->cliente->empresa . "</span>: " . $pago->tipo->nombre;
-                                                $text2 = $pago->transaccion->servicioExtra->nombre;
-                                             ?>
-                                            <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
-                                            <li class="feed-item feed-item-<?= $class ?>">
-                                                <div class="col-md-8">
-                                                    <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
-                                                    <span class="text">
-                                                      <?= $text . ' por conceptop de: ' ?> 
-                                                      <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
-                                                          <?= $pago->servicioExtra->nombre ?>
-                                                              <?php if ($pago->concepto): ?>
-                                                                  <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
-                                                                    <i class="ml-2 fas fa-comment-dots"></i>
-                                                                  </a>
-                                                              <?php endif ?>
-                                                          </a> 
-                                                          <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
-                                                  </span>
-                                                </div>
-                                            </li>   
-                                        <?php endforeach ?>
+                                        <?php if (count($pagos) > 0): ?>
+                                            <?php foreach ($pagos as $pago): ?>
+                                                <?php 
+                                                    $text = "<span class='font-weight-bold'>". $pago->transaccion->cliente->empresa . "</span>: " . $pago->tipo->nombre;
+                                                    $text2 = $pago->transaccion->servicioExtra->nombre;
+                                                 ?>
+                                                <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
+                                                <li class="feed-item feed-item-<?= $class ?>">
+                                                    <div class="col-md-8">
+                                                        <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
+                                                        <span class="text">
+                                                          <?= $text . ' por conceptop de: ' ?> 
+                                                          <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
+                                                              <?= $pago->servicioExtra->nombre ?>
+                                                                  <?php if ($pago->concepto): ?>
+                                                                      <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                                                        <i class="ml-2 fas fa-comment-dots"></i>
+                                                                      </a>
+                                                                  <?php endif ?>
+                                                              </a> 
+                                                              <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
+                                                      </span>
+                                                    </div>
+                                                </li>   
+                                            <?php endforeach ?>
+                                        <?php else: ?>
+                                            <p class="text-center font-weight-bold h3"><?= "$model->nombre $model->apellido no tiene transacciones" ?></p>
+                                        <?php endif ?>
                                     </ol>
 
                                 </div>

@@ -80,7 +80,7 @@ $this->title = $model->empresa;
 				<div class="col-md-12">
 					<div class="card">
 						<div class="card-header">
-							<h4 class="card-title float-left w-20">Información</h4>
+							<h4 class="card-title float-left w-20 font-weight-bold">Información</h4>
 								<a href="javascript:addImporte(<?= $model->id ?>, '/clientes/perfil?id=<?= $model->id ?>')" class="btn btn-primary btn-round float-right btn-sm" id='alert_demo_5'><i class="fas fa-plus-circle mr-2"></i>Registrar Importe</a>
 						</div>
 						<div class="card-body">
