@@ -107,13 +107,18 @@
 							data_event = guardarEvento($(input_name).val(), fecha.substr(0,10), $(input_time).val(), $(select_cliente).val());
 							console.log(data_event);
 							// if (data_event != undefined) {
+								// calendar.fullCalendar('renderEvent',{
+					   //              title: $(input_name).val(),
+					   //              start: data_event,
+								// 	className: 'info rounded',
+					   //              allDay: true
+					   //            });
 								calendar.fullCalendar('renderEvent',{
 					                title: $(input_name).val(),
-					                start: data_event,
+					                start: fecha,
 									className: 'info rounded',
 					                allDay: true
 					              });
-								
 								calendar.fullCalendar('renderEvent',{
 					                title: 'Este es mi evento',
 					                start: '2021-06-03',
