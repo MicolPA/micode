@@ -297,7 +297,7 @@ class SiteController extends Controller
 
     public function actionGuardarEvento(){
 
-        if (Yii::$app->request->isAjax) {
+        // if (Yii::$app->request->isAjax) {
 
             $post = Yii::$app->request->get();
             $day = substr($post['fecha'], -2);
@@ -315,7 +315,7 @@ class SiteController extends Controller
             $evento->date = date("Y-m-d H:i:s");
             $evento->save(false);
             return \yii\helpers\Json::encode($evento);
-        }
+        // }
 
     }
 
