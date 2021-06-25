@@ -5,7 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Servicios */
 
-$clientes = \frontend\models\Clientes::find()->where(['status' => 2])->all();
+$clientes = \frontend\models\Clientes::find()->where(['in', 'status',  array(2,4,3)])->all();
+$eventos = \frontend\models\Eventos::find()->all();
 
 $this->title = 'Calendario';
 ?>
@@ -42,7 +43,8 @@ $this->title = 'Calendario';
 							<div class="card-title"><?//= Html::encode($this->title) ?></div>
 						</div> -->
 						<?= $this->render('_calendario', [
-							'clientes' => $clientes
+							'eventos' => $eventos,
+							'clientes' => $clientes,
 					    ]) ?>
 						
 					</div>

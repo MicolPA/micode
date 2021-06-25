@@ -68,23 +68,62 @@
 	            titleFormat: {
 	                month: 'MMMM yyyy', // September 2009
 	                week: "MMMM yyyy", // September 2009
-	                day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
+	                day: 'MMMM yyyy'  // Tuesday, Sep 8, 2009
 	            },
 				allDaySlot: false,
 				selectHelper: true,
 				select: function(start, end, allDay) {
-					var title = prompt('Event Title:');
-					if (title) {
-						calendar.fullCalendar('renderEvent',
-							{
-								title: title,
-								start: start,
-								end: end,
-								allDay: allDay
-							},
-							true // make the event "stick"
-						);
-					}
+					fecha = end.toString();
+					input_time = document.createElement('input');
+					$(input_time).attr('type', 'time');
+					$(input_time).attr('class', 'form-control');
+
+					select_cliente = document.createElement('select');
+					$(select_cliente).attr('class', 'form-control mt-2');
+					<?php foreach ($clientes as $c): ?>
+						$(select_cliente).prepend('<option value="<?= $c->id ?>" selected><?= $c->empresa ?></option>');
+					<?php endforeach ?>
+					$(select_cliente).prepend('<option value="" selected>Seleccionar cliente</option>');
+
+					input_name = document.createElement('input');
+					$(input_name).attr('type', 'text');
+					$(input_name).attr('class', 'form-control mt-2 mb-2 border-primary');
+					$(input_name).attr('placeholder', 'Nombre del evento');
+
+					div = document.createElement('div');
+					$(div).append($(input_name));
+					$(div).append($(input_time));
+					$(div).append($(select_cliente));
+
+					swal("Datos del evento", {
+						content: div,
+					  	buttons: true
+					})
+					.then((value) => {
+					  if (value) {
+					  	console.log($(input_time).val());
+					  	if ($(input_time).val() && $(input_name).val()) {
+					  		console.log($(input_time).val());
+							guardarEvento($(input_name).val(), fecha.substr(0,10), $(input_time).val(), $(select_cliente).val())
+
+					  	}else{
+    						swal("Alerta", 'Favor llenar todos los campos', "warning");
+
+					  	}
+					  }
+					});
+					// var title = prompt('Event Title:');
+					// if (title) {
+					// 	calendar.fullCalendar('renderEvent',
+					// 		{
+					// 			title: title,
+					// 			start: start,
+					// 			end: end,
+					// 			allDay: allDay
+					// 		},
+					// 		true // make the event "stick"
+					// 	);
+					// }
 					calendar.fullCalendar('unselect');
 				},
 				droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -113,15 +152,29 @@
 				},
 
 				events: [
+				<?php $url = Yii::getAlias("@web"); ?>
+					<?php foreach ($eventos as $e): ?>
+						{
+							id: 	'<?= $e->id ?>',
+							title: 	'<?= $e->nombre ?>',
+							start: '<?= $e->event_date ?>',
+							allDay: true,
+							className: 'info rounded',
+							url: 'javascript:borrarEvento(<?= $e->id ?>, "<?= $url ?>")'
+						},
+					<?php endforeach ?>	
 					<?php foreach ($clientes as $c): ?>
 						<?php 
 						// echo date("Y-m-d");
 							$fecha_proxima = date("Y-m-d",strtotime($c->fecha_comienzo."+ $c->tiempo_estimado weeks"));
-							if ($fecha_proxima < date("Y-m-d")) {
-								$fecha_proxima = date("Y-m-d");
+							if ($c->fecha_finalizacion) {
+								$fecha_proxima = $c->fecha_finalizacion;
 							}
+							// if ($fecha_proxima < date("Y-m-d")) {
+							// 	$fecha_proxima = date("Y-m-d");
+							// }
 							$fecha = date("Y-m-d");
-							$colores = array('important' => 'important', 'success' => 'success','chill' => 'chill', 'success' => 'success', 'info' => 'info');
+							$colores = array('important' => 'important', 'success' => 'success','chill' => 'chill', 'success' => 'success', 'bg-gray' => 'bg-gray');
 							$color = array_rand($colores);
 						?>
 						{
@@ -130,7 +183,7 @@
 							start: '<?= $c->fecha_comienzo ?>',
 							end: '<?= $fecha_proxima ?>',
 							allDay: true,
-							className: '<?= $color ?>',
+							className: '<?= $color ?> rounded',
 							url: '/frontend/web/clientes/perfil?id=<?= $c->id ?>',
 						},
 					<?php endforeach ?>	

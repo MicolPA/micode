@@ -65,8 +65,8 @@ $this->title = "$model->nombre $model->apellido";
                                     
                                     <p class="h4 font-weight-normal"><i class="fas fa-calendar-alt mr-1 text-dark"></i> <?= $diff->y ?> años <span class="badge-sm bg-warning text-white"><i class="fas fa-birthday-cake mr-1"></i> <?= $servicios->formatDate($model->fecha_nacimiento, 2) ?></span></p>
                                     <p class="h4 font-weight-normal"><i class="fas fa-clock mr-1 text-dark"></i> Ingresó el <?= $servicios->formatDate($model->fecha_ingreso, 1) ?> </p>
-                                    <p class="h4 font-weight-normal"><i class="fas fa-envelope mr-1 text-dark"></i> <?= $model->email ?> </p>
-                                    <p class="h4 font-weight-normal"><i class="fas fa-mobile mr-1 text-dark"></i> <?= $model->celular ?> </p>
+                                    <p class="h4 font-weight-normal"><i class="fas fa-envelope mr-1 text-dark"></i> <?= $model->email ? $model->email : "SIN REGISTRAR"; ?> </p>
+                                    <p class="h4 font-weight-normal"><i class="fas fa-mobile mr-1 text-dark"></i> <?= $model->celular ? $model->celular : "SIN REGISTRAR" ?> </p>
                                     <div class="rounded w-75" style="min-height: 50px;">
                                         <p>
                                             <?= $model->resumen ?>

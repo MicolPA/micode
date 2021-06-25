@@ -151,8 +151,12 @@
                     <div class="card">
                         
                         <div class="card-body">
-                            <?php $clientes_2 = \frontend\models\Clientes::find()->where(['<>', 'status',  3])->all(); ?>
+                            <?php 
+                                $clientes_2 = \frontend\models\Clientes::find()->where(['in', 'status',  array(2,4,3)])->all();
+                                $eventos = \frontend\models\Eventos::find()->all();
+                            ?>
                             <?= $this->render('/servicios/_calendario', [
+                                'eventos' => $eventos,
                                 'clientes' => $clientes_2
                             ]) ?>
                         </div>

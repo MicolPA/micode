@@ -17,6 +17,7 @@ use frontend\models\Clientes;
 use frontend\models\Transacciones;
 use yii\web\UploadedFile;
 use frontend\models\ContactForm;
+use frontend\models\Eventos;
 
 /**
  * Site controller
@@ -292,5 +293,37 @@ class SiteController extends Controller
         $this->layout = '@app/views/layouts/main-no-menu';
         return $this->render('politicas_privacidad', [
         ]);
+    }
+
+    public function actionGuardarEvento(){
+
+        if (Yii::$app->request->isAjax) {
+
+            $post = Yii::$app->request->get();
+            $day = substr($post['fecha'], -2);
+            $month = substr($post['fecha'], 4,6);
+            $year = substr($post['fecha'], 4,6);
+            $fecha = date("Y-m-d", strtotime($post['fecha']));
+
+            $evento = new Eventos();
+            $evento->cliente_id = $post['cliente_id'];
+            $evento->nombre = $post['nombre'];
+            // $evento->event_date = $fecha . $post['time'];
+            $evento->event_date = $fecha;
+            $evento->hora = $post['time'];
+            $evento->user_id = Yii::$app->user->identity->id;
+            $evento->date = date("Y-m-d H:i:s");
+            $evento->save(false);
+            return \yii\helpers\Json::encode($evento);
+        }
+
+    }
+
+    public function actionBorrarEvento($id){
+        $evento = Eventos::findOne($id);
+        if ($evento) {
+            $evento->delete();
+        }
+        return $this->redirect(Yii::$app->request->referrer); 
     }
 }

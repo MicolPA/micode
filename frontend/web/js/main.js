@@ -133,3 +133,58 @@ $('#colaborador_select').change(function() {
     }
     // alert(this.checked);        
 });
+
+function guardarEvento(nombre, fecha, time, cliente_id){
+	console.log("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	console.log(nombre);
+	console.log(fecha);
+	console.log(time);
+	console.log(cliente_id);
+	$.ajax({
+        url: "/frontend/web/site/guardar-evento",
+        type: 'get',
+        dataType: 'json',
+        data: {
+            nombre: nombre,
+            fecha: fecha,
+            time: time,
+            cliente_id: cliente_id,
+            _csrf: '<?=Yii::$app->request->getCsrfToken()?>'
+        },
+        success: function (data) {
+            console.log(data);
+            
+            swal('Correcto','Evento guardado correctamente', 'success');
+            data['fecha'] = fecha;
+            data['nombre'] = nombre;
+            data['time'] = time;
+            return data;
+            //$('#circ_id').append('<option value="">Todos</option>');
+        }, error: function (xhr, ajaxOptions, thrownError){
+        	console.log(thrownError);
+        	console.log(xhr);
+        	console.log(ajaxOptions);
+        	$(".loading").hide();
+			$(".btn-validar2").show();
+        }
+    });
+}
+
+function borrarEvento(id, url){
+	swal({
+          title: "¿Está seguro de que desea remover este evento?",
+          text: "",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = url+"/site/borrar-evento"+"/?id="+id+"";
+          } else {
+            //swal("Your imaginary file is safe!");
+          }
+        });
+}
+
+// function verEvento(nombre, )

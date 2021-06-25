@@ -90,6 +90,7 @@ class ColaboradoresController extends Controller
                 print_r($model->errors);
                 exit;
             }
+            Yii::$app->session->setFlash('success', "Colaborador registrado correctamente");
             return $this->redirect(['perfil', 'id' => $model->id]);
         }
 
@@ -105,12 +106,32 @@ class ColaboradoresController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionEditar($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $old_url = $model->photo_url;
+        if ($model->load(Yii::$app->request->post())) {
+
+            $path = "images/colaboradores/";
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            if (!empty(UploadedFile::getInstance($model, 'photo_url'))) {
+                $model->photo_url = UploadedFile::getInstance($model, 'photo_url');
+                $imagen = $path . str_replace(' ', '-', trim($model->nombre)) . '-' . str_replace(' ', '-', trim($model->apellido)) .".". $model->photo_url->extension;
+                $imagen = strtolower($imagen);
+                $model->photo_url->saveAs($imagen);
+                $model->photo_url = $imagen;
+            }else{
+                $model->photo_url = $old_url;
+            }
+
+             $model->save();
+
+            Yii::$app->session->setFlash('success', "Colaborador registrado correctamente");
+            return $this->redirect(['perfil', 'id' => $model->id]);
         }
 
         return $this->render('update', [
