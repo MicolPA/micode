@@ -104,7 +104,23 @@
 					  	console.log($(input_time).val());
 					  	if ($(input_time).val() && $(input_name).val()) {
 					  		console.log($(input_time).val());
-							guardarEvento($(input_name).val(), fecha.substr(0,10), $(input_time).val(), $(select_cliente).val())
+							data_event = guardarEvento($(input_name).val(), fecha.substr(0,10), $(input_time).val(), $(select_cliente).val());
+							console.log(data_event);
+							// if (data_event != undefined) {
+								calendar.fullCalendar('renderEvent',{
+					                title: $(input_name).val(),
+					                start: data_event,
+									className: 'info rounded',
+					                allDay: true
+					              });
+								
+								calendar.fullCalendar('renderEvent',{
+					                title: 'Este es mi evento',
+					                start: '2021-06-03',
+					                allDay: true
+					              });
+								// calendar.fullCalendar('unselect');
+							// }
 
 					  	}else{
     						swal("Alerta", 'Favor llenar todos los campos', "warning");
@@ -124,7 +140,7 @@
 					// 		true // make the event "stick"
 					// 	);
 					// }
-					calendar.fullCalendar('unselect');
+					// calendar.fullCalendar('unselect');
 				},
 				droppable: true, // this allows things to be dropped onto the calendar !!!
 				drop: function(date, allDay) { // this function is called when something is dropped

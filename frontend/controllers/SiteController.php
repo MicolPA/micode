@@ -314,7 +314,11 @@ class SiteController extends Controller
             $evento->user_id = Yii::$app->user->identity->id;
             $evento->date = date("Y-m-d H:i:s");
             $evento->save(false);
-            return \yii\helpers\Json::encode($evento);
+
+            
+            $event_data['nombre'] = $evento->nombre;
+            $event_data['fecha'] = $evento->event_date;
+            return \yii\helpers\Json::encode($event_data);
         // }
 
     }

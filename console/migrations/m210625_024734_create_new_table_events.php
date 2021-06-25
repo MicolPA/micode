@@ -24,7 +24,7 @@ class m210625_024734_create_new_table_events extends Migration
             'cliente_id' => $this->integer(),
             'user_id' => $this->integer(),
             'event_date' => $this->date(),
-            'event_date' => $this->time(),
+            'hora' => $this->time(),
             'date' => $this->dateTime(),
         ], $tableOptions);
     }

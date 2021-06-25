@@ -135,11 +135,7 @@ $('#colaborador_select').change(function() {
 });
 
 function guardarEvento(nombre, fecha, time, cliente_id){
-	console.log("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	console.log(nombre);
-	console.log(fecha);
-	console.log(time);
-	console.log(cliente_id);
+	data_event = '';
 	$.ajax({
         url: "/frontend/web/site/guardar-evento",
         type: 'get',
@@ -155,10 +151,10 @@ function guardarEvento(nombre, fecha, time, cliente_id){
             console.log(data);
             
             swal('Correcto','Evento guardado correctamente', 'success');
-            data['fecha'] = fecha;
-            data['nombre'] = nombre;
-            data['time'] = time;
-            return data;
+            data_event = data.event_date;
+            // data['fecha'] = fecha;
+            // data['nombre'] = nombre;
+            // data['time'] = time;
             //$('#circ_id').append('<option value="">Todos</option>');
         }, error: function (xhr, ajaxOptions, thrownError){
         	console.log(thrownError);
@@ -168,6 +164,7 @@ function guardarEvento(nombre, fecha, time, cliente_id){
 			$(".btn-validar2").show();
         }
     });
+   	return data_event;
 }
 
 function borrarEvento(id, url){
