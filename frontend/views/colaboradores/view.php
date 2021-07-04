@@ -67,6 +67,7 @@ $this->title = "$model->nombre $model->apellido";
                                     <p class="h4 font-weight-normal"><i class="fas fa-clock mr-1 text-dark"></i> Ingresó el <?= $servicios->formatDate($model->fecha_ingreso, 1) ?> </p>
                                     <p class="h4 font-weight-normal"><i class="fas fa-envelope mr-1 text-dark"></i> <?= $model->email ? $model->email : "SIN REGISTRAR"; ?> </p>
                                     <p class="h4 font-weight-normal"><i class="fas fa-mobile mr-1 text-dark"></i> <?= $model->celular ? $model->celular : "SIN REGISTRAR" ?> </p>
+                                    <p class="h4 font-weight-normal"><i class="fab fa-cc-visa mr-1 text-dark"></i> <?= $model->cuenta ? "$model->cuenta ($model->cuenta_banco)" : "SIN REGISTRAR" ?> </p>
                                     <div class="rounded w-75" style="min-height: 50px;">
                                         <p>
                                             <?= $model->resumen ?>
