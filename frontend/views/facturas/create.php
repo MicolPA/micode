@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Clientes */
 
+$view = $w_client ? '_form' : '_form_without_client';
+
 $this->title = 'Registrar Factura';
 ?>
 <div class="main-panel">
@@ -41,9 +43,10 @@ $this->title = 'Registrar Factura';
 							<div class="card-header">
 								<div class="card-title"><?= Html::encode($this->title) ?></div>
 							</div>
-							<?= $this->render('_form', [
+							<?= $this->render("$view", [
 						        'form' => $form,
 						        'model' => $model,
+            					'w_client' => $w_client,
             					'cliente_id' => $cliente_id,
 						    ]) ?>
 							

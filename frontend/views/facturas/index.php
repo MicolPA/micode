@@ -32,7 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                 </ul>
                 <div class="ml-md-auto py-2 py-md-0">
-                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Nuevo', ['registrar'], ['class' => 'btn btn-secondary btn-round']) ?>
+                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Crear factura', ['registrar'], ['class' => 'btn btn-secondary btn-round btn-sm']) ?>
+                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Crear factura sin cliente', ['registrar', 'w_client' => 0], ['class' => 'btn btn-warning btn-round btn-sm']) ?>
                 </div>
             </div>
 
@@ -49,9 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'cliente_id',
                             'format' => 'raw',
                             'value' => function ($data) {
-                                $cliente = \frontend\models\Clientes::findOne($data->cliente_id);
-                                $view =  Html::a($cliente['empresa'], ['ver', 'id' => $data->id], []);
-                                return "$view";
+                                if (isset($data->cliente->empresa)) {
+                                    $name = $data->cliente->empresa;
+                                }else{
+                                    $name = $data->cliente_nombre;
+                                }
+                                return Html::a($name, ['ver', 'id' => $data->id], ['target' => '_blank']);
                             },
                         ], 
                         [
@@ -66,6 +70,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $data->cotizacion == 1 ? "Cotización" : "Factura";
                             }
                         ],
+                        [
+                            'label' => 'Estado',
+                            'format' => 'raw',
+                            'attribute' => 'pagada',
+                            'value' => function($data){
+                                if ($data->pagada) {
+                                    return "<b class='text-success'>Pagada</b>";
+                                }else{
+                                    $action = Html::a("<b class='text-warning'>Pendiente</b>", ['mark-as-paid', 'id' => $data->id], [
+                                        'data' => [
+                                            'confirm' => '¿Está seguro/a que desea marcar la factura como pagada?',
+                                            'method' => 'post',
+                                        ],
+                                    ]);
+
+                                    return $action;
+                                }
+                            }
+                        ],
 
                         [
                             'label' => 'Fecha',
@@ -77,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => '',
                             'format' => 'raw',
                             'value' => function ($data) {
-                                $view =  Html::a('<i class="fas fa-eye text-primary mr-2"></i>', ['ver', 'id' => $data->id], []);
+                                $view =  Html::a('<i class="fas fa-eye text-primary mr-2"></i>', ['ver', 'id' => $data->id], ['target' => '_blank']);
                                 $update =  Html::a('<i class="fas fa-pencil-alt text-primary mr-2"></i>', ['editar', 'id' => $data->id], []);
                                 $delete = Html::a('<i class="fas fa-trash text-danger mt-2"></i>', ['delete', 'id' => $data->id], [
                                     'data' => [

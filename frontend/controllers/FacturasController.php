@@ -143,7 +143,7 @@ class FacturasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar($cliente_id=null)
+    public function actionRegistrar($cliente_id=null, $w_client=1)
     {
         $model = new Facturas();
         $post = Yii::$app->request->post();
@@ -162,6 +162,7 @@ class FacturasController extends Controller
         }
 
         return $this->render('create', [
+            'w_client' => $w_client,
             'cliente_id' => $cliente_id,
             'model' => $model,
         ]);
@@ -182,6 +183,17 @@ class FacturasController extends Controller
             }
         }   
 
+    }
+
+    function actionMarkAsPaid($id){
+
+        $model = Facturas::findOne($id);
+        if ($model) {
+            $model->pagada = 1;
+            $model->save();
+        }
+        Yii::$app->session->setFlash('success', "Sello de pago colocado correctamente");
+        return $this->redirect(['index']);
     }
 
     /**

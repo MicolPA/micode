@@ -70,7 +70,7 @@ class ClientesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar()
+    public function actionRegistrar($client=1)
     {
         $model = new Clientes();
 
@@ -102,6 +102,7 @@ class ClientesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'client' => $client,
         ]);
     }
 

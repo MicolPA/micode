@@ -40,7 +40,13 @@ $monto_total = 0;
 		</div>
 
 		<div style="width: 100%;background: #fff;;margin-top: -0rem">
-			<p style="font-weight: 300 !important;margin:5px;color:#242335;"><span style="font-weight: bold">Dirigida a:</span> <?= $model->cliente->representante_nombre .  " (" .$model->cliente->empresa . ")" ?></p>
+			<p style="font-weight: 300 !important;margin:5px;color:#242335;"><span style="font-weight: bold">Dirigida a:</span> 
+				<?php if (isset($model->cliente->representante_nombre)): ?>
+					<?= $model->cliente->representante_nombre .  " (" .$model->cliente->empresa . ")" ?>
+				<?php else: ?>
+					<?= $model->cliente_nombre ?>
+				<?php endif ?>
+			</p>
 			<p style="font-weight: 300 !important;margin:5px;color:#242335;"><span style="font-weight: bold">Por concepto de:</span> <?= $model->asunto ?></p>
 		</div>
 
