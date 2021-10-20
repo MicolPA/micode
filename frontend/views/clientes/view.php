@@ -10,6 +10,10 @@ $fecha1 = $model->status == 3 ? new \DateTime($model->fecha_comienzo) : new \Dat
 $fecha2 = $model->status == 3 ? new \DateTime($model->fecha_finalizacion) : new \DateTime($fecha_proxima);
 $diff = $fecha1->diff($fecha2);
 
+$ingresos = \frontend\models\Transacciones::find()->where(['cliente_id' => $model->id, 'tipo_id' => 1])->sum("total");
+$gastos = \frontend\models\Transacciones::find()->where(['cliente_id' => $model->id, 'tipo_id' => 2])->sum("total");
+$neto = $ingresos - $gastos;
+
 $this->title = $model->empresa;
  ?>
 
@@ -86,10 +90,13 @@ $this->title = $model->empresa;
 						<div class="card-body">
 							<ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
 								<li class="nav-item mr-2">
-									<a class="nav-link active" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true"><i class="fas fa-user-ninja mr-2"></i> Representante</a>
+									<a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true"><i class="fas fa-user-ninja mr-2"></i> Representante</a>
 								</li>
 								<li class="nav-item" style="margin-left: 0 !important">
-									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-history mr-2"></i> Historial de pagos</a>
+									<a class="nav-link active" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-history mr-2"></i> Historial de pagos</a>
+								</li>
+								<li class="nav-item mr-2">
+									<a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-totales-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true"><i class="fas fa-dollar-sign mr-2"></i> Totales</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-anotaciones-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false"><i class="fas fa-sticky-note mr-2"></i> Anotaciones</a>
@@ -99,14 +106,14 @@ $this->title = $model->empresa;
 								</li>
 							</ul>
 							<div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
-								<div class="tab-pane fade show pt-4 active" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+								<div class="tab-pane fade show pt-4" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
 
 									<p class="h4 font-weight-normal"><i class="fas fa-user mr-2"></i> <?= $model->representante_nombre ?></p>
 									<p class="h4 font-weight-normal"><i class="fas fa-phone mr-2"></i> <?= $model->representante_telefono ?></p>
 									<p class="h4 font-weight-normal"><i class="fas fa-envelope mr-2"></i> <?= $model->representante_correo ? $model->representante_correo : 'No registrado' ?></p>
 
 								</div>
-								<div class="tab-pane fade" id="pills-profile-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
+								<div class="tab-pane active" id="pills-profile-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
 									<ol class="activity-feed">
 										<?php foreach ($pagos as $pago): ?>
                           <?php 
@@ -118,21 +125,54 @@ $this->title = $model->empresa;
                               <div class="col-md-8">
                                   <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
                                   <span class="text">
-                                      <?= $text . ' por conceptop de: ' ?> 
+                                      <?= $text . ' por concepto de: ' ?> 
                                       <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
                                           <?= $pago->servicioExtra->nombre ?>
-                                              <?php if ($pago->concepto): ?>
-                                                  <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
-                                                    <i class="ml-2 fas fa-comment-dots"></i>
-                                                  </a>
-                                              <?php endif ?>
-                                          </a> 
-                                          <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
+                                            <?php if ($pago->concepto): ?>
+                                                <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                                  <i class="ml-2 fas fa-comment-dots"></i>
+                                                </a>
+                                            <?php endif ?>
+                                      </a> 
+                                  <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
                                   </span>
                               </div>
                           </li>   
                       <?php endforeach ?>
                   </ol>
+								</div>
+								<div class="tab-pane fade show pt-4" id="pills-totales-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
+									<ol class="activity-feed">
+										<li class="feed-item feed-item-primary">
+	                      <div class="col-md-8">
+	                          <time class="date" datetime="9-24">Totales</time>
+	                          <span class="text">
+	                            Ingresos totales
+	                          	<span class="float-right badge-pill badge-primary">RD$<?= number_format($ingresos) ?></span>
+	                          </span>
+	                      </div>
+	                  </li>
+	                  <li class="feed-item feed-item-danger">
+	                      <div class="col-md-8">
+	                          <time class="date" datetime="9-24">Totales</time>
+	                          <span class="text">
+	                            Gastos totales
+	                          	<span class="float-right badge-pill badge-danger">RD$<?= number_format($gastos) ?></span>
+	                          </span>
+	                      </div>
+	                  </li>
+	                  <li class="feed-item feed-item-success">
+	                      <div class="col-md-8">
+	                          <time class="date" datetime="9-24">Totales</time>
+	                          <span class="text">
+	                            Ingresos neto
+	                          	<span class="float-right badge-pill badge-success font-weight-bold">RD$<?= number_format($neto) ?></span>
+	                          </span>
+	                      </div>
+	                  </li>
+
+									</ol>
+
 								</div>
 
 								<div class="tab-pane fade" id="pills-anotaciones-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
