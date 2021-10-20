@@ -98,7 +98,7 @@ $this->title = "$model->nombre $model->apellido";
                                                  ?>
                                                 <?php $class = 'success' ?>
                                                 <li class="feed-item feed-item-<?= $class ?>">
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-10">
                                                         <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
                                                         <span class="text">
                                                           <?= $text . ' por concepto de: ' ?> 
