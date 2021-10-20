@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
                                             <?php 
 
-                                                if ($pago->tipo_id == 3) {
+                                                if ($pago->tipo_id == 3 or !isset($pago->cliente->empresa)) {
                                                     $text = "<span class='font-weight-bold'>".$pago->tipo->nombre.":</span>";
                                                     $text2 = $pago->concepto;
                                                 }else{

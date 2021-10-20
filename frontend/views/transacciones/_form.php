@@ -16,13 +16,17 @@ $get = Yii::$app->request->get();
             <?= $form->field($model, 'tipo_id')->textInput(['type' => 'hidden', 'value' => $get['tipo']])->label(false) ?>
         </div>
         <div class="col-md-3">
-            <div class="card p-3 m-3 text-center">
-                <?php if ($model->tipo_id != 3): ?>
-                    <img class='m-auto' src="/frontend/web/<?= $cliente_info ? $cliente_info['logo_url']: null ?>" width='80%'>
-                <?php else: ?>
-                    <img class='m-auto' src="/frontend/web/images/inversion.png" width='80%'>
-                <?php endif ?>
+            <?php if ($model->tipo_id != 3 and $cliente_info): ?>
+                <?php $url = "/frontend/web/" . $cliente_info['logo_url']; ?>
+            <?php else: ?>
+                <?php $url = "/frontend/web/images/inversion.png"; ?>         
+            <?php endif ?>
+            <div class="card p-3 m-3 text-center" style="background:url(<?= $url ?>);background-size: contain;background-repeat: no-repeat;height: 200px;background-position: center;">
             </div>
+            <div class="pl-3">
+                <p class="font-weight-bold"><?= $cliente_info['empresa'] ?></p>
+            </div>
+
         </div>
         <div class="col-md-3">
             <?php echo $form->field($model, 'tipo_id')->dropDownList(ArrayHelper::map(\frontend\models\TiposImportes::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css', 'required' => 'required', 'disabled' => 'disabled']); ?>
@@ -46,7 +50,12 @@ $get = Yii::$app->request->get();
                 </select>
             </div>
             <?php if ($model->tipo_id != 3): ?>
-                <?= $form->field($model, 'concepto')->textInput([])->label('Comentario') ?>
+                
+                <?php if ($colaborador_id): ?>
+                    <?= $form->field($model, 'concepto')->textInput(['required' => 'required'])->label('Comentario') ?>
+                <?php else: ?>
+                    <?= $form->field($model, 'concepto')->textInput([])->label('Comentario') ?>
+                <?php endif ?>
                 
             <?php endif ?>
             

@@ -12,7 +12,7 @@ use yii\helpers\Html;
 		<?php $count = 0; ?>
 		<?php foreach ($detalles as $detalle): ?>
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<div class="form-group descripcion">
 						<label>Descripción</label>
 						<input type="text" class="form-control" name="factura_descripcion[<?= $count ?>]" value="<?= $detalle->descripcion ?>"> 
@@ -25,17 +25,16 @@ use yii\helpers\Html;
 					</div>
 				</div>
 
-				<div class="col-md-1 pt-5 btn_delete">
-					<a href="deleteInvoiceLine(<?= $count ?>)" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash-alt"></i></a>
-				</div>	
+				<!-- <div class="col-md-1 pt-5 btn_delete">
+					<a href="deleteInvoiceLine(<?//= $count ?>)" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash-alt"></i></a>
+				</div>	 -->
 			</div>
 			<?php $count++ ?>
 		<?php endforeach ?>
 	</div>
 	<div class="invoice">
 		<div class="row">
-			
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="form-group descripcion">
 					<label>Descripción</label>
 					<input type="text" class="form-control" name="factura_descripcion[<?= $count ?>]">
@@ -48,10 +47,9 @@ use yii\helpers\Html;
 				</div>
 			</div>
 
-			<div class="col-md-1 pt-5 btn_delete">
+			<!-- <div class="col-md-1 pt-5 btn_delete">
 				<a href="deleteInvoiceLine(1)" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash-alt"></i></a>
-			</div>
-
+			</div> -->
 		</div>
 	</div>
 
@@ -63,7 +61,7 @@ use yii\helpers\Html;
 
 	<div class="col-md-12 pt-4 pb-4">
         <div class="form-group">
-            <?= Html::submitButton('Registrar Factura', ['class' => 'btn btn-primary pr-5 pl-5 btn-block']) ?>
+            <?= Html::submitButton('Actualizar Factura', ['class' => 'btn btn-primary pr-5 pl-5 btn-block']) ?>
         </div>
     </div>
 

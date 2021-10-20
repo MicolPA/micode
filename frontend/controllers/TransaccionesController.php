@@ -104,13 +104,17 @@ class TransaccionesController extends Controller
 
         foreach ($cuentas as $cuenta) {
 
-            if (isset($post['cuenta'][$cuenta->id])) {
-                if ($post['cuenta'][$cuenta->id]) {
+            if (isset($post['cuenta'][$cuenta->id]) or (isset($post['colaborador_amount']) and $cuenta->id == 3)) {
+                if ($post['cuenta'][$cuenta->id] or (isset($post['colaborador_amount']) and $cuenta->id == 3)) {
 
                     if ($model->tipo_id == 1) {
                         $cuenta->dinero_total = $cuenta->dinero_total + $post['cuenta'][$cuenta->id];
                     }else{
                         $cuenta->dinero_total = $cuenta->dinero_total - $post['cuenta'][$cuenta->id];
+                    }
+                    if (isset($post['colaborador_amount']) and $cuenta->id == 3) {
+                        $cuenta->dinero_total = $cuenta->dinero_total - $post['colaborador_amount'];
+                        
                     }
 
                     $cuenta->dinero_total = (string)$cuenta->dinero_total;
@@ -127,9 +131,9 @@ class TransaccionesController extends Controller
                     $transaccion->date = date("Y-m-d H:i:s");
                     $transaccion->save();
 
-
                 }
             }
+
         }
         if (isset($post['colaborador_amount'])) {
             $this->registrarImporteColaborador($colaborador_id, $post['colaborador_amount'], $model);
@@ -143,7 +147,6 @@ class TransaccionesController extends Controller
             $transaccion->tarjeta_id = null;
             $transaccion->transaccion_id = $model->id;
             $transaccion->fecha_pago = $model->fecha_pago;
-            $transaccion->cliente_id = $model->cliente_id;
             $transaccion->total = $amount;
             $transaccion->tipo_id = $model->tipo_id;
             $transaccion->colaborador_id = $colaborador_id;

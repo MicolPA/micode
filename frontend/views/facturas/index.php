@@ -101,7 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'raw',
                             'value' => function ($data) {
                                 $view =  Html::a('<i class="fas fa-eye text-primary mr-2"></i>', ['ver', 'id' => $data->id], ['target' => '_blank']);
-                                $update =  Html::a('<i class="fas fa-pencil-alt text-primary mr-2"></i>', ['editar', 'id' => $data->id], []);
+                                $update =  Html::a('<i class="fas fa-pencil-alt text-primary mr-2"></i>', ['editar', 'id' => $data->id, 'w_client' => $data->cliente_id ? 1 : 0], []);
                                 $delete = Html::a('<i class="fas fa-trash text-danger mt-2"></i>', ['delete', 'id' => $data->id], [
                                     'data' => [
                                         'confirm' => '¿Está seguro/a que desea eliminar este registro?',

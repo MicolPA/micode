@@ -117,13 +117,9 @@
 					                title: $(input_name).val(),
 					                start: fecha,
 									className: 'info rounded',
-					                allDay: true
+					                allDay: true,
 					              });
-								calendar.fullCalendar('renderEvent',{
-					                title: 'Este es mi evento',
-					                start: '2021-06-03',
-					                allDay: true
-					              });
+								
 								// calendar.fullCalendar('unselect');
 							// }
 

@@ -17,7 +17,7 @@ $get = Yii::$app->request->get();
         </div>
         <div class="col-md-3">
             <div class="card p-3 m-3 text-center">
-                <img src="/frontend/web/<?= $cliente_info['logo_url'] ?>" width='80%'>
+                <img src="/frontend/web/<?= $cliente_info ? $cliente_info['logo_url'] : 'images/inversion.png' ?>" width='80%'>
             </div>
         </div>
         <div class="col-md-6">
@@ -48,7 +48,7 @@ $get = Yii::$app->request->get();
         </div>
 
         <div class="col-md-6">
-            <?= $form->field($model, 'fecha_pago')->textInput(['type' => 'date', 'value' => date("Y-m-d"), 'required' => 'required', 'disabled' => 'disabled']) ?>
+            <?= $form->field($model, 'fecha_pago')->textInput(['type' => 'date', 'required' => 'required', 'disabled' => 'disabled']) ?>
         </div>
 
         

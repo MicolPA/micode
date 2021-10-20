@@ -8,7 +8,7 @@ use yii\helpers\Html;
 	
 	<div class="invoice">
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="form-group descripcion">
 					<label>Descripción</label>
 					<input type="text" class="form-control" name="factura_descripcion[1]">
@@ -21,9 +21,9 @@ use yii\helpers\Html;
 				</div>
 			</div>
 
-			<div class="col-md-1 pt-5 btn_delete">
+			<!-- <div class="col-md-1 pt-5 btn_delete">
 				<a href="deleteInvoiceLine(1)" class="btn btn-danger btn-sm disabled"><i class="fas fa-trash-alt"></i></a>
-			</div>
+			</div> -->
 
 		</div>
 	</div>

@@ -26,7 +26,7 @@ use yii\helpers\ArrayHelper;
         </div>
         <div class="col-md-5 mt-4 div_pago_checkbox">
                 <?= $form->field($model, 'pagada')->checkBoxList(['1' =>'Si'])->label('Sello de pago: '); ?>
-                <div class="div_fecha_pago" style="display:none">
+                <div class="div_fecha_pago" style="display:<?= $model->pagada ? '' : 'none' ?> ">
                         <?= $form->field($model, 'fecha_pagada')->textInput(['type' => 'date'])->label(false) ?>
                 </div>
         </div>

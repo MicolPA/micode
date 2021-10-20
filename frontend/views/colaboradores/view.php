@@ -93,22 +93,23 @@ $this->title = "$model->nombre $model->apellido";
                                         <?php if (count($pagos) > 0): ?>
                                             <?php foreach ($pagos as $pago): ?>
                                                 <?php 
-                                                    $text = "<span class='font-weight-bold'>". $pago->transaccion->cliente->empresa . "</span>: " . $pago->tipo->nombre;
+                                                    $text = "<span class='font-weight-bold'>". $pago->transaccion->servicioExtra->nombre . "</span>: Pago";
                                                     $text2 = $pago->transaccion->servicioExtra->nombre;
                                                  ?>
-                                                <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
+                                                <?php $class = 'success' ?>
                                                 <li class="feed-item feed-item-<?= $class ?>">
                                                     <div class="col-md-8">
                                                         <time class="date" datetime="9-24"><?= $pago->fecha_pago ?></time>
                                                         <span class="text">
-                                                          <?= $text . ' por conceptop de: ' ?> 
-                                                          <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
-                                                              <?= $pago->transaccion->servicioExtra->nombre ?>
-                                                                  <?php if ($pago->transaccion->concepto): ?>
-                                                                      <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->transaccion->concepto ?>">
-                                                                        <i class="ml-2 fas fa-comment-dots"></i>
-                                                                      </a>
-                                                                  <?php endif ?>
+                                                          <?= $text . ' por concepto de: ' ?> 
+                                                          <a href="/frontend/web/transacciones/editar?id=<?= $pago->transaccion->id ?>&view=/colaboradores/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>">
+                                                                <?= $pago->transaccion->concepto ?>
+                                                                    <?php if ($pago->transaccion->concepto): ?>
+                                                                        <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->transaccion->concepto ?>">
+                                                                            <i class="ml-2 fas fa-comment-dots"></i>
+                                                                         </a>
+
+                                                                    <?php endif ?>
                                                               </a> 
                                                               <span class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total) ?></span>
                                                       </span>
@@ -143,7 +144,7 @@ $this->title = "$model->nombre $model->apellido";
           <div class="modal-body">
             <?php $model_t = new \frontend\models\Transacciones(); ?>
             <?php $form = ActiveForm::begin(['method' => 'get', 'action' => '/frontend/web/transacciones/registrar']); ?>
-            <?php $tipos = \frontend\models\TiposImportes::find()->where(['id' => 1])->all(); ?>
+            <?php $tipos = \frontend\models\TiposImportes::find()->where(['id' => 2])->all(); ?>
             <div class="form-group">
                 <label for="">Tipo importe</label>
                 <select name="tipo" id="" class="form-control" required>

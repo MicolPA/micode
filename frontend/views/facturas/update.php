@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model frontend\models\Clientes */
 
 $this->title = 'Modificando Factura';
+$view = $w_client ? '_form' : '_form_without_client';
 ?>
 <div class="main-panel">
 
@@ -41,7 +42,7 @@ $this->title = 'Modificando Factura';
 							<div class="card-header">
 								<div class="card-title"><?= Html::encode($this->title) ?></div>
 							</div>
-							<?= $this->render('_form', [
+							<?= $this->render("$view", [
 						        'form' => $form,
 						        'model' => $model,
             					// 'cliente_id' => $cliente_id,

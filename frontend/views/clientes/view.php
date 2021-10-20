@@ -247,8 +247,8 @@ $this->title = $model->empresa;
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
-                <?= Html::submitButton('Modificar', ['class' => 'btn btn-primary btn-sm']) ?>
+            	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+               <?= Html::submitButton('Modificar', ['class' => 'btn btn-primary btn-sm']) ?>
           </div>
             <?php ActiveForm::end(); ?>
         </div>

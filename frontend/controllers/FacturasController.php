@@ -174,12 +174,14 @@ class FacturasController extends Controller
             
             if (isset($post['factura_descripcion'][$i])) {
 
-                $invoiceDetail = new FacturasDetalle();
-                $invoiceDetail->factura_id = $model->id;
-                $invoiceDetail->descripcion = $post['factura_descripcion'][$i];
-                $invoiceDetail->precio = $post['factura_precio'][$i];
-                $invoiceDetail->date = date("Y-m-d H:i:s");
-                $invoiceDetail->save(false);
+                if ($post['factura_descripcion'][$i]) {
+                    $invoiceDetail = new FacturasDetalle();
+                    $invoiceDetail->factura_id = $model->id;
+                    $invoiceDetail->descripcion = $post['factura_descripcion'][$i];
+                    $invoiceDetail->precio = $post['factura_precio'][$i];
+                    $invoiceDetail->date = date("Y-m-d H:i:s");
+                    $invoiceDetail->save(false);
+                }
             }
         }   
 
@@ -190,6 +192,7 @@ class FacturasController extends Controller
         $model = Facturas::findOne($id);
         if ($model) {
             $model->pagada = 1;
+            $model->fecha_pagada = date("Y-m-d");
             $model->save();
         }
         Yii::$app->session->setFlash('success', "Sello de pago colocado correctamente");
@@ -203,18 +206,32 @@ class FacturasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionEditar($id)
+    public function actionEditar($id, $w_client)
     {
         $model = $this->findModel($id);
+        $post = Yii::$app->request->post();
         $detalles = FacturasDetalle::find()->where(['factura_id' => $id])->all();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load($post)) {
+            $model->pagada = isset($model->pagada[0]) ? $model->pagada[0] : 0;
+            $model->save();
+            $this->deleteRegisterInvoiceDetail($detalles);
+            $this->registerInvoiceDetail($post, $model);
+            return $this->redirect(['ver', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
             'detalles' => $detalles,
+            'w_client' => $w_client,
         ]);
+    }
+
+    function deleteRegisterInvoiceDetail($detalles){
+
+        foreach($detalles as $d){
+            $d->delete();
+        }
+
     }
 
     /**
