@@ -106,7 +106,7 @@ class FacturasController extends Controller
             'mode' => Pdf::MODE_CORE,
             // A4 paper format
             // 'format' => Pdf::FORMAT_A4, 
-            'format' => [200.8, 228.6],  
+            'format' => [200.8, 248.6],  
             'marginTop' => 0,
             'marginLeft' => 10,
             'marginRight' => 10,
