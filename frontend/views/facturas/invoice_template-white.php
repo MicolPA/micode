@@ -112,10 +112,9 @@ $monto_total = 0;
 
 			<div>
 				<?php if ($model->pagada): ?>
-				<div style='margin-top: 1rem;text-align: center;padding:10px;color:#444;border:2px dashed #fa2f2f;width:25%;float: left;display: inline-block;;color:#fa2f2f;transform:  scale(0.5);'>
-					<p style="font-size: 22px;margin: 0;color:#fa2f2f;font-weight: bold;">PAGADO</p>
-					<span style=";color:#fa2f2f;font-size:10px"><?= $servicios->formatDate($model->fecha_pagada) ?></span>
-				</div>
+					<div style="width:34%;float: left;display: inline-block;margin-top: -2rem;">
+						<img src="/frontend/web/images/sello-pagado.png" width="440px">
+					</div>
 				<?php else: ?>
 					<div style="width:28%;float: left;display: inline-block;margin-top: -2rem;">
 						<img src="/frontend/web/images/sello.png" width="440px">
