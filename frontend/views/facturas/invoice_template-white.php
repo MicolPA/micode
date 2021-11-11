@@ -35,8 +35,8 @@ $monto_total = 0;
 			
 		</div> -->
 
-		<div style="width: 40%;background:#56dfe4;float: left;text-align: center;margin-bottom: 0rem;margin-top: -1.8rem">
-			<p style="font-weight: 300 !important;margin:5px;color:#444;font-weight: bold">Fecha: <?= $servicios->formatDate($model->date) ?></p>
+		<div style="width: 40%;background:#0D9CBA;float: left;text-align: center;margin-bottom: 0rem;margin-top: -1.8rem">
+			<p style="font-weight: 300 !important;margin:5px;color:#fff;font-weight: bold">Fecha: <?= $servicios->formatDate($model->date) ?></p>
 		</div>
 
 		<div style="width: 100%;background: #fff;;margin-top: -0rem">
@@ -50,7 +50,7 @@ $monto_total = 0;
 			<p style="font-weight: 300 !important;margin:5px;color:#242335;"><span style="font-weight: bold">Por concepto de:</span> <?= $model->asunto ?></p>
 		</div>
 
-		<div style="margin-top: .0rem">
+		<div style="margin-top: .5rem">
 			<table class="table table-striped">
 				<thead>
 					<!-- <tr style="border: 0px !important">
@@ -115,11 +115,17 @@ $monto_total = 0;
 				<div style='margin-top: 1rem;text-align: center;padding:10px;color:#444;border:2px dashed #fa2f2f;width:25%;float: left;display: inline-block;;color:#fa2f2f;transform:  scale(0.5);'>
 					<p style="font-size: 22px;margin: 0;color:#fa2f2f;font-weight: bold;">PAGADO</p>
 					<span style=";color:#fa2f2f;font-size:10px"><?= $servicios->formatDate($model->fecha_pagada) ?></span>
-				</div>	
+				</div>
+				<?php else: ?>
+					<div style="width:28%;float: left;display: inline-block;margin-top: -2rem;">
+						<img src="/frontend/web/images/sello.png" width="440px">
+					</div>
 				<?php endif ?>
 				<div style='padding:0px 10px 10px 10px;color:#000;text-align: right;float: right;display: inline-block;width: 60%;'>
+					<br>
+					<br>
 					<br>Monto Total <br> 
-					<span style="color:#1572E8;font-size:28px;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
+					<span style="color:#0D9CBA;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
 					<p style="text-align:right;color:#8b8b8b">Todos los impuestos incluidos.</p>
 				</div>
 
