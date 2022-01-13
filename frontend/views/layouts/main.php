@@ -305,6 +305,12 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="/frontend/web/reportes">
+                            <i class="fas fa-chart-bar"></i>
+                            <p>Reporte</p>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
                         <a data-toggle="collapse" href="#charts">
                             <i class="far fa-chart-bar"></i>
                             <p>Reportes</p>
@@ -324,7 +330,7 @@ $user = Yii::$app->user->identity;
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a href="/frontend/web/facturas">
                             <i class="fas fa-file-invoice-dollar"></i>
