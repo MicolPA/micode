@@ -151,6 +151,11 @@ label[for="inputfile"] {
 
 }
 
+.form-control{
+  padding: 2px 1rem !important;
+}
+
+
 /*-------- Preloader --------*/
 #preloader {
   position: fixed;
