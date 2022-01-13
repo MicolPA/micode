@@ -65,7 +65,7 @@ class ReportesController extends \yii\web\Controller
         ->andWhere(['in', 'tipo_id', array(2,3)])
         ->andWhere(['>', 'colaborador', 0])->sum('total');
 
-        $data['ganancias'] = $data['ingresos'] - $data['gastos'];
+        $data['ganancias'] = $data['ingresos'] - $data['gastos'] - $data['colaboradores'];
         return $data;
     }
 
