@@ -3,9 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\ClientesSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+$total = $dataProvider->query->count();
 
 $this->title = 'Clientes';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,37 +12,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="content">
         <div class="page-inner">
+            
             <div class="page-header">
-                <h4 class="page-title">Clientes</h4>
-                <ul class="breadcrumbs">
-                    <li class="nav-home">
-                        <a href="#">
-                            <i class="flaticon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/clientes">Clientes</a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Listado de clientes</a>
-                    </li>
-                </ul>
+                <?php  
+                    echo $this->render('/layouts/breadcrumb', 
+                    ['modulo' => "Clientes", 'modulo_url' => "/frontend/web/clientes", 'pagina' => 'Listado de clientes']); 
+                ?>
                 <div class="ml-md-auto py-2 py-md-0">
-                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Nuevo', ['registrar'], ['class' => 'btn btn-secondary btn-round']) ?>
+                    <?= Html::a('<i class="fas fa-plus-circle mr-2"></i> Registrar cliente', ['registrar'], ['class' => 'btn btn-success btn-xs pr-4 pl-4']) ?>
                 </div>
             </div>
-
-            <div class="table-responsive">
+            <?= $this->render('_search', ['model' => $searchModel]) ?>
+            <div>
+                <p class="mb-0 small"><?= $total == 1 ? "$total registro." : "$total registros." ?></p>
+            </div>
+            <div class="table-responsive bg-white shadow-sm" id="theDatatable">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
-                    'summary' => 'Mostrando <b>{count}</b> registros de <b>{totalCount}</b>',
-                   // 'tableOptions' => ['class' => 'table'],
+                    'summary' => '',
+                    'tableOptions' => [
+                        'class'=>'table'
+                    ],
+                    // 'tableOptions' => ['class' => 'table'],
+                    'layout' => "{summary}\n{items}\n<div class='text-center grid-page pg-primary'>{pager}</div>",
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
@@ -83,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $btn;
                             }
                         ],
+                       
                         // 'representante_telefono',
                         //'representante_correo',
                         //'importe_base',
@@ -94,15 +85,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => '',
                             'format' => 'raw',
                             'value' => function ($data) {
-                                $view =  Html::a('<i class="fas fa-eye text-primary mr-2"></i>', ['perfil', 'id' => $data->id], []);
-                                $update =  Html::a('<i class="fas fa-pencil-alt text-primary mr-2"></i>', ['editar', 'id' => $data->id], []);
-                                $delete = Html::a('<i class="fas fa-trash text-danger mt-2"></i>', ['delete', 'id' => $data->id], [
+                                $view =  Html::a('<i class="fas fa-eye text-white btn-primary btn btn-xs"></i>', ['perfil', 'id' => $data->id], []);
+                                
+                                $delete = Html::a('<i class="fas fa-trash text-white btn-danger btn btn-xs"></i>', ['delete', 'id' => $data->id], [
                                     'data' => [
                                         'confirm' => '¿Está seguro/a que desea eliminar este registro?',
                                         'method' => 'post',
                                     ],
                                 ]);
-                                return "$view $update $delete";
+                                if (Yii::$app->user->identity->role_id == 1) {
+                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-primary btn btn-xs"></i>', ['editar', 'id' => $data->id], []);
+                                    return "$view $update $delete";
+                                }else{
+                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-warning btn btn-xs"></i>', ['editar', 'id' => $data->id], []);
+                                    return "$view $update";
+                                }
                             },
                         ],  
 
@@ -113,9 +110,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+        
         
     </div>
 
 
 </div>
+
+
