@@ -15,28 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="content">
         <div class="page-inner">
             <div class="page-header">
-                <h4 class="page-title">Finanzas</h4>
-                <ul class="breadcrumbs">
-                    <li class="nav-home">
-                        <a href="#">
-                            <i class="flaticon-home"></i>
-                        </a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/transacciones">Finanzas</a>
-                    </li>
-                    <li class="separator">
-                        <i class="flaticon-right-arrow"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">Historial de transacciones</a>
-                    </li>
-                </ul>
+                <?php  
+                    echo $this->render('/layouts/breadcrumb', 
+                    ['modulo' => "Finanzas", 'modulo_url' => "/frontend/web/transacciones", 'pagina' => "Historial de transacciones"]); 
+                ?>
                 <div class="ml-md-auto py-2 py-md-0">
-                    <button type="button" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#registrarImporteModal"><i class="fas fa-plus-circle mr-2"></i> Registrar Importe</button>
+                    <button type="button" class="btn btn-success btn-xs pr-4 pl-4" data-toggle="modal" data-target="#registrarImporteModal"><i class="fas fa-plus-circle mr-2"></i> Registrar Importe</button>
                 </div>
             </div>
 
@@ -67,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
 
+            <?= $this->render('_search', ['model' => $searchModel]) ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

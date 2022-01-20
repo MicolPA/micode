@@ -36,11 +36,15 @@ class TransaccionesController extends Controller
      * Lists all Transacciones models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($tipo_id=null)
     {
         $cuentas = Tarjetas::find()->all();
 
-        $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC, 'id' => SORT_DESC]);
+        $searchModel = new TransaccionesSearch();
+        $searchModel->tipo_id = $tipo_id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $query = $dataProvider->query;
         $countQuery = clone $query;
         $pagination = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
         $model = $query->offset($pagination->offset)
@@ -51,6 +55,7 @@ class TransaccionesController extends Controller
             'cuentas' => $cuentas,
             'model' => $model,
             'pagination' => $pagination,
+            'searchModel' => $searchModel,
         ]);
     }
 

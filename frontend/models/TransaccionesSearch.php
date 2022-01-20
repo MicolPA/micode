@@ -56,6 +56,7 @@ class TransaccionesSearch extends Transacciones
             return $dataProvider;
         }
 
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -63,8 +64,9 @@ class TransaccionesSearch extends Transacciones
             'servicio_extra_id' => $this->servicio_extra_id,
             'cliente_id' => $this->cliente_id,
             'total' => $this->total,
-            'fecha_pago' => $this->fecha_pago,
-            'date' => $this->date,
+            // 'fecha_pago' => $this->fecha_pago,
+            'MONTH(fecha_pago)' => substr($this->fecha_pago, -2),
+            'YEAR(fecha_pago)' => substr($this->fecha_pago, 0,4),
         ]);
 
         return $dataProvider;

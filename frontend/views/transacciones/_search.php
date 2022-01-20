@@ -2,38 +2,40 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\TransaccionesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="transacciones-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+        <div class="row">
+            <div class="col-md-2">
+                <?php echo $form->field($model, 'cliente_id')->dropDownList(ArrayHelper::map(\frontend\models\Clientes::find()->orderBy(['empresa' => SORT_ASC])->all(), 'id', 'empresa'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select_2']); ?>
+            </div>
 
-    <?= $form->field($model, 'tipo_id') ?>
+            <div class="col-md-2">
+                <?php echo $form->field($model, 'tipo_id')->dropDownList(array('1' => 'Ingresos', '2' => 'Gastos'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select_2']); ?>
+            </div>
 
-    <?= $form->field($model, 'servicio_extra_id') ?>
+            <div class="col-md-2">
+                <?= $form->field($model, 'fecha_pago')->textInput(['type' => 'month']) ?>
+            </div>
 
-    <?= $form->field($model, 'cliente_id') ?>
+            <?php // echo $form->field($model, 'date') ?>
 
-    <?= $form->field($model, 'total') ?>
-
-    <?php // echo $form->field($model, 'fecha_pago') ?>
-
-    <?php // echo $form->field($model, 'date') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
+            <div class="col-md-2 pt-lg-3 pt-md-3 pr-0 pl-0">
+                <div class="form-group pt-lg-4 pt-md-4">
+                    <?= Html::submitButton('Buscar', ['class' => 'btn btn-warning btn-block btn-xs']) ?>
+                </div>
+            </div>
+        </div>
 
     <?php ActiveForm::end(); ?>
 
-</div>
