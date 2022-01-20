@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Historial de transacciones</div>
+                            <div class="card-title">Historial de transacciones (<?= number_format(count($model)) ?>)</div>
                         </div>
                         <div class="card-body">
                             <ol class="activity-feed">
