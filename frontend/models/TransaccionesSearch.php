@@ -40,7 +40,7 @@ class TransaccionesSearch extends Transacciones
      */
     public function search($params)
     {
-        $query = Transacciones::find();
+        $query = Transacciones::find()->orderBy(['fecha_pago' => SORT_DESC]);
 
         // add conditions that should always apply here
 
