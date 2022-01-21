@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-md-2">
+                <div class="col-sm-6 col-md-6">
                     <div class="card card-stats card-info card-round">
                         <div class="card-body">
                             <div class="row">
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-6">
                     <div class="card card-stats card-danger card-round">
                         <div class="card-body ">
                             <div class="row">
@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 
-                <div class="col-sm-6 col-md-3">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-success card-round">
                         <div class="card-body ">
                             <div class="row">
@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-md-2">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-warning card-round">
                         <div class="card-body ">
                             <div class="row">
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-2">
+                <div class="col-sm-6 col-md-4">
                     <div class="card card-stats card-secondary card-round">
                         <div class="card-body ">
                             <div class="row">
