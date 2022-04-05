@@ -62,24 +62,27 @@ class AnotacionesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionVer($cliente_id, $id=null)
+    public function actionVer($cliente_id=null, $id=null)
     {
-        if ($id) {
-            $model = Anotaciones::findOne($id);
-        }else{
+        $post = Yii::$app->request->post();
+        $model = Anotaciones::find()->where(['user_id' => Yii::$app->user->identity->id, 'cliente_id' => $post['cliente_id']])->one();
+        if (!$model) {
             $model = new Anotaciones();
             $model->user_id = Yii::$app->user->identity->id;
+            $model->cliente_id = $post['cliente_id'];
+            $model->date = date("Y-m-d H:i:s");
         }
-        $cliente = \frontend\models\Clientes::findOne($cliente_id);
+        $cliente = \frontend\models\Clientes::findOne($post['cliente_id']);
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->user_id = Yii::$app->user->identity->id;
-            $model->cliente_id = $cliente_id;
+        if ($model->load($post)) {
             $model->ultima_modificacion = date("Y-m-d H:i:s");
-            if ($id) {$model->date = date("Y-m-d H:i:s");}
-            $model->save();
+            if (!$model->save()) {
+                print_r($model);
+                exit;
+            }
             Yii::$app->session->setFlash('success', "Guardado correctamente");
-            return $this->redirect(['/clientes/perfil', 'id' => $cliente_id]);
+            return $this->redirect(Yii::$app->request->referrer); 
+            // return $this->redirect(['/clientes/perfil', 'id' => $cliente_id]);
         }
 
         return $this->render('create', [

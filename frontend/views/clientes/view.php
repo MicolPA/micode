@@ -89,6 +89,8 @@ $neto = $ingresos - $gastos;
 
 													if (!$anotacion) {
 														$anotacion = new \frontend\models\Anotaciones();
+														$anotacion->user_id = Yii::$app->user->identity->id;
+														$anotacion->cliente_id = $model->id;
 													}
 														echo $this->render('/anotaciones/_form', ['model' => $anotacion])
 													?>
