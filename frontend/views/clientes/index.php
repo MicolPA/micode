@@ -55,10 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $btn;
                             }
                         ],
-                        [
-                            'label' => 'Tipo servicio',
-                            'attribute' => 'tipoServicio.nombre',
-                        ],
+                        // [
+                        //     'label' => 'Tipo servicio',
+                        //     'attribute' => 'tipoServicio.nombre',
+                        // ],
                         [
                             'label' => 'Representante',
                             'attribute' => 'representante_nombre',
@@ -84,20 +84,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'label' => '',
                             'format' => 'raw',
+                            'options' => ['class' => 'col-md-2 col-xs-4 col-sm-4'],
                             'value' => function ($data) {
-                                $view =  Html::a('<i class="fas fa-eye text-white btn-primary btn btn-xs"></i>', ['perfil', 'id' => $data->id], []);
+                                $view =  Html::a('<i class="fas fa-eye text-white btn-primary btn btn-small"></i>', ['perfil', 'id' => $data->id], []);
                                 
-                                $delete = Html::a('<i class="fas fa-trash text-white btn-danger btn btn-xs"></i>', ['delete', 'id' => $data->id], [
+                                $delete = Html::a('<i class="fas fa-trash text-white btn-danger btn btn-small"></i>', ['delete', 'id' => $data->id], [
                                     'data' => [
                                         'confirm' => '¿Está seguro/a que desea eliminar este registro?',
                                         'method' => 'post',
                                     ],
                                 ]);
                                 if (Yii::$app->user->identity->role_id == 1) {
-                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-primary btn btn-xs"></i>', ['editar', 'id' => $data->id], []);
+                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-primary btn btn-small"></i>', ['editar', 'id' => $data->id], []);
                                     return "$view $update $delete";
                                 }else{
-                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-warning btn btn-xs"></i>', ['editar', 'id' => $data->id], []);
+                                    $update =  Html::a('<i class="fas fa-pencil-alt text-white btn-warning btn btn-small"></i>', ['editar', 'id' => $data->id], []);
                                     return "$view $update";
                                 }
                             },

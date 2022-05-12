@@ -29,7 +29,7 @@ use yii\helpers\ArrayHelper;
         </div>
 
         <div class="col-md-2 p-0">
-            <?= $form->field($model, 'representante_nombre') ?>
+            <?= $form->field($model, 'representante_nombre')->label('Representante') ?>
         </div>
 
         <?php // echo $form->field($model, 'representante_telefono') ?>

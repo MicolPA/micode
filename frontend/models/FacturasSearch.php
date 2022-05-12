@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Facturas;
@@ -40,12 +41,20 @@ class FacturasSearch extends Facturas
      */
     public function search($params)
     {
-        $query = Facturas::find();
+        
+        if (isset(Yii::$app->request->get()['type'])) {
+            $this->cotizacion = Yii::$app->request->get()['type'];
+        }else{
+            $this->cotizacion = 0;
+        }
+
+        $query = Facturas::find()->where(['cotizacion' => $this->cotizacion, 'active' => 1]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 16],
             'sort'=> ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
@@ -60,9 +69,11 @@ class FacturasSearch extends Facturas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'cotizacion' => $this->cotizacion,
+            'factura_code' => $this->factura_code,
             'cliente_id' => $this->cliente_id,
             'total' => $this->total,
-            'user_id' => $this->user_id,
+            'status_id' => $this->status_id,
             'date' => $this->date,
         ]);
 

@@ -1,0 +1,19 @@
+.select2-container--default .select2-selection--single{
+	border: 1px solid #ccc !important;
+}
+
+.form-control{
+	border-color: #ccc;
+}
+
+.btn-small{
+  font-size: 10px !important;
+  padding: 4px 6px;
+}
+
+.grid-view table td{
+	font-size: 14px !important;
+}
+.font-12{
+	font-size: 12px;
+}

@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     $text = "<span class='font-weight-bold'>".$pago->tipo->nombre.":</span>";
                                                     $text2 = $pago->concepto;
                                                 }else{
-                                                    $text = "<span class='font-weight-bold'>". $pago->cliente->empresa . "</span>: " . $pago->tipo->nombre;
+                                                    $text = "<a href='/frontend/web/clientes/perfil?id=$pago->cliente_id' class='font-weight-bold text-dark'>". $pago->cliente->empresa . "</a>: " . $pago->tipo->nombre;
                                                     $text2 = $pago->servicioExtra->nombre;
                                                 }
 

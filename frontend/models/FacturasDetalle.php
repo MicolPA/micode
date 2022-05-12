@@ -31,7 +31,7 @@ class FacturasDetalle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['factura_id', 'precio'], 'integer'],
+            [['factura_id', 'precio', 'cantidad', 'total'], 'integer'],
             [['date'], 'safe'],
             [['descripcion'], 'string', 'max' => 255],
             [['factura_id'], 'exist', 'skipOnError' => true, 'targetClass' => Facturas::className(), 'targetAttribute' => ['factura_id' => 'id']],

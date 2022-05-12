@@ -21,6 +21,7 @@ if (Yii::$app->user->isGuest) {
 AppAsset::register($this);
 
 $user = Yii::$app->user->identity;
+$config = \frontend\models\Configuracion::findOne(1);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -58,7 +59,12 @@ $user = Yii::$app->user->identity;
         <div class="logo-header" data-background-color="blue">
             
             <a href="/" class="logo">
-                <img src="/frontend/web/images/logo.png" alt="navbar brand" class="navbar-brand" width="110px">
+                <?php if ($config['logo_general_tipo'] == 1): ?>
+                    <img src="<?= $config['logo_general_url'] ?>" alt="navbar brand" class="navbar-brand" style="max-width: 120px;max-height: 50px;">
+                <?php else: ?>
+                    <img src="<?= $config['logo_general_url'] ?>" alt="navbar brand" class="navbar-brand" style="max-width: 50px;max-height: 50px;">
+                <?php endif ?>
+                <!-- <img src="/frontend/web/images/logo-white.png" alt="navbar brand" class="navbar-brand" width="110px"> -->
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -96,6 +102,11 @@ $user = Yii::$app->user->identity;
                             <i class="fa fa-search"></i>
                         </a>
                     </li>
+                <!-- <a href="#" class="nav-link"> -->
+                        <!-- <span class="text-white h4">
+                            Hola, <?//= "$user->first_name $user->last_name" ?>
+                        </span> -->
+                    <!-- </a> -->
                    
                     <li class="nav-item dropdown hidden-caret">
                         <!-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -157,11 +168,11 @@ $user = Yii::$app->user->identity;
                     </li>
                     <li class="nav-item dropdown hidden-caret">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <i class="fas fa-layer-group"></i>
+                            <i class="fas fa-layer-group mr-2"></i> Atajos
                         </a>
                         <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
                             <div class="quick-actions-header">
-                                <span class="title mb-1">Quick Actions</span>
+                                <span class="title mb-1">Mis Atajos</span>
                                 <span class="subtitle op-8">Shortcuts</span>
                             </div>
                             <div class="quick-actions-scroll scrollbar-outer">
@@ -185,7 +196,7 @@ $user = Yii::$app->user->identity;
                                                 <span class="text">Agregar Cliente</span>
                                             </div>
                                         </a>
-                                        <a class="col-6 col-md-4 p-0" href="/frontend/web/facturas/registrar">
+                                        <a class="col-6 col-md-4 p-0" href="/frontend/web/facturas/registrar?type=0">
                                             <div class="quick-actions-item">
                                                 <i class="flaticon-agenda"></i>
                                                 <span class="text">Registrar Factura</span>
@@ -197,35 +208,32 @@ $user = Yii::$app->user->identity;
                         </div>
                     </li>
                     <li class="nav-item dropdown hidden-caret">
-                        <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <div class="avatar-sm">
-                                <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
-                            </div>
+                        <a class="dropdown-toggle nav-link text-white " data-toggle="dropdown" href="#" aria-expanded="false">
+                            <i class="fas fa-user mr-1 fa-xs"></i>  Hola, <?= "$user->first_name $user->last_name" ?>
                         </a>
                         <ul class="dropdown-menu dropdown-user animated fadeIn">
                             <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="/frontend/web/<?= $user->photo_url ?>" alt="image profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <h4><?= $user->first_name ?></h4>
-                                            <p class="text-muted"><?= $user->email ?></p><a href="/frontend/user/ver?id=<?= $user->id ?>" class="btn btn-xs btn-secondary btn-xs">Ver perfil</a>
+                                            <h4><?= "$user->first_name $user->last_name" ?></h4>
+                                            <p class="text-muted"><?= $user->role->name ?></p>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">My Profile</a>
-                                    <a class="dropdown-item" href="#">My Balance</a>
-                                    <a class="dropdown-item" href="#">Inbox</a>
-                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/frontend/web/user/editar?id=<?= $user->id ?>">Mi Perfil</a>
+                                    <a class="dropdown-item" href="/frontend/web/site/logout">Cerrar sesión</a>
+                                    <!-- <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Account Setting</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/frontend/web/site/logout">Cerrar sesión</a>
+                                    <a class="dropdown-item" href="#">Logout</a> -->
                                 </li>
                             </div>
                         </ul>
                     </li>
+                    
                 </ul>
             </div>
         </nav>
@@ -238,7 +246,13 @@ $user = Yii::$app->user->identity;
             <div class="sidebar-content">
                 <div class="user">
                     <div class="avatar-sm float-left mr-2">
-                        <img src="/frontend/web/<?= $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
+                        <?php if (file_exists(Yii::getAlias("@web") . '/'. $user->photo_url)): ?>
+                            <img src="<?= Yii::getAlias("@web") . '/'. $user->photo_url ?>" alt="..." class="avatar-img rounded-circle">
+                        <?php else: ?>
+                            <button type="button" class="btn btn-icon btn-round btn-primary font-weight-bold">
+                                <?= substr($user->first_name, 0,1) ?>
+                            </button>
+                        <?php endif ?>
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -272,19 +286,14 @@ $user = Yii::$app->user->identity;
                     </div>
                 </div>
                 <ul class="nav nav-info">
-                    <li class="nav-item active">
-                        <a href="/" class="collapsed" aria-expanded="false">
-                            <i class="fas fa-home"></i>
-                            <p>Inicio</p>
+                    <li class="nav-item">
+                        <a href="/" class="collapsed" aria-expanded="false" style="background:#56BCF7 !important">
+                            <i class="fas fa-home text-white font-weight-bold"></i>
+                            <p class="text-white font-weight-bold">Dashboard</p>
                         </a>
                     </li>
-                    <li class="nav-section">
-                        <span class="sidebar-mini-icon">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </span>
-                        <h4 class="text-section">Secciones</h4>
-                    </li>
-                    <li class="nav-item">
+                    
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, 'clientes') ? 'active' : '' ?>">
                         <a href="/frontend/web/clientes/">
                             <i class="fas fa-user"></i>
                             <p>Clientes</p>
@@ -292,19 +301,19 @@ $user = Yii::$app->user->identity;
                         
                     </li>
                     
-                    <li class="nav-item">
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, 'transacciones') ? 'active' : '' ?>">
                         <a href="/frontend/web/transacciones">
                             <i class="fas fa-coins"></i>
                             <p>Finanzas</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, 'colaboradores') ? 'active' : '' ?>">
                         <a href="/frontend/web/colaboradores">
                             <i class="fas fa-users"></i>
                             <p>Colaboradores</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, 'reportes') ? 'active' : '' ?>">
                         <a href="/frontend/web/reportes">
                             <i class="fas fa-chart-bar"></i>
                             <p>Reporte</p>
@@ -331,22 +340,22 @@ $user = Yii::$app->user->identity;
                             </ul>
                         </div>
                     </li> -->
-                    <li class="nav-item">
-                        <a href="/frontend/web/facturas">
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, '?type=0') ? 'active' : '' ?>">
+                        <a href="/frontend/web/facturas?type=0">
                             <i class="fas fa-file-invoice-dollar"></i>
                             <p>Facturas</p>
+                        </a>
+                    </li>
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, '?type=1') ? 'active' : '' ?>">
+                        <a href="/frontend/web/facturas?type=1">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Cotizaciones</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="/frontend/web/servicios/calendario">
                             <i class="fas fa-calendar-alt"></i>
                             <p>Calendario</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/frontend/web/tarjetas/">
-                            <i class="fas fa-credit-card"></i>
-                            <p>Cuentas</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -362,15 +371,43 @@ $user = Yii::$app->user->identity;
                         </a>
                     </li>
 
+                    <li class="nav-item <?= strpos(Yii::$app->request->url, 'configuracion') ? 'active' : '' ?>">
+                        <a data-toggle="collapse" href="#configuracion">
+                            <i class="fas fa-cogs"></i>
+                            <p>Configuración</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="configuracion">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="/frontend/web/configuracion/empresa">
+                                        <span class="sub-item">Mi Empresa</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/configuracion/facturacion">
+                                        <span class="sub-item">Facturación e impuestos</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/frontend/web/tarjetas">
+                                        <span class="sub-item">Métodos de pago</span>
+                                    </a>
+                                </li>
+                                <?php if (Yii::$app->user->identity->role_id == 3): ?>
+                                <li>
+                                    <a href="/frontend/web/planes-configuracion">
+                                        <span class="sub-item">Configuración Plan</span>
+                                    </a>
+                                </li>
+                                <?php endif ?>
+                            </ul>
+                        </div>
+                    </li>
+
+                    
                     
                     <li class="nav-item">
-                        <a href="widgets.html">
-                            <i class="fas fa-desktop"></i>
-                            <p>Notificaciones</p>
-                            <span class="badge badge-success">4</span>
-                        </a>
-                    </li>
-                     <li class="nav-item">
                         <a data-toggle="collapse" href="#users">
                             <i class="far fa-user"></i>
                             <p>Usuarios</p>

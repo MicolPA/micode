@@ -11,7 +11,7 @@ $this->title = $model->empresa;
 $ingresos = \frontend\models\Transacciones::find()->where(['cliente_id' => $model->id, 'tipo_id' => 1])->sum("total");
 $gastos = \frontend\models\Transacciones::find()->where(['cliente_id' => $model->id, 'tipo_id' => 2])->sum("total");
 $neto = $ingresos - $gastos;
-
+$user = \frontend\models\User::findOne($model->user_id)
 ?>
 
 
@@ -44,15 +44,20 @@ $neto = $ingresos - $gastos;
 									<div style="background-image: url(/frontend/web/<?= $model->logo_url ? $model->logo_url : 'images/logo-goes-here.png' ?>);background-size: contain;background-repeat: no-repeat;background-position: center;height: 250px;">
 									</div>
 								</div>
-								<div class="m-3">
-									<h2 class="font-weight-bold mb-2"><?= $model->empresa ?> </h2>
+								<div class="m-3 font-12">
+									<h2 class="font-weight-bold mb-2 h4"><?= $model->empresa ?> </h2>
 									<?php if ($model->dominio): ?>
-										<p class="h4 font-weight-normal"><i class="fas fa-laptop fa-xs text-dark mr-2"></i> <a href="https://<?= $model->dominio ?>" target='_blank'><?= $model->dominio ?></a></p>
+										<p class="h4 font-weight-normal font-12"><i class="fas fa-laptop fa-xs text-dark mr-2"></i> <a href="https://<?= $model->dominio ?>" target='_blank'><?= $model->dominio ?></a></p>
 									<?php endif ?>
-									<p class="h4 font-weight-normal"><i class="fas fa-user mr-2"></i> <?= $model->representante_nombre ? $model->representante_nombre : "No registrado" ?></p>
-									<p class="h4 font-weight-normal"><i class="fas fa-phone mr-2"></i> <?= $model->representante_telefono ? $model->representante_telefono : "No registrado"; ?></p>
-									<p class="h4 font-weight-normal"><i class="fas fa-envelope mr-2"></i> <?= $model->representante_correo ? $model->representante_correo : 'No registrado' ?></p>
-									<p class="h4 font-weight-normal"><i class="fas fa-calendar-alt mr-2"></i> <?= $servicio->formatDate($model->date, 1) ?></p>
+									<p class="h4 font-weight-normal font-12"><i class="fas fa-user mr-2"></i> <?= $model->representante_nombre ? $model->representante_nombre : "No registrado" ?></p>
+									<p class="h4 font-weight-normal font-12"><i class="fas fa-phone mr-2"></i> <?= $model->representante_telefono ? $model->representante_telefono : "No registrado"; ?></p>
+									<p class="h4 font-weight-normal font-12"><i class="fas fa-envelope mr-2"></i> <?= $model->representante_correo ? $model->representante_correo : 'No registrado' ?></p>
+									<?php if ($model->direccion): ?>
+										<p class="h4 font-weight-normal font-12"><i class="fas fa-map-marker-alt mr-2"></i> 
+											<?= $model->direccion ?>
+										</p>
+									<?php endif ?>
+									<p class="h4 font-weight-normal font-12"><i class="fas fa-calendar-alt mr-2"></i> Registrado el <?= $servicio->formatDate($model->date, 1) ?> <?= $user ? "por $user->first_name $user->last_name" : '' ?></p>
 
 								</div>
 							</div>

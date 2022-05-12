@@ -6,6 +6,7 @@ use Yii;
 use frontend\models\Facturas;
 use frontend\models\FacturasDetalle;
 use frontend\models\FacturasSearch;
+use frontend\models\Transacciones;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -143,7 +144,7 @@ class FacturasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar($cliente_id=null, $w_client=1)
+    public function actionRegistrar($cliente_id=null, $w_client=1, $type=0)
     {
         $model = new Facturas();
         $post = Yii::$app->request->post();
@@ -162,6 +163,7 @@ class FacturasController extends Controller
         }
 
         return $this->render('create', [
+            'type' => $type,
             'w_client' => $w_client,
             'cliente_id' => $cliente_id,
             'model' => $model,
@@ -199,6 +201,61 @@ class FacturasController extends Controller
         return $this->redirect(['index']);
     }
 
+    function getCode($model, $config){
+
+        $count = Facturas::find()->where(['cotizacion' => $model->cotizacion, 'active' => 1])->count();
+        $count = $count + 1;
+        
+        if ($model->cotizacion) {
+            $count = $config['codigo_cotizacion']."000$count";
+        }else{
+            $count = $config['codigo_factura']."000$count";
+        }
+
+        return $count;
+    }
+
+    function actionConvertirFactura($id){
+
+        $cotizacion = Facturas::findOne($id);
+        $config = \frontend\models\Configuracion::findOne(1);
+        if ($cotizacion) {
+
+            // $servicios = new \common\models\Servicios();
+            // $servicios->countFieldConfig( 'facturas_total');
+
+            $cotizacion->cotizacion = 0;
+            $cotizacion->date = date("Y-m-d H:i:s");
+            $cotizacion->factura_code = $this->getCode($cotizacion, $config);
+            $cotizacion->save();
+            $transaccion = new Transacciones();
+            $transaccion->saveTransaccion($cotizacion);
+
+            // $model = new Facturas();
+            // $model->cliente_id = $cotizacion->cliente_id;
+            // $model->cliente_nombre = $cotizacion->cliente_nombre;
+            // $model->asunto = $cotizacion->asunto;
+            // $model->total = $cotizacion->total;
+            // $model->user_id = $cotizacion->user_id;
+            // $model->date = $cotizacion->date;
+            // $model->cotizacion = 0;
+            // $model->moneda = $cotizacion->moneda;
+            // $model->pagada = $cotizacion->pagada;
+            // $model->fecha_pagada = $cotizacion->fecha_pagada;
+            // $model->comprobante = $cotizacion->comprobante;
+            // $model->nota = $cotizacion->nota;
+            // $model->impuestos = $cotizacion->impuestos;
+            // $model->factura_code = $this->getCode($model, $config);
+            // if ($model->save()) {
+            //     $servicios = new \common\models\Servicios();
+            //     $servicios->countFieldConfig( 'facturas_total');
+            //     $this->getInvoiceDetail($cotizacion->id, $model->id);
+            // }
+            Yii::$app->session->setFlash('success', "Cambio realizado correctamente");
+        }
+        return $this->redirect(Yii::$app->request->referrer); 
+    }
+
     /**
      * Updates an existing Facturas model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -206,16 +263,26 @@ class FacturasController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionEditar($id, $w_client)
+    public function actionEditar($id, $w_client=1)
     {
         $model = $this->findModel($id);
         $post = Yii::$app->request->post();
         $detalles = FacturasDetalle::find()->where(['factura_id' => $id])->all();
         if ($model->load($post)) {
             $model->pagada = isset($model->pagada[0]) ? $model->pagada[0] : 0;
+            $model->status_id = $model->pagada ? 1 : $model->status_id;
+            $model->cotizacion = $model->pagada ? 0 : $model->cotizacion;
             $model->save();
             $this->deleteRegisterInvoiceDetail($detalles);
             $this->registerInvoiceDetail($post, $model);
+
+            // if ($model->status_id == 1) {
+                // $transaccion = new Transacciones();
+                // $transaccion->saveTransaccion($model);
+                // $model->registrarTransaccion($model->id);
+            // }
+            $transaccion = new Transacciones();
+            $transaccion->saveTransaccion($model, $model->status_id == 3 ? 2 : 1);
             return $this->redirect(['ver', 'id' => $model->id]);
         }
 
@@ -223,6 +290,7 @@ class FacturasController extends Controller
             'model' => $model,
             'detalles' => $detalles,
             'w_client' => $w_client,
+            'type' => $model->cotizacion
         ]);
     }
 

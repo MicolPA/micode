@@ -4,43 +4,27 @@ $servicios = new \common\models\Servicios();
 $total = count($detalles);
 $faltantes = 4 - $total;
 $monto_total = 0;
-$config = \frontend\models\Configuracion::findOne(1);
  ?>
-<html style="min-height: 100%; position: relative;margin-top: 1rem;">
+<html style="min-height: 100%; position: relative;">
 
 <style>
 	
 </style>
 	<!-- <img src="/frontend/web/images/formas-top.png" width="100%"> -->
-	<div style="padding: 0px 40px;margin-top: 2rem !important;padding-top: 3rem;">
-		<div style="width: 50%;display:inline-block;float: left;">
+	<div style="height: 100px"></div>
+	<div style="padding: 0px 40px;">
+		<div style="width: 50%;display:inline-block;float: left;padding-top: -2rem">
 			<!-- <img src="/frontend/web/images/Logo lineal.png" width="180px"> -->
 			<p style="font-weight: bold !important;letter-spacing: 10px;font-size:28px;font-family: poppins;"><?= $model->cotizacion ? "COTIZACIÓN" : "FACTURA" ?></p>
 		</div>
 
-		<div style="width:50%;display:inline-block;float: left;text-align: right;">
-			<?php if ($config['logo_factura_url']): ?>
-					<img src="<?= $config['logo_factura_url'] ?>" width="120px">
-				<?php endif ?>
-				<p style="font-size:12px;color:#4f4f4f; font-weight: lighter;">
-					<br>
-					<?php if (!$config['logo_factura_url']): ?>
-						<span style="font-weight:bold;margin-bottom: 0px;font-size: 14px;display: block;">
-							<?= $config['empresa'] ?>
-						</span>
-						<br>
-					<?php endif ?>
-					<?php if ($config['rnc']): ?>
-						<span style="font-weight:bold">RNC:</span> <?= $config['rnc'] ?> <br>
-					<?php endif ?>
-					<?php if ($config['direccion']): ?>
-						<?= $config['direccion'] ?><br>
-					<?php endif ?>
-					<?php if ($config['correo']): ?>
-						<?= $config['correo'] ?><br>
-					<?php endif ?>
-					<?= $config['telefono'] ?>
-				</p>
+		<div style="width:50%;display:inline-block;float: left;text-align: right;margin-top: -4rem">
+			<img src="/frontend/web/images/Logo lineal.png" width="140px">
+			<p style="font-size:12px;color:#4f4f4f">
+				MCD by M&G <br>
+				Distrito Nacional, Rep. Dom. <br>
+				849-217-0808
+			</p>
 			<br>
 			<!-- <p style="font-weight: 300 !important;letter-spacing: 10px;font-size:20px;">FACTURA</p> -->
 		</div>
@@ -51,7 +35,7 @@ $config = \frontend\models\Configuracion::findOne(1);
 			
 		</div> -->
 
-		<div style="width: 40%;background:#0A7DBF;float: left;text-align: center;margin-bottom: 0rem;margin-top: -3rem">
+		<div style="width: 40%;background:#0D9CBA;float: left;text-align: center;margin-bottom: 0rem;margin-top: -1.8rem">
 			<p style="font-weight: 300 !important;margin:5px;color:#fff;font-weight: bold">Fecha: <?= $servicios->formatDate($model->date) ?></p>
 		</div>
 
@@ -140,7 +124,7 @@ $config = \frontend\models\Configuracion::findOne(1);
 					<br>
 					<br>
 					<br>Monto Total <br> 
-					<span style="color:#0A7DBF;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
+					<span style="color:#0D9CBA;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
 					<p style="text-align:right;color:#8b8b8b">Todos los impuestos incluidos.</p>
 				</div>
 

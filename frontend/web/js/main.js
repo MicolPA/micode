@@ -6,6 +6,7 @@ $(window).on('load', function () { // makes sure the whole site is loaded
 		'overflow': 'visible'
 	});
     $('#ajax-loader').hide();
+    $(".select_2").select2();
 })
 
 console.log('hola');
@@ -183,5 +184,29 @@ function borrarEvento(id, url){
           }
         });
 }
+
+$(".cliente-options label").on('click', function(){
+
+	if (this.classList.contains("select-cliente-registrado")) {
+
+		$(".client_select select").select2('destroy');
+
+		$(".client_select").show();
+		$(".client_select select").prop('required', 'required');
+		$(".client_select select").select2();
+ 
+		$(".client_name").hide();
+		$(".client_name input").prop('required', false);
+		$(".client_name input").val('');
+
+	}else{
+		$(".client_name").show();
+		$(".client_name input").prop('required', 'required');
+
+		$(".client_select").hide();
+		$(".client_select select").prop('required', false);
+		$(".client_select select").find('option:eq(0)').prop('selected', true);
+	}
+})
 
 // function verEvento(nombre, )
