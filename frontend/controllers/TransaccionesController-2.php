@@ -55,31 +55,7 @@ class TransaccionesController extends Controller
             'cuentas' => $cuentas,
             'model' => $model,
             'pagination' => $pagination,
-            'name' => 'finanzas',
             'searchModel' => $searchModel,
-            'tipo_id' => $tipo_id,
-        ]);
-    }
-
-    function verificarMonto(){
-        $servicios = new \common\models\Servicios();
-        $servicios->verificarMonto();
-    }
-
-
-    public function actionCostosProduccion()
-    {
-        $query = Transacciones::find()->where(['tipo_id' => 3])->orderBy(['fecha_pago' => SORT_DESC, 'tipo_id' => SORT_DESC, 'id' => SORT_DESC]);
-        $countQuery = clone $query;
-        $pagination = new \yii\data\Pagination(['totalCount' => $countQuery->count()]);
-        $model = $query->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
-
-        return $this->render('index', [
-            'model' => $model,
-            'pagination' => $pagination,
-            'name' => 'costos de producción'
         ]);
     }
 
@@ -101,39 +77,77 @@ class TransaccionesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionRegistrar($cliente=null, $view, $colaborador_id=null)
+    public function actionRegistrar($cliente=null, $tipo, $view, $colaborador_id=null)
     {
-        // $this->verificarMonto();
         $model = new Transacciones();
         $cuentas = Tarjetas::find()->all();
+        $cliente_info = Clientes::findOne($cliente);
         $post = Yii::$app->request->post();
+        $model->tipo_id = $tipo;
         if ($model->load($post)) {
-            $model->colaborador = $post['colaborador_id'] ? 1 : 0;
+            $model->cliente_id = $cliente;
+            $model->colaborador = $colaborador_id ? 1 : 0;
             $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
-            if (!$model->save()) {
-                print_r($model->errors);
-                exit;
-            }
+            $model->save();
 
-            $model->registrarDetalleTransaccion($post, $cuentas, $model, $colaborador_id);
+            $this->registrarDetalle($post, $cuentas, $model, $colaborador_id);
             Yii::$app->session->setFlash('success', "Transacción registrada correctamente");
-            $this->redirect(["/".$view]);
+            $this->redirect([$view]);
             // return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'cuentas' => $cuentas,
+            'cliente_info' => $cliente_info,
             'colaborador_id' => $colaborador_id,
         ]);
     }
 
-    
+    function registrarDetalle($post, $cuentas, $model, $colaborador_id=null){
+
+        foreach ($cuentas as $cuenta) {
+
+            if (isset($post['cuenta'][$cuenta->id]) or (isset($post['colaborador_amount']) and $cuenta->id == 3)) {
+                if ($post['cuenta'][$cuenta->id] or (isset($post['colaborador_amount']) and $cuenta->id == 3)) {
+
+                    if ($model->tipo_id == 1) {
+                        $cuenta->dinero_total = $cuenta->dinero_total + $post['cuenta'][$cuenta->id];
+                    }else{
+                        $cuenta->dinero_total = $cuenta->dinero_total - $post['cuenta'][$cuenta->id];
+                    }
+                    if (isset($post['colaborador_amount']) and $cuenta->id == 3) {
+                        $cuenta->dinero_total = $cuenta->dinero_total - $post['colaborador_amount'];
+                        
+                    }
+
+                    $cuenta->dinero_total = (string)$cuenta->dinero_total;
+                    $cuenta->save();
+                    
+                    $transaccion = new TransaccionesDetalle();
+                    $transaccion->tarjeta_id = $cuenta->id;
+                    $transaccion->transaccion_id = $model->id;
+                    $transaccion->fecha_pago = $model->fecha_pago;
+                    $transaccion->cliente_id = $model->cliente_id;
+                    $transaccion->total = $post['cuenta'][$cuenta->id];
+                    $transaccion->tipo_id = $model->tipo_id;
+                    $transaccion->user_id = Yii::$app->user->identity->id;
+                    $transaccion->date = date("Y-m-d H:i:s");
+                    $transaccion->save();
+
+                }
+            }
+
+        }
+        if (isset($post['colaborador_amount'])) {
+            $this->registrarImporteColaborador($colaborador_id, $post['colaborador_amount'], $model);
+        }
+
+    }
 
     function registrarImporteColaborador($colaborador_id, $amount, $model){
         if ($amount) {
-            $amount = str_replace(',', '', $amount);
             $transaccion = new TransaccionesDetalle();
             $transaccion->tarjeta_id = null;
             $transaccion->transaccion_id = $model->id;
@@ -150,40 +164,20 @@ class TransaccionesController extends Controller
         }
     }
 
-    public function actionEditar($id, $view='/transacciones')
-    {
-        // $this->verificarMonto();
-        $model = $this->findModel($id);
-        $cuentas = Tarjetas::find()->all();
-        $post = Yii::$app->request->post();
-
-        $colaborador_id = $model->colaborador;
-
-        if ($model->load($post) && $model->save()) {
-            $model->colaborador = $post['colaborador_id'] ? 1 : 0;
-            $model->registrarDetalleTransaccion($post, $cuentas, $model, null);
-            Yii::$app->session->setFlash('success', "Transacción actualizada correctamente");
-            $this->redirect(["/".$view]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-            'view' => $view,
-            'cuentas' => $cuentas,
-            'colaborador_id' => $colaborador_id,
-        ]);
-    }
-
-  
-    public function actionEditarOld($id, $cliente=null, $tipo, $view)
+    /**
+     * Updates an existing Transacciones model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionEditar($id, $cliente=null, $tipo, $view)
     {
         $model = $this->findModel($id);
         $cuentas = Tarjetas::find()->all();
         $cliente_info = Clientes::findOne($cliente);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->registrarDetalle($post, $cuentas, $model, $colaborador_id);
-            Yii::$app->session->setFlash('success', "Transacción actualizada correctamente");
             return $this->redirect([$view]);
         }
 

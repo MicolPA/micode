@@ -5,10 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Transacciones */
 
-$this->title = 'Detalle de Transacción';
+$this->title = 'Registrar Transacción';
 $this->params['breadcrumbs'][] = ['label' => 'Transacciones', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-date_default_timezone_set('America/Santo_Domingo');
 ?>
 <div class="main-panel">
 
@@ -35,15 +34,6 @@ date_default_timezone_set('America/Santo_Domingo');
 						<!-- <a href="#">Registro de clientes</a> -->
 					</li>
 				</ul>
-				<div class="ml-md-auto py-2 py-md-0">
-                    <?= Html::a('<i class="fas fa-arrow-left"></i> Atras', [$view], ['class' => 'btn btn-outline-secondary btn-xs']) ?>
-                    <?= Html::a('<i class="fas fa-trash text-danger"></i> Eliminar', ['delete', 'id' => $model->id, 'view' => $view], [
-                            'data' => [
-                                'confirm' => '¿Está seguro/a que desea eliminar este registro?',
-                                'method' => 'post',
-                            ], 'class' => 'btn btn-outline-danger btn-xs'
-                        ]); ?>
-                </div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
@@ -54,6 +44,7 @@ date_default_timezone_set('America/Santo_Domingo');
 						<?= $this->render('_form', [
 					        'model' => $model,
             				'cuentas' => $cuentas,
+					        'cliente_info' => $cliente_info,
             				'colaborador_id' => $colaborador_id,
 					    ]) ?>
 						

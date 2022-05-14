@@ -48,7 +48,7 @@ $get = Yii::$app->request->get();
         </div>
 
         <div class="col-md-6">
-            <?= $form->field($model, 'fecha_pago')->textInput(['type' => 'date', 'value' => date("Y-m-d"), 'required' => 'required', 'disabled' => 'disabled']) ?>
+            <?= $form->field($model, 'fecha_pago')->textInput(['type' => 'date', 'required' => 'required', 'disabled' => 'disabled']) ?>
         </div>
 
         

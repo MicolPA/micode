@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-6 m-auto card mt-5 pt-4 pb-4">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Nombre de usuario') ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput()->label("Contraseña") ?>
 
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
