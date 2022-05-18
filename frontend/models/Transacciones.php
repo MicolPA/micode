@@ -103,7 +103,6 @@ class Transacciones extends \yii\db\ActiveRecord
     }
 
     function saveTransaccion($factura, $type=1){
-
         $config = Configuracion::findOne(1);
         $model = Transacciones::find()->where(['factura_id' => $factura->id])->one();
         if (!$model) {
@@ -134,14 +133,14 @@ class Transacciones extends \yii\db\ActiveRecord
         $model->fecha_pago = $factura->fecha_pagada ? $factura->fecha_pagada : $factura->date;
         $model->pagada = $factura->pagada;
         $model->date = $factura->date;
-        $model->concepto = "Factura #$factura->factura_code - $factura->asunto";
+        $model->concepto = "Factura - $factura->asunto";
         $model->user_id = $factura->user_id;
         $model->cliente_nombre = $factura->cliente_nombre;
         $model->factura_id = $factura->id;
         // $model->total = $monto_total;
         if (!$model->save()) {
-            // print_r($model->errors);
-            // exit;
+            print_r($model->errors);
+            exit;
         }
         return $model;
 
@@ -189,9 +188,27 @@ class Transacciones extends \yii\db\ActiveRecord
             }
 
         }
-        // if (isset($post['colaborador_amount'])) {
-        //     $this->registrarImporteColaborador($colaborador_id, $post['colaborador_amount'], $model);
-        // }
+        if (isset($post['colaborador_amount'])) {
+            $this->registrarImporteColaborador($colaborador_id, $post['colaborador_amount'], $model);
+        }
 
+    }
+
+    function registrarImporteColaborador($colaborador_id, $amount, $model){
+        if ($amount) {
+            $transaccion = new TransaccionesDetalle();
+            $transaccion->tarjeta_id = null;
+            $transaccion->transaccion_id = $model->id;
+            $transaccion->fecha_pago = $model->fecha_pago;
+            $transaccion->total = $amount;
+            $transaccion->tipo_id = $model->tipo_id;
+            $transaccion->colaborador_id = $colaborador_id;
+            $transaccion->user_id = Yii::$app->user->identity->id;
+            $transaccion->date = date("Y-m-d H:i:s");
+            if (!$transaccion->save()) {
+                print_r($transaccion->errors);
+                exit;
+            }
+        }
     }
 }

@@ -69,6 +69,7 @@ class FacturasSearch extends Facturas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'asunto' => $this->asunto,
             'cotizacion' => $this->cotizacion,
             'factura_code' => $this->factura_code,
             'cliente_id' => $this->cliente_id,

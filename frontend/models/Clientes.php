@@ -44,7 +44,7 @@ class Clientes extends \yii\db\ActiveRecord
         return [
             [['empresa'], 'required'],
             [['tipo_servicio_id', 'importe_base', 'status', 'pago_mensual'], 'integer'],
-            [['fecha_comienzo', 'date', 'fecha_finalizacion'], 'safe'],
+            [['fecha_comienzo', 'date', 'fecha_finalizacion', 'rnc'], 'safe'],
             [['empresa', 'dominio', 'logo_url', 'representante_nombre', 'representante_telefono', 'representante_correo', 'tiempo_estimado'], 'string', 'max' => 255],
             [['tipo_servicio_id'], 'exist', 'skipOnError' => true, 'targetClass' => Servicios::className(), 'targetAttribute' => ['tipo_servicio_id' => 'id']],
             [['status'], 'exist', 'skipOnError' => true, 'targetClass' => ClientesEstatus::className(), 'targetAttribute' => ['status' => 'id']],

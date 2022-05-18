@@ -147,27 +147,63 @@ class FacturasController extends Controller
     public function actionRegistrar($cliente_id=null, $w_client=1, $type=0)
     {
         $model = new Facturas();
+        $model->cotizacion = $type;
         $post = Yii::$app->request->post();
+                // $this->countFacturas('limite_cotizaciones');
+        
         if ($model->load($post)) {
+            $config = \frontend\models\Configuracion::findOne(1);
 
             // print_r($post);
             $model->pagada = isset($model->pagada[0]) ? $model->pagada[0] : 0;
+            $model->status_id = $model->pagada ? 1 : 2;
             // $model->date = date("Y-m-d H:i:s");
             $model->user_id = Yii::$app->user->identity->id;
+            $model->active = 1;
+
+            if ($model->impuestos) {$model->impuestos = $config['impuestos'];}
+
             if (!$model->save()) {
-                print_r($model->errors);
-                exit;
+                Yii::$app->session->setFlash('fail', "Ha ocurrido un error, intente más tarde nuevamente.");
             }
+
+            // $servicios = new \common\models\Servicios();
+            // $field_name = $model->cotizacion == 1 ? 'cotizaciones_total' : 'facturas_total';
+            // $servicios->countFieldConfig($field_name);
+            $model->factura_code = $this->getCode($model, $config);
+            $model->fecha_registro = date("Y-m-d H:i:s");
+            $model->save();
             $this->registerInvoiceDetail($post, $model);
+            
+            // if ($model->status_id == 1) {
+                $transaccion = new Transacciones();
+                $transaccion->saveTransaccion($model, $model->status_id == 3 ? 2 : 1);
+                // $model->registrarTransaccion($model->id);
+            // }
             return $this->redirect(['ver', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'type' => $type,
             'w_client' => $w_client,
             'cliente_id' => $cliente_id,
+            'type' => $type,
             'model' => $model,
         ]);
+    }
+
+
+    function getCode($model, $config){
+
+        $count = Facturas::find()->where(['cotizacion' => $model->cotizacion, 'active' => 1])->count();
+        $count = $count + 1;
+        
+        if ($model->cotizacion) {
+            $count = $config['codigo_cotizacion']."000$count";
+        }else{
+            $count = $config['codigo_factura']."000$count";
+        }
+
+        return $count;
     }
 
     function registerInvoiceDetail($post, $model){
@@ -180,7 +216,10 @@ class FacturasController extends Controller
                     $invoiceDetail = new FacturasDetalle();
                     $invoiceDetail->factura_id = $model->id;
                     $invoiceDetail->descripcion = $post['factura_descripcion'][$i];
-                    $invoiceDetail->precio = $post['factura_precio'][$i];
+                    $invoiceDetail->precio = str_replace(',', '', $post['factura_precio'][$i]);
+                    $invoiceDetail->cantidad = isset($post['factura_cantidad'][$i]) ? $post['factura_cantidad'][$i] : null;
+                    $cantidad = $invoiceDetail->cantidad ? $invoiceDetail->cantidad : 1;
+                    $invoiceDetail->total = $invoiceDetail->precio * $cantidad;
                     $invoiceDetail->date = date("Y-m-d H:i:s");
                     $invoiceDetail->save(false);
                 }
@@ -201,19 +240,7 @@ class FacturasController extends Controller
         return $this->redirect(['index']);
     }
 
-    function getCode($model, $config){
-
-        $count = Facturas::find()->where(['cotizacion' => $model->cotizacion, 'active' => 1])->count();
-        $count = $count + 1;
-        
-        if ($model->cotizacion) {
-            $count = $config['codigo_cotizacion']."000$count";
-        }else{
-            $count = $config['codigo_factura']."000$count";
-        }
-
-        return $count;
-    }
+    
 
     function actionConvertirFactura($id){
 

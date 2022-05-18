@@ -167,7 +167,7 @@ $user = \frontend\models\User::findOne($model->user_id)
 										<?php foreach ($pagos as $pago): ?>
                         <?php 
                             $text = $pago->tipo->nombre;
-                            $text2 = $pago->servicioExtra->nombre;
+                            $text2 = isset($pago->servicioExtra->nombre) ? $pago->servicioExtra->nombre : '';
                         ?>
                         <?php $class = $pago->tipo_id == 2 ? "danger" : 'success' ?>
                         <li class="feed-item feed-item-<?= $class ?>">
@@ -176,7 +176,7 @@ $user = \frontend\models\User::findOne($model->user_id)
                                 <span class="text">
                                     <?= $text . ' por concepto de: ' ?> 
                                     <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/clientes/perfil?id=<?= $model->id ?>&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>">
-                                          <?= $pago->servicioExtra->nombre ?>
+                                          <?= isset($pago->servicioExtra->nombre) ? $pago->servicioExtra->nombre : '' ?>
                                         <?php if ($pago->concepto): ?>
                                             <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
                                               <i class="ml-2 fas fa-comment-dots"></i>

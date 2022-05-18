@@ -29,16 +29,23 @@
 
                             if ($pago->tipo_id == 3 or !isset($pago->cliente->empresa)) {
                                 $text = "<span class='font-weight-bold'>".$pago->tipo->nombre.":</span>";
+                                $text2 = $pago->concepto;
                             }else{
                                 $text = "<a href='/frontend/web/clientes/perfil?id=$pago->cliente_id' class='font-weight-bold'>". $pago->cliente->empresa . "</a>: " . $pago->tipo->nombre;
+                                $text2 = isset($pago->servicioExtra) ? $pago->servicioExtra->nombre : '';
                             }
 
                          ?>
                         <?php if ($pago->factura_id): ?>
                             <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/facturas/editar?id=<?= $pago->factura_id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $pago->concepto ?></a> <a href="/frontend/web/facturas/editar?id=<?= $pago->factura_id ?>&w_client=1" class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total,2) ?></a> </span>
                         <?php else: ?>
-                            <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $pago->concepto ?></a> <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>" class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total,2) ?></a> </span>
+                            <span class="text"><?= $text ?> por concepto de <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>&view=/transacciones&tipo=<?= $pago->tipo_id ?>&cliente=<?= $pago->cliente_id ?>"><?= $text2 ?></a> <a href="/frontend/web/transacciones/editar?id=<?= $pago->id ?>" class="float-right badge-pill badge-<?= $class ?>">RD$<?= number_format($pago->total,2) ?></a> </span>
                         <?php endif ?>
+                        <?php if ($pago->concepto): ?>
+                                            <a class='text-warning' href="#" data-toggle="tooltip" data-placement="top" title="<?= $pago->concepto ?>">
+                                              <i class="ml-2 fas fa-comment-dots"></i>
+                                            </a>
+                                        <?php endif ?>
                     </div>
                 </li>   
             <?php endforeach ?>

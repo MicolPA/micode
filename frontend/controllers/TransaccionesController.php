@@ -116,7 +116,7 @@ class TransaccionesController extends Controller
                 exit;
             }
 
-            $model->registrarDetalleTransaccion($post, $cuentas, $model, $colaborador_id);
+            $model->registrarDetalleTransaccion($post, $cuentas, $model, $post['colaborador_id']);
             Yii::$app->session->setFlash('success', "Transacción registrada correctamente");
             $this->redirect(["/".$view]);
             // return $this->redirect(['view', 'id' => $model->id]);
@@ -157,11 +157,11 @@ class TransaccionesController extends Controller
         $cuentas = Tarjetas::find()->all();
         $post = Yii::$app->request->post();
 
-        $colaborador_id = $model->colaborador;
+        $colaborador_id = TransaccionesDetalle::find()->where(['transaccion_id' => $id])->andWhere(['>', 'colaborador_id', 1])->one()['colaborador_id'];
 
         if ($model->load($post) && $model->save()) {
             $model->colaborador = $post['colaborador_id'] ? 1 : 0;
-            $model->registrarDetalleTransaccion($post, $cuentas, $model, null);
+            $model->registrarDetalleTransaccion($post, $cuentas, $model, $post['colaborador_id']);
             Yii::$app->session->setFlash('success', "Transacción actualizada correctamente");
             $this->redirect(["/".$view]);
         }

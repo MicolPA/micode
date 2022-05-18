@@ -31,6 +31,10 @@ use yii\helpers\ArrayHelper;
             <?= $form->field($model, 'representante_nombre')->textInput(['maxlength' => true]) ?>
         </div>
 
+        <div class="col-md-6">
+            <?= $form->field($model, 'rnc')->textInput(['maxlength' => true]) ?>
+        </div>
+
 
         <div class="col-md-6">
             <?= $form->field($model, 'representante_telefono')->textInput(['maxlength' => true]) ?>

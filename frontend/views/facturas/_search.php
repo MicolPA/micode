@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
     <div class="facturas-search row">
 
         <div class="col-md-2">
-            <?= $form->field($model, 'factura_code') ?>
+            <?= $form->field($model, 'asunto') ?>
         </div>
 
         <div class="col-md-3">

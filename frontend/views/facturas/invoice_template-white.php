@@ -3,7 +3,7 @@
 $servicios = new \common\models\Servicios();
 $total = count($detalles);
 $faltantes = 4 - $total;
-$monto_total = 0;
+$subtotal = 0;
 $config = \frontend\models\Configuracion::findOne(1);
  ?>
 <html style="min-height: 100%; position: relative;margin-top: 1rem;">
@@ -63,6 +63,11 @@ $config = \frontend\models\Configuracion::findOne(1);
 					<?= $model->cliente_nombre ?>
 				<?php endif ?>
 			</p>
+			<?php if ($model->comprobante and isset($model->cliente->rnc)): ?>
+				<p style="font-weight: 300 !important;margin:5px;color:#242335;">
+					<span style="font-weight: bold">RNC o Cédula:</span> <?= $model->cliente->rnc ?>
+					&nbsp; | &nbsp; <span style="font-weight: bold">NCF:</span> <?= $model->comprobante ?></p>
+			<?php endif ?>
 			<p style="font-weight: 300 !important;margin:5px;color:#242335;"><span style="font-weight: bold">Por concepto de:</span> <?= $model->asunto ?></p>
 		</div>
 
@@ -81,7 +86,7 @@ $config = \frontend\models\Configuracion::findOne(1);
 				<tbody>
 					<?php $color_count = 0; ?>
 					<?php foreach ($detalles as $d): ?>
-						<?php $monto_total += $d->precio; $color_count++ ?>
+						<?php $subtotal += $d->precio; $color_count++ ?>
 						<?php if ($color_count == 1): ?>
 							<tr>
 								<td style='padding:20px 10px;width:60%;'><?= $d->descripcion ?></td>
@@ -125,6 +130,15 @@ $config = \frontend\models\Configuracion::findOne(1);
 
 
 			</table>
+			<?php 
+					$impuestos = $model->impuestos < 1 ? 1 : $model->impuestos;
+					$itbis = ($impuestos * $subtotal ) / 100;
+					// $itbis = ($subtotal * 100 ) / $model->impuestos;
+					$monto_total = $subtotal + $itbis; 
+					$model->total = $monto_total;
+					$model->subtotal = $subtotal;
+					$model->save();
+				 ?>
 
 			<div>
 				<?php if ($model->pagada): ?>
@@ -139,9 +153,16 @@ $config = \frontend\models\Configuracion::findOne(1);
 				<div style='padding:0px 10px 10px 10px;color:#000;text-align: right;float: right;display: inline-block;width: 60%;'>
 					<br>
 					<br>
+					<?php if ($model->impuestos): ?>
+						<p style="margin-bottom:0px;color:#8b8b8b;font-weight: bold;">Subtotal: <?= $model->moneda ?>$<?= number_format($subtotal, 2) ?></p>
+						<p style="margin-bottom:0px;color:#8b8b8b;font-weight: bold;">+ ITBIS: <?= $model->moneda ?>$<?= number_format($itbis, 2) ?></p>
+						<span style="color:#0A7DBF;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
+						<p style="text-align:right;color:#8b8b8b"><?= $model->nota ?></p>
+					<?php else: ?>
 					<br>Monto Total <br> 
 					<span style="color:#0A7DBF;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
 					<p style="text-align:right;color:#8b8b8b">Todos los impuestos incluidos.</p>
+					<?php endif ?>
 				</div>
 
 			</div>

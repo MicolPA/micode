@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $name = "<span data-toggle='tooltip' data-placement='top' title='$name'>$sub...</span>";
                                 }
                                 
-                                return Html::a("#".$data->factura_code . ' - ' . $name, ['ver', 'id' => $data->id], ['target' => '_blank', 'class' => 'font-weight-bold']);
+                                return Html::a($name, ['ver', 'id' => $data->id], ['target' => '_blank', 'class' => 'font-weight-bold']);
                             },
                         ],
                         [

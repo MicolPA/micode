@@ -32,7 +32,7 @@ date_default_timezone_set('America/Santo_Domingo');
         </div>
         <div class="form-group form-show-validation row">
             <div class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
-                <label>Tipo</label>
+                <label>Servicio</label>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-8">
                 <?= $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css select_2', 'required' => 'required'])->label(false); ?>
@@ -48,7 +48,7 @@ date_default_timezone_set('America/Santo_Domingo');
         </div>
         <div class="form-group form-show-validation row">
             <div class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">
-                <label>Concepto <span class="required-label">*</span></label>
+                <label>Comentario <span class="required-label">*</span></label>
             </div>
             <div class="col-lg-4 col-md-9 col-sm-8">
                 <?= $form->field($model, 'concepto')->textarea(['required' => 'required'])->label(false) ?>
@@ -93,6 +93,8 @@ date_default_timezone_set('America/Santo_Domingo');
                     </div>
                 </div>
             <?php endforeach ?>
+
+            <?php $colaborador_total = \frontend\models\TransaccionesDetalle::find()->where(['transaccion_id' => $model->id, 'colaborador_id' => $colaborador_id])->one()['total']; ?>
             
             <div class="dolab_amount_div" style='display: <?= !$colaborador_id ? 'none' :'' ?>;'>
                 <div class="form-group form-show-validation row ">
@@ -100,7 +102,7 @@ date_default_timezone_set('America/Santo_Domingo');
                         <label>Colaborador total</label>
                     </div>
                     <div class="col-lg-4 col-md-9 col-sm-8 ">
-                        <input type="number" name='colaborador_amount' class="form-control cuenta" value='0'>
+                        <input type="number" name='colaborador_amount' class="form-control cuenta" value='<?= $colaborador_total > 1 ? $colaborador_total : 0 ?>'>
                     </div>
                 </div>
             </div>

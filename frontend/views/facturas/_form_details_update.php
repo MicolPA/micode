@@ -20,7 +20,7 @@ use yii\helpers\Html;
 			<div class="col-md-2">
 				<div class="form-group precio">
 					<label>Precio</label>
-					<input type="text" class="form-control field-number" name="factura_precio[<?= $count ?>]" placeholder="Dejar vacío si no aplica" value="<?= number_format($detalle->precio, 2) ?>">
+					<input type="text" class="form-control field-number" name="factura_precio[<?= $count ?>]" placeholder="Dejar vacío si no aplica" value="<?= $detalle->precio ?>">
 				</div>
 			</div>
 			<div class="col-md-2">
