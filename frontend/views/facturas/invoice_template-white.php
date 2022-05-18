@@ -160,7 +160,7 @@ $config = \frontend\models\Configuracion::findOne(1);
 						<p style="text-align:right;color:#8b8b8b"><?= $model->nota ?></p>
 					<?php else: ?>
 					<br>Monto Total <br> 
-					<span style="color:#0A7DBF;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($monto_total,2) ?></span>
+					<span style="color:#0A7DBF;font-size:28px;font-weight: bold;"><?= $model->moneda ?>$<?= number_format($subtotal,2) ?></span>
 					<p style="text-align:right;color:#8b8b8b">Todos los impuestos incluidos.</p>
 					<?php endif ?>
 				</div>
