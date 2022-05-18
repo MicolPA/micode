@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
             </div>
 
             <div class="col-md-3">
-                <?= $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css'])->label('Servicio'); ?>
+                <?= $form->field($model, 'servicio_extra_id')->dropDownList(ArrayHelper::map(\frontend\models\ServiciosExtras::find()->all(), 'id', 'nombre'),['prompt'=>'Seleccionar...', 'class' => 'form-control input-r border-blue select-css select_2'])->label('Servicio'); ?>
             </div>
 
             <div class="col-md-3">
