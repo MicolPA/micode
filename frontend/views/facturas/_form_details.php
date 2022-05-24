@@ -42,7 +42,7 @@ use yii\helpers\Html;
 
 	<div class="row mb-4">
 		<div class="col-md-12 text-right mt-4 pr-5">
-			<a href="javascript:addInvoiceField(1)" class="btn btn-xs bg-darkblue text-white btn-sm" id="addInvoiceBtn">Agregar línea</a>
+			<a href="javascript:addInvoiceField(1)" class="btn btn-xs bg-success text-white btn-sm" id="addInvoiceBtn">Agregar línea</a>
 		</div>
 	</div>
 
